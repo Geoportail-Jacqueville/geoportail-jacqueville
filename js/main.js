@@ -22,7 +22,6 @@
       <li><a href="donnees.html" data-page="donnees">Données</a></li>
       <li><a href="observatoire.html" data-page="observatoire">Observatoire</a></li>
       <li><a href="patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
-      <li><a href="contact.html" data-page="contact">Contact</a></li>
     </ul>
     <button class="gp-nav-burger" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -37,7 +36,6 @@
       <li><a href="donnees.html" data-page="donnees">Données</a></li>
       <li><a href="observatoire.html" data-page="observatoire">Observatoire</a></li>
       <li><a href="patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
-      <li><a href="contact.html" data-page="contact">Contact</a></li>
     </ul>
   </div>
 </nav>
