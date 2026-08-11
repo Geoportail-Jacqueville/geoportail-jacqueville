@@ -1,23 +1,14 @@
 /**
- * Géoportail de Jacqueville – Chargement navbar + footer (toutes les pages à la racine)
- * Avec logs de débogage et fallback intégré.
+ * Géoportail de Jacqueville – Injection directe navbar + footer
+ * Aucun fetch, fonctionne sur toutes les pages.
  */
 (function () {
   'use strict';
 
-  console.log('🟢 main.js démarré');
+  console.log('🟢 main.js – injection directe');
 
-  // ----- 1. Placeholders requis -----
-  const navbarPlaceholder = document.getElementById('navbar-placeholder');
-  const footerPlaceholder = document.getElementById('footer-placeholder');
-
-  if (!navbarPlaceholder || !footerPlaceholder) {
-    console.error('❌ Placeholder(s) manquant(s) : #navbar-placeholder ou #footer-placeholder introuvable');
-    return;
-  }
-
-  // ----- 2. Fallbacks intégrés (chemins corrigés) -----
-  const fallbackNavbar = `
+  // ===== HTML DE LA NAVBAR =====
+  const navbarHTML = `
 <nav class="gp-nav" role="navigation" aria-label="Navigation principale">
   <div class="gp-nav-inner">
     <a href="index.html" class="gp-nav-logo" aria-label="Accueil">
@@ -76,7 +67,8 @@
 @media(max-width:900px){.gp-nav-links{display:none;}.gp-nav-burger{display:flex;}.gp-nav-inner{gap:12px;}}
 </style>`;
 
-  const fallbackFooter = `
+  // ===== HTML DU FOOTER =====
+  const footerHTML = `
 <footer class="footer-module" role="contentinfo">
   <div class="footer-container">
     <div class="footer-grid">
@@ -151,100 +143,76 @@
 @media(max-width:768px){.footer-container{padding:32px 20px 24px;}.footer-grid{flex-direction:column;gap:28px;}.footer-col{text-align:center;}.footer-col p{justify-content:center;}.footer-col a:hover{transform:none;}.gp-back-to-top{bottom:20px;right:20px;width:40px;height:40px;}}
 </style>`;
 
-  // ----- 3. Fonctions d'injection et de chargement -----
-  function injectHTML(placeholderId, html) {
-    const el = document.getElementById(placeholderId);
-    if (el) {
-      el.innerHTML = html;
-      console.log('✅ ' + placeholderId + ' injecté');
+  // ===== INJECTION IMMÉDIATE =====
+  function inject() {
+    const nb = document.getElementById('navbar-placeholder');
+    const fb = document.getElementById('footer-placeholder');
+    if (nb) {
+      nb.innerHTML = navbarHTML;
+      console.log('✅ Navbar injectée');
     } else {
-      console.error('❌ Impossible d’injecter ' + placeholderId + ' (élément manquant)');
+      console.error('❌ #navbar-placeholder manquant');
     }
-  }
-
-  async function loadComponent(url, placeholderId, fallbackHtml) {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error('HTTP ' + response.status);
-      const html = await response.text();
-      injectHTML(placeholderId, html);
-    } catch (err) {
-      console.warn('⚠️ Fallback pour ' + placeholderId + ' (' + err.message + ')');
-      injectHTML(placeholderId, fallbackHtml);
+    if (fb) {
+      fb.innerHTML = footerHTML;
+      console.log('✅ Footer injecté');
+    } else {
+      console.error('❌ #footer-placeholder manquant');
     }
-  }
 
-  // ----- 4. Activation de la navbar et du footer -----
-  function initNavbar() {
-    const burger = document.querySelector('.gp-nav-burger');
-    const mobileMenu = document.querySelector('.gp-nav-mobile');
-    if (burger && mobileMenu) {
-      burger.addEventListener('click', () => {
-        const open = burger.classList.toggle('open');
-        mobileMenu.classList.toggle('open', open);
-        burger.setAttribute('aria-expanded', open);
-        mobileMenu.setAttribute('aria-hidden', !open);
-        document.body.style.overflow = open ? 'hidden' : '';
-      });
-      mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          burger.classList.remove('open');
-          mobileMenu.classList.remove('open');
-          burger.setAttribute('aria-expanded', 'false');
-          mobileMenu.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
+    // Initialisation immédiate du burger et lien actif
+    setTimeout(() => {
+      const burger = document.querySelector('.gp-nav-burger');
+      const mobileMenu = document.querySelector('.gp-nav-mobile');
+      if (burger && mobileMenu) {
+        burger.addEventListener('click', () => {
+          const open = burger.classList.toggle('open');
+          mobileMenu.classList.toggle('open', open);
+          burger.setAttribute('aria-expanded', open);
+          mobileMenu.setAttribute('aria-hidden', !open);
+          document.body.style.overflow = open ? 'hidden' : '';
         });
-      });
-      console.log('🍔 Burger initialisé');
-    } else {
-      console.warn('🍔 Burger ou menu mobile introuvable');
-    }
-
-    // Lien actif
-    const path = window.location.pathname;
-    let current = path.split('/').pop().replace('.html', '');
-    if (!current || current === 'index') current = 'accueil';
-    console.log('📌 Page active détectée : ' + current);
-    document.querySelectorAll('[data-page]').forEach(link => {
-      if (link.dataset.page === current) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active'); // au cas où
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            burger.classList.remove('open');
+            mobileMenu.classList.remove('open');
+            burger.setAttribute('aria-expanded', 'false');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+          });
+        });
       }
-    });
+
+      // Lien actif
+      const path = window.location.pathname;
+      let current = path.split('/').pop().replace('.html', '');
+      if (!current || current === 'index') current = 'accueil';
+      document.querySelectorAll('[data-page]').forEach(link => {
+        if (link.dataset.page === current) link.classList.add('active');
+      });
+
+      // Année footer
+      const yearSpan = document.querySelector('.js-current-year');
+      if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+      // Bouton back-to-top
+      const backBtn = document.querySelector('.js-back-to-top');
+      if (backBtn) {
+        backBtn.addEventListener('click', e => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        window.addEventListener('scroll', () => {
+          backBtn.classList.toggle('visible', window.scrollY > 400);
+        });
+      }
+    }, 10);
   }
 
-  function initFooter() {
-    const yearSpan = document.querySelector('.js-current-year');
-    if (yearSpan) yearSpan.textContent = new Date().getFullYear();
-
-    const backBtn = document.querySelector('.js-back-to-top');
-    if (backBtn) {
-      backBtn.addEventListener('click', e => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-      window.addEventListener('scroll', () => {
-        backBtn.classList.toggle('visible', window.scrollY > 400);
-      });
-    }
+  // Lancement au chargement du DOM
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inject);
+  } else {
+    inject();
   }
-
-  // ----- 5. Exécution -----
-  const basePath = (window.location.pathname.endsWith('/') || window.location.pathname.endsWith('index.html')) ? '' : '';
-  const navbarURL = basePath + 'components/navbar.html';
-  const footerURL = basePath + 'components/footer.html';
-
-  console.log('📡 Chargement navbar depuis : ' + navbarURL);
-  console.log('📡 Chargement footer depuis : ' + footerURL);
-
-  Promise.all([
-    loadComponent(navbarURL, 'navbar-placeholder', fallbackNavbar),
-    loadComponent(footerURL, 'footer-placeholder', fallbackFooter)
-  ]).then(() => {
-    console.log('🔧 Initialisation des scripts...');
-    setTimeout(initNavbar, 20);
-    setTimeout(initFooter, 20);
-  });
-
 })();
