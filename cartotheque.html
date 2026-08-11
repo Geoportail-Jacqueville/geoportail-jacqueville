@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Cartothèque complète — Géoportail Territorial de Jacqueville</title>
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="https://github.com/Geoportail-Jacqueville/geoportail-jacqueville/blob/main/logo/logo-favicon.jpeg?raw=true">
+    <link rel="apple-touch-icon" href="https://github.com/Geoportail-Jacqueville/geoportail-jacqueville/blob/main/logo/logo-favicon.jpeg?raw=true">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 64px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- PLACEHOLDER NAVBAR -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- CONTENU DE LA PAGE -->
+    <div style="font-family: 'Inter', Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px;">
+        
+        <!-- En-tête -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <div style="font-size: 48px;">️</div>
+            <h1 style="font-size: 32px; font-weight: 700; color: #1A2C3E; margin: 0;">Cartothèques <span style="color: #70C7FD;">complètes</span></h1>
+            <p style="color: #4A627A; margin-top: 12px;">Découvrez l'intégralité des cartes thématiques disponibles sur le géoportail de Jacqueville.</p>
+            <div style="width: 60px; height: 3px; background: #70C7FD; margin: 20px auto 0;"></div>
+        </div>
+
+        <!-- Grille des cartes (12 cartes) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px;">
+            
+            <!-- 1. Zones humides -->
+            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; transition: transform 0.2s; background: white;">
+                <div style="height: 180px; background-image: url('https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Cartes%20des%20zones%20humides.png?raw=true'); background-size: cover; background-position: center; position: relative;">
+                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌿 ENVIRONNEMENT</span>
+                </div>
+                <div style="padding: 20px;">
+                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Zones humides</h3>
+                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie des zones humides d'intérêt écologique et hydrologique.</p>
+                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
+                        <span style="font-size: 11px; color: #94A3B8;">2026</span>
+                        <a href="https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Cartes%20des%20zones%20humides.png?raw=true" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Risque inondation -->
+            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
+                <div style="height: 180px; background-image: url('https://placehold.co/600x300/70C7FD/white?text=Risque+inondation'); background-size: cover; background-position: center; position: relative;">
+                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌊 RISQUES</span>
+                </div>
+                <div style="padding: 20px;">
+                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Risque d'inondation</h3>
+                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie des zones inondables selon les hauteurs d'eau simulées (0 à 5 m).</p>
+                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
+                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
+                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Submersion marine -->
+            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
+                <div style="height: 180px; background-image: url('https://placehold.co/600x300/70C7FD/white?text=Submersion+marine'); background-size: cover; background-position: center; position: relative;">
+                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌊 RISQUES</span>
+                </div>
+                <div style="padding: 20px;">
+                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Submersion marine</h3>
+                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Analyse de la vulnérabilité du littoral face à la montée des eaux et aux tempêtes.</p>
+                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
+                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
+                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Contributions au stock de CO₂ -->
+            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
+                <div style="height: 180px; background-image: url('https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Carte%20des%20contributions%20au%20stock%20CO%E2%82%82.png?raw=true'); background-size: cover; background-position: center; position: relative;">
+                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌿 ENVIRONNEMENT</span>
+                </div>
+                <div style="padding: 20px;">
+                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Contributions au stock total de CO₂</h3>
+                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie des zones contribuant le plus au stockage et à la séquestration du CO₂ (forêts, sols, zones humides, tourbières, etc.).</p>
+                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
+                        <span style="font-size: 11px; color: #94A3B8;">2026</span>
+                        <a href="https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Carte%20des%20contributions%20au%20stock%20CO%E2%82%82.png?raw=true" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. NDVI -->
+            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
+                <div style="height: 180px; background-image: url('https://github.com/Jeant-Tim/Maps/blob/main/NDVI%20Jacqueville.png?raw=true'); background-size: cover; background-position: center; position: relative;">
+                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌿 ENVIRONNEMENT</span>
+                </div>
+                <div style="padding: 20px;">
+                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Indice NDVI</h3>
+                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie de l'Indice de Végétation par Différence Normalisée (NDVI).</p>
+                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
+                        <span style="font-size: 11px; color: #94A3B8;">2025</span>
+                        <a href="https://github.com/Jeant-Tim/Maps/blob/main/NDVI%20Jacqueville.png?raw=true" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. NDRE -->
+            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
+                <div style="height: 180px; background-image: url('https://github.com/Jeant-Tim/Maps/blob/main/NDRE%20Jacqueville.png?raw=true'); background-size: cover; background-position: center; position: relative;">
+                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌿 ENVIRONNEMENT</span>
+                </div>
+                <div style="padding: 20px;">
+                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Indice NDRE</h3>
+                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie de l'Indice de Végétation par Réflexion dans le Proche Infrarouge.</p>
+                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
+                        <span style="font-size: 11px; color: #94A3B8;">2025</span>
+                        <a href="https://github.com/Jeant-Tim/Maps/blob/main/NDRE%20Jacqueville.png?raw=true" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Infrastructures -->
+            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
+                <div style="height: 180px; background-image: url('https://placehold.co/600x300/70C7FD/white?text=Infrastructures'); background-size: cover; background-position: center; position: relative;">
+                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🏗️ INFRASTRUCTURES</span>
+                </div>
+                <div style="padding: 20px;">
+                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Infrastructures et équipements</h3>
+                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Localisation des écoles, centres de santé, marchés, mairies et équipements publics.</p>
+                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
+                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
+                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. Réseau hydrographique -->
+            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
+                <div style="height: 180px; background-image: url('https://placehold.co/600x300/4BB3F0/white?text=Réseau+hydrographique'); background-size: cover; background-position: center; position: relative;">
+                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">💧 HYDROGRAPHIE</span>
+                </div>
+                <div style="padding: 20px;">
+                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Réseau hydrographique</h3>
+                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie des cours d'eau, lagunes, zones humides et forêts marécageuses.</p>
+                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
+                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
+                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. Zones constructibles -->
+            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
+                <div style="height: 180px; background-image: url('https://placehold.co/600x300/70C7FD/white?text=Zones+constructibles'); background-size: cover; background-position: center; position: relative;">
+                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🏙️ URBANISME</span>
+                </div>
+                <div style="padding: 20px;">
+                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Zones constructibles</h3>
+                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Identification des zones favorables à l'urbanisation, hors contraintes environnementales.</p>
+                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
+                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
+                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10. Zones agricoles -->
+            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
+                <div style="height: 180px; background-image: url('https://placehold.co/600x300/70C7FD/white?text=Zones+agricoles'); background-size: cover; background-position: center; position: relative;">
+                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌾 AGRICULTURE</span>
+                </div>
+                <div style="padding: 20px;">
+                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Zones agricoles favorables</h3>
+                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie des zones propices à l'agriculture selon la qualité des sols et l'accès à l'eau.</p>
+                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
+                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
+                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 11. Risque hydrologique -->
+            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
+                <div style="height: 180px; background-image: url('https://placehold.co/600x300/70C7FD/white?text=Risque+hydrologique'); background-size: cover; background-position: center; position: relative;">
+                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">💧 RISQUES</span>
+                </div>
+                <div style="padding: 20px;">
+                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Risque hydrologique</h3>
+                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie des contraintes liées aux nappes phréatiques et à la saturation des sols.</p>
+                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
+                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
+                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 12. Zone tampon riveraine -->
+            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
+                <div style="height: 180px; background-image: url('https://placehold.co/600x300/4BB3F0/white?text=Zone+tampon'); background-size: cover; background-position: center; position: relative;">
+                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌿 ENVIRONNEMENT</span>
+                </div>
+                <div style="padding: 20px;">
+                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Zone tampon riveraine</h3>
+                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Identification des zones tampon (0-108 m) autour des cours d'eau et espaces protégés.</p>
+                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
+                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
+                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bouton retour -->
+        <div style="text-align: center; margin-top: 48px;">
+            <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/" style="display: inline-flex; align-items: center; gap: 10px; background: transparent; color: #70C7FD; font-family: 'Inter', Arial, sans-serif; font-size: 14px; font-weight: 600; padding: 12px 24px; border-radius: 50px; text-decoration: none; border: 1px solid #70C7FD; transition: all 0.3s ease;">
+                ← Retour à la cartothèque principale
+            </a>
+        </div>
+    </div>
+
+    <!-- PLACEHOLDER FOOTER -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Script principal (navbar + footer) -->
+    <script src="js/main.js"></script>
+</body>
+</html>

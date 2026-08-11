@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission terrain zones inondables — Géoportail de Jacqueville</title>
+  <link rel="icon" type="image/jpeg" href="https://github.com/Geoportail-Jacqueville/open-data/blob/main/Logo/logo-favicon.jpeg?raw=true">
+  <link rel="stylesheet" href="../css/global.css">
+  <style>
+    .art-hero { max-width:1200px; margin:0 auto; padding:48px 24px 0; }
+    .art-hero h1 { font-size:32px; font-weight:700; line-height:1.3; letter-spacing:-0.02em; color:#1A2C3E; margin-bottom:12px; max-width:820px; }
+    .art-date { font-family:'Space Mono',monospace; font-size:13px; color:#70C7FD; margin-bottom:18px; }
+    .art-lead { font-size:16px; line-height:1.65; color:#4A627A; max-width:700px; margin-bottom:28px; }
+    .art-layout { display:grid; grid-template-columns:1fr 290px; gap:40px; max-width:1200px; margin:0 auto; padding:36px 24px 64px; }
+    .art-body p      { font-size:15px; line-height:1.75; color:#4A627A; margin-bottom:16px; }
+    .art-body strong { color:#1A2C3E; font-weight:600; }
+    .art-sub-label   { font-family:'Space Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.12em; color:#70C7FD; margin:28px 0 5px; }
+    .art-sub-title   { font-size:19px; font-weight:700; color:#1A2C3E; margin-bottom:12px; }
+    .art-sub-title span { color:#70C7FD; }
+
+    /* relevés */
+    .art-measures { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:16px 0 24px; }
+    .art-measure  { background:#F8FAFC; border-radius:16px; padding:16px; border-left:4px solid #70C7FD; }
+    .art-measure-loc { font-family:'Space Mono',monospace; font-size:10px; color:#70C7FD; margin-bottom:7px; }
+    .art-measure-val { font-size:24px; font-weight:800; color:#1A2C3E; margin-bottom:6px; line-height:1.1; }
+    .art-measure-val span { font-size:13px; font-weight:400; color:#64748B; }
+    .art-measure p { font-size:12px; color:#4A627A; line-height:1.5; margin:0; }
+
+    /* images zone */
+    .art-zone-img { margin:20px auto 6px; border-radius:14px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08); max-width:82%; display:block; }
+    .art-zone-img img { width:100%; height:300px; object-fit:cover; display:block; transition:transform 0.3s; }
+    .art-zone-img img:hover { transform:scale(1.02); }
+    .art-zone-cap { font-size:10px; color:#64748B; text-align:center; padding:7px 10px; background:#FFFFFF; font-family:'Space Mono',monospace; border-top:1px solid rgba(112,199,253,0.15); }
+
+    .art-back { display:inline-flex; align-items:center; gap:8px; border:2px solid #70C7FD; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; font-size:13px; color:#1A2C3E; transition:all 0.3s; margin-top:8px; }
+    .art-back:hover { background:#70C7FD; gap:12px; }
+
+    /* sidebar */
+    .art-side { display:flex; flex-direction:column; gap:18px; }
+    .art-side-card { background:#FFFFFF; border:1px solid rgba(112,199,253,0.2); border-radius:16px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.04); }
+    .art-side-head { background:linear-gradient(135deg,#1A2C3E,#2D4055); color:#FFFFFF; padding:11px 16px; font-family:'Space Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; display:flex; align-items:center; gap:7px; }
+    .art-side-head span { font-size:14px; }
+    .art-side-body { padding:14px; }
+    .art-ind { display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid rgba(112,199,253,0.1); }
+    .art-ind:last-child { border-bottom:none; }
+    .art-ind-emoji { font-size:17px; flex-shrink:0; margin-top:1px; }
+    .art-ind-title { font-size:12px; font-weight:700; color:#1A2C3E; margin-bottom:3px; }
+    .art-ind-val   { font-family:'Space Mono',monospace; font-size:10px; color:#64748B; line-height:1.4; }
+    .art-ind-val strong { color:#70C7FD; }
+    .art-alert { display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(112,199,253,0.1); font-size:11px; font-weight:600; color:#1A2C3E; gap:8px; }
+    .art-alert:last-child { border-bottom:none; }
+    .art-ab { font-family:'Space Mono',monospace; font-size:9px; font-weight:700; padding:3px 8px; border-radius:14px; white-space:nowrap; }
+    .art-ab.orange { background:#FEF3C7; color:#B45309; }
+    .art-ab.blue   { background:#E8F7FD; color:#70C7FD; }
+    .art-ab.green  { background:#DCFCE7; color:#166534; }
+    .art-mod-link { display:flex; align-items:center; gap:10px; padding:9px 10px; background:#F8FAFC; border-radius:9px; text-decoration:none; font-size:12px; font-weight:500; color:#1A2C3E; margin-bottom:6px; transition:all 0.2s; }
+    .art-mod-link:last-child { margin-bottom:0; }
+    .art-mod-link:hover { background:#E8F7FD; transform:translateX(3px); }
+    .art-mod-link span { font-size:15px; }
+
+    @media (max-width:860px){
+      .art-layout   { grid-template-columns:1fr; padding:24px 20px 40px; }
+      .art-hero h1  { font-size:24px; }
+      .art-measures { grid-template-columns:1fr; }
+      .art-zone-img { max-width:100%; }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <main class="page-content">
+
+    <div class="art-hero">
+      <div class="eyebrow"><div class="eyebrow-line"></div>MISSIONS DE TERRAIN · OBSERVATOIRE TERRITORIAL</div>
+      <h1>Mission de terrain sur les zones inondables de Jacqueville : premiers relevés avant la saison des pluies</h1>
+      <div class="art-date">5–6 mai 2026 — Relevés hydrologiques</div>
+      <p class="art-lead">Dans le cadre des activités de l'Observatoire territorial, une mission de terrain a été conduite afin d'effectuer un état des lieux des sites exposés aux inondations avant l'installation complète de la saison des pluies.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="art-layout">
+      <article class="art-body">
+
+        <p>Cette mission avait pour objectif d'identifier les zones sensibles aux accumulations d'eau, d'effectuer des prélèvements et observations de terrain, de relever les premiers niveaux d'eau observés après les pluies, et de préparer un dispositif de suivi qui se poursuivra pendant la saison pluvieuse.</p>
+
+        <div class="art-sub-label">Épisode pluvieux observé</div>
+        <h3 class="art-sub-title">Le 6 mai 2026, un important épisode pluvieux s'est abattu sur la commune pendant <span>environ cinq heures</span></h3>
+        <p>Cette situation a permis de réaliser plusieurs observations directes et premiers relevés hydrologiques sur différents sites stratégiques.</p>
+
+        <div class="art-measures">
+          <div class="art-measure">
+            <div class="art-measure-loc">🌉 Pont Grand-Jacque / Paradise</div>
+            <div class="art-measure-val">17 <span>cm</span></div>
+            <p>Zone sensible en raison de sa proximité avec les milieux lagunaires et de la fréquentation touristique importante.</p>
+          </div>
+          <div class="art-measure">
+            <div class="art-measure-loc">🌿 Carrefour SICOR</div>
+            <div class="art-measure-val">6 <span>cm</span></div>
+            <p>Zone marécageuse sur la route menant vers le carrefour SICOR, côté marché.</p>
+          </div>
+          <div class="art-measure">
+            <div class="art-measure-loc">🏭 Zone derrière la SODECI</div>
+            <div class="art-measure-val">46 <span>cm</span></div>
+            <p>Niveau d'eau maximal estimé lors des épisodes pluvieux importants (témoignages population).</p>
+          </div>
+        </div>
+
+        <div class="art-sub-label">Détail des relevés</div>
+        <h3 class="art-sub-title">Zone du pont entre <span>Grand-Jacque</span> et le site touristique Paradise</h3>
+        <p>Au niveau du pont situé entre le village de Grand-Jacque et la zone lagunaire menant vers Paradise, les mesures effectuées ont permis d'enregistrer une hauteur d'eau estimée à <strong>17 cm</strong>. Cette zone constitue un secteur sensible en raison de sa proximité avec les milieux lagunaires et de la fréquentation touristique importante.</p>
+
+        <div class="art-zone-img">
+          <img src="https://github.com/Jeant-Tim/Geoportail/blob/main/Photo%20pont%20Grand%20Jacque%20et%20Paradise.jpg?raw=true"
+               alt="Pont entre Grand-Jacque et le site touristique Paradise" loading="lazy">
+          <div class="art-zone-cap">Pont entre Grand-Jacque et Paradise — zone sensible aux inondations (mai 2026)</div>
+        </div>
+
+        <h3 class="art-sub-title" style="margin-top:28px;">Zone marécageuse sur l'axe du <span>carrefour SICOR</span></h3>
+        <p>Dans la zone marécageuse sur la route menant vers le carrefour SICOR, les prélèvements réalisés indiquent une hauteur d'eau moyenne de <strong>6 cm</strong> au moment des observations.</p>
+
+        <div class="art-zone-img">
+          <img src="https://github.com/Jeant-Tim/Geoportail/blob/main/Photo%20echantiollon%20inondation.jpg?raw=true"
+               alt="Zone marécageuse au carrefour SICOR" loading="lazy">
+          <div class="art-zone-cap">Zone marécageuse sur l'axe du carrefour SICOR — relevés à 6 cm (mai 2026)</div>
+        </div>
+
+        <h3 class="art-sub-title" style="margin-top:28px;">Zone marécageuse <span>derrière la SODECI</span></h3>
+        <p>Les enquêtes de terrain et témoignages recueillis auprès des populations indiquent que le niveau d'eau peut atteindre environ <strong>46 cm</strong> lors des épisodes pluvieux importants.</p>
+
+        <div class="art-zone-img">
+          <img src="https://github.com/Jeant-Tim/Geoportail/blob/main/Zone%20inondable%20derri%C3%A8re%20la%20sodeci%20Jacqueville.jpeg?raw=true"
+               alt="Zone marécageuse derrière la SODECI" loading="lazy">
+          <div class="art-zone-cap">Zone marécageuse derrière la SODECI — niveau maximal estimé à 46 cm</div>
+        </div>
+
+        <p style="margin-top:22px;">Les données collectées permettront d'alimenter le géoportail et de contribuer à une meilleure connaissance des dynamiques d'inondation, afin d'appuyer les réflexions en matière d'aménagement urbain et de prévention des risques.</p>
+
+        <a href="actualites.html" class="art-back">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Retour aux actualités
+        </a>
+      </article>
+
+      <aside class="art-side">
+        <div class="art-side-card">
+          <div class="art-side-head"><span>📊</span>Indicateurs clés</div>
+          <div class="art-side-body">
+            <div class="art-ind"><span class="art-ind-emoji">🌊</span><div><div class="art-ind-title">Niveau inondation</div><div class="art-ind-val"><strong>17 cm / 46 cm</strong> relevés terrain (mai 2026)</div></div></div>
+            <div class="art-ind"><span class="art-ind-emoji">💧</span><div><div class="art-ind-title">Eau potable</div><div class="art-ind-val"><strong>Saturation</strong> du château d'eau</div></div></div>
+            <div class="art-ind"><span class="art-ind-emoji">⚡</span><div><div class="art-ind-title">Électricité</div><div class="art-ind-val"><strong>Surcharge</strong>, coupures récurrentes</div></div></div>
+            <div class="art-ind"><span class="art-ind-emoji">🗑️</span><div><div class="art-ind-title">Déchets</div><div class="art-ind-val">Collecte renforcée via <strong>ANAGED</strong></div></div></div>
+          </div>
+        </div>
+        <div class="art-side-card">
+          <div class="art-side-head"><span>⚠️</span>Alertes actives</div>
+          <div class="art-side-body">
+            <div class="art-alert"><span>Inondation Tiémien</span><span class="art-ab orange">Alerte orange</span></div>
+            <div class="art-alert"><span>Saturation électrique</span><span class="art-ab orange">Niveau élevé</span></div>
+            <div class="art-alert"><span>Zones humides · SODECI</span><span class="art-ab blue">Surveillance renforcée</span></div>
+            <div class="art-alert"><span>Dégradation route principale</span><span class="art-ab green">Suivi infra</span></div>
+          </div>
+        </div>
+        <div class="art-side-card">
+          <div class="art-side-head"><span>🗺️</span>Modules liés</div>
+          <div class="art-side-body" style="padding:10px;">
+            <a href="visualisation.html" class="art-mod-link"><span>📈</span>Visualisation croisée</a>
+            <a href="alertes.html"       class="art-mod-link"><span>⚠️</span>Centre d'alerte inondation</a>
+            <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/f5ad41cf89ee4be6b1cc1073d295d911/explore" target="_blank" class="art-mod-link"><span>🌍</span>Géoportail risques</a>
+            <a href="donnees.html"       class="art-mod-link"><span>📋</span>Données territoriales</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+  </main>
+  <div id="footer-placeholder"></div>
+  <script src="../js/main.js"></script>
+</body>
+</html>
