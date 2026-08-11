@@ -1,712 +1,743 @@
-<div style="display: block; margin: 0; padding: 0;">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Mono:wght@400;700&display=swap');
-
-    .article, .article * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    .article {
-      font-family: 'Inter', sans-serif;
-      width: 100%;
-      background: #FFFFFF;
-    }
-
-    /* ========== VERSION MOBILE ========== */
-    @media (max-width: 768px) {
-      .article .hero {
-        padding: 32px 20px 0 !important;
-      }
-      .article .hero h1 {
-        font-size: 28px !important;
-      }
-      .article .hero-date {
-        font-size: 12px !important;
-      }
-      .article .section {
-        padding: 40px 20px !important;
-      }
-      .article .section-title {
-        font-size: 24px !important;
-      }
-      .article .divider {
-        margin-top: 32px !important;
-      }
-      .article .cta-band {
-        flex-direction: column !important;
-        text-align: center !important;
-        margin: 0 20px 40px !important;
-        padding: 32px 24px !important;
-      }
-      .article .btn-cta {
-        width: 100% !important;
-        justify-content: center !important;
-      }
-      .article .article-wrap {
-        grid-template-columns: 1fr !important;
-        padding: 0 20px 40px !important;
-      }
-      .article .objectives-grid {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-      }
-      .article .team-grid {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-      }
-      .article .photos-grid {
-        grid-template-columns: 1fr !important;
-        gap: 16px !important;
-      }
-      .article .stats-grid {
-        grid-template-columns: 1fr 1fr !important;
-        gap: 12px !important;
-      }
-    }
-
-    /* ========== TABLETTE ========== */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .article .hero {
-        padding: 48px 32px 0 !important;
-      }
-      .article .hero h1 {
-        font-size: 32px !important;
-      }
-      .article .section {
-        padding: 48px 32px !important;
-      }
-      .article .article-wrap {
-        padding: 0 32px 48px !important;
-      }
-      .article .objectives-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 16px !important;
-      }
-    }
-
-    /* ========== STYLES DE BASE ========== */
-    .article .hero {
-      padding: 64px 40px 0;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .article .hero-eyebrow {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #70C7FD;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .article .eyebrow-line {
-      width: 40px;
-      height: 2px;
-      background: #70C7FD;
-    }
-
-    .article .hero h1 {
-      font-size: 38px;
-      font-weight: 700;
-      line-height: 1.3;
-      letter-spacing: -0.02em;
-      color: #1A2C3E;
-      margin-bottom: 16px;
-      max-width: 900px;
-    }
-
-    .article .hero-date {
-      font-family: 'Space Mono', monospace;
-      font-size: 14px;
-      color: #70C7FD;
-      margin-bottom: 24px;
-    }
-
-    .article .hero-desc {
-      font-size: 16px;
-      line-height: 1.6;
-      color: #4A627A;
-      max-width: 700px;
-      margin-bottom: 32px;
-    }
-
-    .article .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(112, 199, 253, 0.4), transparent);
-      margin: 48px auto 0;
-      max-width: 1100px;
-    }
-
-    /* Layout à deux colonnes */
-    .article .article-wrap {
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 48px 40px 64px;
-    }
-
-    /* Colonne de gauche */
-    .article .article-content {
-      max-width: 100%;
-    }
-
-    .article .article-content p {
-      font-size: 16px;
-      line-height: 1.7;
-      color: #4A627A;
-      margin-bottom: 20px;
-    }
-
-    .article .article-content strong {
-      color: #1A2C3E;
-      font-weight: 600;
-    }
-
-    .article .section-header {
-      margin-bottom: 24px;
-    }
-
-    .article .section-title {
-      font-size: 22px;
-      font-weight: 700;
-      color: #1A2C3E;
-      letter-spacing: -0.01em;
-      margin-bottom: 12px;
-    }
-
-    .article .section-title span {
-      color: #70C7FD;
-    }
-
-    .article .section-subtitle {
-      font-size: 14px;
-      color: #70C7FD;
-      font-family: 'Space Mono', monospace;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 16px;
-    }
-
-    /* Grille des objectifs */
-    .article .objectives-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin: 32px 0;
-    }
-
-    .article .objective-card {
-      background: #F8FAFC;
-      border-radius: 16px;
-      padding: 18px 20px;
-      border-left: 4px solid #70C7FD;
-      transition: all 0.2s ease;
-    }
-
-    .article .objective-card:hover {
-      transform: translateX(4px);
-      background: #FFFFFF;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    .article .objective-text {
-      font-size: 14px;
-      font-weight: 500;
-      color: #1A2C3E;
-      line-height: 1.5;
-    }
-
-    /* Statistiques */
-    .article .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin: 24px 0 32px 0;
-    }
-
-    .article .stat-card {
-      background: #F8FAFC;
-      border-radius: 16px;
-      padding: 20px 16px;
-      text-align: center;
-      border: 1px solid rgba(112, 199, 253, 0.12);
-      transition: all 0.2s ease;
-    }
-
-    .article .stat-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
-    }
-
-    .article .stat-number {
-      font-family: 'Space Mono', monospace;
-      font-size: 28px;
-      font-weight: 700;
-      color: #70C7FD;
-      display: block;
-    }
-
-    .article .stat-label {
-      font-size: 12px;
-      color: #64748B;
-      margin-top: 4px;
-      display: block;
-    }
-
-    /* Grille équipe */
-    .article .team-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin: 24px 0;
-    }
-
-    .article .team-card {
-      background: #FFFFFF;
-      border: 1px solid rgba(112, 199, 253, 0.2);
-      border-radius: 12px;
-      padding: 16px;
-    }
-
-    .article .team-info h4 {
-      font-size: 15px;
-      font-weight: 700;
-      color: #1A2C3E;
-      margin-bottom: 4px;
-    }
-
-    .article .team-info p {
-      font-size: 12px;
-      color: #64748B;
-      margin-bottom: 0;
-    }
-
-    /* Grille pour les photos */
-    .article .photos-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      margin: 24px 0 16px 0;
-    }
-
-    .article .photo-item {
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      background: #F8FAFC;
-    }
-
-    .article .photo-item img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.3s ease;
-    }
-
-    .article .photo-item img:hover {
-      transform: scale(1.02);
-    }
-
-    .article .photo-caption {
-      font-size: 11px;
-      color: #64748B;
-      text-align: center;
-      padding: 8px 12px;
-      font-family: 'Space Mono', monospace;
-      background: #FFFFFF;
-      border-top: 1px solid rgba(112, 199, 253, 0.15);
-    }
-
-    .article .info-highlight {
-      background: linear-gradient(135deg, #F8FCFF, #FFFFFF);
-      border-left: 4px solid #70C7FD;
-      padding: 24px;
-      margin: 32px 0;
-      border-radius: 16px;
-    }
-
-    .article .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #FFFFFF;
-      border: 2px solid #70C7FD;
-      border-radius: 60px;
-      padding: 12px 28px;
-      text-decoration: none;
-      font-weight: 600;
-      color: #1A2C3E;
-      transition: all 0.3s ease;
-      margin-top: 24px;
-    }
-
-    .article .back-link:hover {
-      background: #70C7FD;
-      gap: 12px;
-    }
-
-    /* ========== SIDEBAR ========== */
-    .article .col-side {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .article .side-card {
-      background: #FFFFFF;
-      border: 1px solid rgba(112, 199, 253, 0.2);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    .article .side-card-head {
-      background: linear-gradient(135deg, #1A2C3E, #2D4055);
-      color: white;
-      padding: 14px 18px;
-      font-family: 'Space Mono', monospace;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .article .side-card-head span {
-      font-size: 16px;
-    }
-
-    .article .side-card-body {
-      padding: 18px;
-    }
-
-    .article .indicator-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .article .indicator-item {
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(112, 199, 253, 0.15);
-    }
-
-    .article .indicator-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .article .indicator-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-
-    .article .indicator-emoji {
-      font-size: 20px;
-    }
-
-    .article .indicator-title {
-      font-weight: 700;
-      font-size: 14px;
-      color: #1A2C3E;
-    }
-
-    .article .indicator-value {
-      font-family: 'Space Mono', monospace;
-      font-size: 12px;
-      color: #64748B;
-      margin-left: 30px;
-      line-height: 1.5;
-    }
-
-    .article .indicator-value strong {
-      color: #70C7FD;
-    }
-
-    .article .update-badge {
-      background: #E8F7FD;
-      border-radius: 16px;
-      padding: 10px 12px;
-      text-align: center;
-      margin-top: 12px;
-    }
-
-    .article .update-badge span {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      font-weight: 600;
-      color: #1A2C3E;
-    }
-
-    .article .modules-links {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .article .module-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 14px;
-      background: #F8FAFC;
-      border-radius: 12px;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 500;
-      color: #1A2C3E;
-      transition: all 0.2s ease;
-    }
-
-    .article .module-link:hover {
-      background: #E8F7FD;
-      transform: translateX(4px);
-    }
-
-    .article .module-icon {
-      font-size: 18px;
-    }
-
-    /* CTA Band */
-    .article .cta-band {
-      margin: 0 40px 64px;
-      background: linear-gradient(135deg, #70C7FD, #4BB3F0);
-      border-radius: 28px;
-      padding: 48px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 32px;
-      max-width: 1120px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .article .cta-text h2 {
-      font-size: 26px;
-      font-weight: 700;
-      color: #1A2C3E;
-      letter-spacing: -0.01em;
-      margin-bottom: 10px;
-    }
-
-    .article .cta-text p {
-      font-size: 15px;
-      color: #1A2C3E;
-      opacity: 0.85;
-      line-height: 1.6;
-      max-width: 460px;
-    }
-
-    .article .btn-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: #1A2C3E;
-      color: white;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 16px 32px;
-      border-radius: 50px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      white-space: nowrap;
-      flex-shrink: 0;
-      transition: all 0.3s ease;
-    }
-
-    .article .btn-cta:hover {
-      transform: translateY(-2px);
-      background: #2D4055;
-      gap: 16px;
-    }
-  </style>
-
-  <div class="article">
-    <!-- Section Héro -->
-    <div class="hero">
-      <div class="hero-eyebrow">
-        <div class="eyebrow-line"></div>
-        GÉOPORTAIL · OBSERVATOIRE TERRITORIAL
-      </div>
-      <h1>Occupation du sol 2025 : la série chronologique s'enrichit</h1>
-      <div class="hero-date">Juillet 2025 — Mise à jour des données d'occupation du sol</div>
-      <p class="hero-desc">
-        L'Observatoire territorial de Jacqueville enrichit sa série chronologique avec l'intégration des classes d'occupation du sol de l'année 2025. La série couvre désormais la période 2017-2025, soit 8 années de suivi continu du territoire.
-      </p>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Occupation du sol 2025 — Géoportail Territorial de Jacqueville</title>
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="https://github.com/Geoportail-Jacqueville/geoportail-jacqueville/blob/main/logo/logo-favicon.jpeg?raw=true">
+    <link rel="apple-touch-icon" href="https://github.com/Geoportail-Jacqueville/geoportail-jacqueville/blob/main/logo/logo-favicon.jpeg?raw=true">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 64px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- PLACEHOLDER NAVBAR -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- ========== CONTENU DE L'ARTICLE ========== -->
+    <div style="display: block; margin: 0; padding: 0;">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Mono:wght@400;700&display=swap');
+
+            .article, .article * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .article {
+                font-family: 'Inter', sans-serif;
+                width: 100%;
+                background: #FFFFFF;
+            }
+
+            /* ========== VERSION MOBILE ========== */
+            @media (max-width: 768px) {
+                .article .hero {
+                    padding: 32px 20px 0 !important;
+                }
+                .article .hero h1 {
+                    font-size: 28px !important;
+                }
+                .article .hero-date {
+                    font-size: 12px !important;
+                }
+                .article .section {
+                    padding: 40px 20px !important;
+                }
+                .article .section-title {
+                    font-size: 24px !important;
+                }
+                .article .divider {
+                    margin-top: 32px !important;
+                }
+                .article .cta-band {
+                    flex-direction: column !important;
+                    text-align: center !important;
+                    margin: 0 20px 40px !important;
+                    padding: 32px 24px !important;
+                }
+                .article .btn-cta {
+                    width: 100% !important;
+                    justify-content: center !important;
+                }
+                .article .article-wrap {
+                    grid-template-columns: 1fr !important;
+                    padding: 0 20px 40px !important;
+                }
+                .article .objectives-grid {
+                    grid-template-columns: 1fr !important;
+                    gap: 12px !important;
+                }
+                .article .team-grid {
+                    grid-template-columns: 1fr !important;
+                    gap: 12px !important;
+                }
+                .article .photos-grid {
+                    grid-template-columns: 1fr !important;
+                    gap: 16px !important;
+                }
+                .article .stats-grid {
+                    grid-template-columns: 1fr 1fr !important;
+                    gap: 12px !important;
+                }
+            }
+
+            /* ========== TABLETTE ========== */
+            @media (min-width: 769px) and (max-width: 1024px) {
+                .article .hero {
+                    padding: 48px 32px 0 !important;
+                }
+                .article .hero h1 {
+                    font-size: 32px !important;
+                }
+                .article .section {
+                    padding: 48px 32px !important;
+                }
+                .article .article-wrap {
+                    padding: 0 32px 48px !important;
+                }
+                .article .objectives-grid {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 16px !important;
+                }
+            }
+
+            /* ========== STYLES DE BASE ========== */
+            .article .hero {
+                padding: 64px 40px 0;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .article .hero-eyebrow {
+                font-family: 'Space Mono', monospace;
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                color: #70C7FD;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .article .eyebrow-line {
+                width: 40px;
+                height: 2px;
+                background: #70C7FD;
+            }
+
+            .article .hero h1 {
+                font-size: 38px;
+                font-weight: 700;
+                line-height: 1.3;
+                letter-spacing: -0.02em;
+                color: #1A2C3E;
+                margin-bottom: 16px;
+                max-width: 900px;
+            }
+
+            .article .hero-date {
+                font-family: 'Space Mono', monospace;
+                font-size: 14px;
+                color: #70C7FD;
+                margin-bottom: 24px;
+            }
+
+            .article .hero-desc {
+                font-size: 16px;
+                line-height: 1.6;
+                color: #4A627A;
+                max-width: 700px;
+                margin-bottom: 32px;
+            }
+
+            .article .divider {
+                height: 1px;
+                background: linear-gradient(90deg, transparent, rgba(112, 199, 253, 0.4), transparent);
+                margin: 48px auto 0;
+                max-width: 1100px;
+            }
+
+            /* Layout à deux colonnes */
+            .article .article-wrap {
+                display: grid;
+                grid-template-columns: 1fr 300px;
+                gap: 40px;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 48px 40px 64px;
+            }
+
+            /* Colonne de gauche */
+            .article .article-content {
+                max-width: 100%;
+            }
+
+            .article .article-content p {
+                font-size: 16px;
+                line-height: 1.7;
+                color: #4A627A;
+                margin-bottom: 20px;
+            }
+
+            .article .article-content strong {
+                color: #1A2C3E;
+                font-weight: 600;
+            }
+
+            .article .section-header {
+                margin-bottom: 24px;
+            }
+
+            .article .section-title {
+                font-size: 22px;
+                font-weight: 700;
+                color: #1A2C3E;
+                letter-spacing: -0.01em;
+                margin-bottom: 12px;
+            }
+
+            .article .section-title span {
+                color: #70C7FD;
+            }
+
+            .article .section-subtitle {
+                font-size: 14px;
+                color: #70C7FD;
+                font-family: 'Space Mono', monospace;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                margin-bottom: 16px;
+            }
+
+            /* Grille des objectifs */
+            .article .objectives-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+                margin: 32px 0;
+            }
+
+            .article .objective-card {
+                background: #F8FAFC;
+                border-radius: 16px;
+                padding: 18px 20px;
+                border-left: 4px solid #70C7FD;
+                transition: all 0.2s ease;
+            }
+
+            .article .objective-card:hover {
+                transform: translateX(4px);
+                background: #FFFFFF;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+
+            .article .objective-text {
+                font-size: 14px;
+                font-weight: 500;
+                color: #1A2C3E;
+                line-height: 1.5;
+            }
+
+            /* Statistiques */
+            .article .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+                margin: 24px 0 32px 0;
+            }
+
+            .article .stat-card {
+                background: #F8FAFC;
+                border-radius: 16px;
+                padding: 20px 16px;
+                text-align: center;
+                border: 1px solid rgba(112, 199, 253, 0.12);
+                transition: all 0.2s ease;
+            }
+
+            .article .stat-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+            }
+
+            .article .stat-number {
+                font-family: 'Space Mono', monospace;
+                font-size: 28px;
+                font-weight: 700;
+                color: #70C7FD;
+                display: block;
+            }
+
+            .article .stat-label {
+                font-size: 12px;
+                color: #64748B;
+                margin-top: 4px;
+                display: block;
+            }
+
+            /* Grille équipe */
+            .article .team-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+                margin: 24px 0;
+            }
+
+            .article .team-card {
+                background: #FFFFFF;
+                border: 1px solid rgba(112, 199, 253, 0.2);
+                border-radius: 12px;
+                padding: 16px;
+            }
+
+            .article .team-info h4 {
+                font-size: 15px;
+                font-weight: 700;
+                color: #1A2C3E;
+                margin-bottom: 4px;
+            }
+
+            .article .team-info p {
+                font-size: 12px;
+                color: #64748B;
+                margin-bottom: 0;
+            }
+
+            /* Grille pour les photos */
+            .article .photos-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                margin: 24px 0 16px 0;
+            }
+
+            .article .photo-item {
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                background: #F8FAFC;
+            }
+
+            .article .photo-item img {
+                width: 100%;
+                height: 220px;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.3s ease;
+            }
+
+            .article .photo-item img:hover {
+                transform: scale(1.02);
+            }
+
+            .article .photo-caption {
+                font-size: 11px;
+                color: #64748B;
+                text-align: center;
+                padding: 8px 12px;
+                font-family: 'Space Mono', monospace;
+                background: #FFFFFF;
+                border-top: 1px solid rgba(112, 199, 253, 0.15);
+            }
+
+            .article .info-highlight {
+                background: linear-gradient(135deg, #F8FCFF, #FFFFFF);
+                border-left: 4px solid #70C7FD;
+                padding: 24px;
+                margin: 32px 0;
+                border-radius: 16px;
+            }
+
+            .article .back-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: #FFFFFF;
+                border: 2px solid #70C7FD;
+                border-radius: 60px;
+                padding: 12px 28px;
+                text-decoration: none;
+                font-weight: 600;
+                color: #1A2C3E;
+                transition: all 0.3s ease;
+                margin-top: 24px;
+            }
+
+            .article .back-link:hover {
+                background: #70C7FD;
+                gap: 12px;
+            }
+
+            /* ========== SIDEBAR ========== */
+            .article .col-side {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .article .side-card {
+                background: #FFFFFF;
+                border: 1px solid rgba(112, 199, 253, 0.2);
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+
+            .article .side-card-head {
+                background: linear-gradient(135deg, #1A2C3E, #2D4055);
+                color: white;
+                padding: 14px 18px;
+                font-family: 'Space Mono', monospace;
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .article .side-card-head span {
+                font-size: 16px;
+            }
+
+            .article .side-card-body {
+                padding: 18px;
+            }
+
+            .article .indicator-list {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .article .indicator-item {
+                padding-bottom: 12px;
+                border-bottom: 1px solid rgba(112, 199, 253, 0.15);
+            }
+
+            .article .indicator-item:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+
+            .article .indicator-header {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 6px;
+            }
+
+            .article .indicator-emoji {
+                font-size: 20px;
+            }
+
+            .article .indicator-title {
+                font-weight: 700;
+                font-size: 14px;
+                color: #1A2C3E;
+            }
+
+            .article .indicator-value {
+                font-family: 'Space Mono', monospace;
+                font-size: 12px;
+                color: #64748B;
+                margin-left: 30px;
+                line-height: 1.5;
+            }
+
+            .article .indicator-value strong {
+                color: #70C7FD;
+            }
+
+            .article .update-badge {
+                background: #E8F7FD;
+                border-radius: 16px;
+                padding: 10px 12px;
+                text-align: center;
+                margin-top: 12px;
+            }
+
+            .article .update-badge span {
+                font-family: 'Space Mono', monospace;
+                font-size: 11px;
+                font-weight: 600;
+                color: #1A2C3E;
+            }
+
+            .article .modules-links {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .article .module-link {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px 14px;
+                background: #F8FAFC;
+                border-radius: 12px;
+                text-decoration: none;
+                font-size: 13px;
+                font-weight: 500;
+                color: #1A2C3E;
+                transition: all 0.2s ease;
+            }
+
+            .article .module-link:hover {
+                background: #E8F7FD;
+                transform: translateX(4px);
+            }
+
+            .article .module-icon {
+                font-size: 18px;
+            }
+
+            /* CTA Band */
+            .article .cta-band {
+                margin: 0 40px 64px;
+                background: linear-gradient(135deg, #70C7FD, #4BB3F0);
+                border-radius: 28px;
+                padding: 48px 48px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 32px;
+                max-width: 1120px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .article .cta-text h2 {
+                font-size: 26px;
+                font-weight: 700;
+                color: #1A2C3E;
+                letter-spacing: -0.01em;
+                margin-bottom: 10px;
+            }
+
+            .article .cta-text p {
+                font-size: 15px;
+                color: #1A2C3E;
+                opacity: 0.85;
+                line-height: 1.6;
+                max-width: 460px;
+            }
+
+            .article .btn-cta {
+                display: inline-flex;
+                align-items: center;
+                gap: 12px;
+                background: #1A2C3E;
+                color: white;
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                font-weight: 600;
+                padding: 16px 32px;
+                border-radius: 50px;
+                border: none;
+                cursor: pointer;
+                text-decoration: none;
+                white-space: nowrap;
+                flex-shrink: 0;
+                transition: all 0.3s ease;
+            }
+
+            .article .btn-cta:hover {
+                transform: translateY(-2px);
+                background: #2D4055;
+                gap: 16px;
+            }
+        </style>
+
+        <div class="article">
+            <!-- Section Héro -->
+            <div class="hero">
+                <div class="hero-eyebrow">
+                    <div class="eyebrow-line"></div>
+                    GÉOPORTAIL · OBSERVATOIRE TERRITORIAL
+                </div>
+                <h1>Occupation du sol 2025 : la série chronologique s'enrichit</h1>
+                <div class="hero-date">Juillet 2025 — Mise à jour des données d'occupation du sol</div>
+                <p class="hero-desc">
+                    L'Observatoire territorial de Jacqueville enrichit sa série chronologique avec l'intégration des classes d'occupation du sol de l'année 2025. La série couvre désormais la période 2017-2025, soit 8 années de suivi continu du territoire.
+                </p>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Layout à deux colonnes -->
+            <div class="article-wrap">
+                <!-- Colonne de gauche : Corps de l'article -->
+                <div class="article-content">
+                    <p>
+                        Dans le cadre du suivi des dynamiques territoriales, l'Observatoire Participatif de la Qualité Environnementale du cordon littoral de Jacqueville a le plaisir d'annoncer l'intégration des <strong>classes d'occupation du sol pour l'année 2025</strong>.
+                    </p>
+
+                    <p>
+                        Réalisée à partir d'images <strong>Sentinel-2</strong> (résolution 10 mètres), la cartographie 2025 confirme les tendances observées ces dernières années : progression des zones urbanisées, dynamique des espaces agricoles et évolution des zones naturelles.
+                    </p>
+
+                    <!-- STATISTIQUES -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">années de suivi (2017-2025)</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">10</span>
+                            <span class="stat-label">mètres — résolution</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">classes thématiques</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">+1</span>
+                            <span class="stat-label">année intégrée (2025)</span>
+                        </div>
+                    </div>
+
+                    <p>
+                        Cette mise à jour permet désormais d'analyser les évolutions du territoire sur une période de <strong>8 années consécutives</strong>, offrant ainsi une vision diachronique précieuse pour la compréhension des transformations du territoire de Jacqueville.
+                    </p>
+
+                    <!-- Section : Évolutions observées -->
+                    <div class="section-header" style="margin-top: 8px;">
+                        <div class="section-subtitle">Tendances</div>
+                        <div class="section-title">Évolutions <span>observées</span></div>
+                    </div>
+
+                    <div class="objectives-grid">
+                        <div class="objective-card">
+                            <div class="objective-text">🏙️ <strong>Urbanisation</strong> : progression des zones bâties et des lotissements</div>
+                        </div>
+                        <div class="objective-card">
+                            <div class="objective-text">🌾 <strong>Agriculture</strong> : dynamique des espaces agricoles et des jachères</div>
+                        </div>
+                        <div class="objective-card">
+                            <div class="objective-text">🌳 <strong>Forêt et lagune</strong> : évolution des espaces naturels et des zones humides</div>
+                        </div>
+                        <div class="objective-card">
+                            <div class="objective-text">📊 <strong>Analyse diachronique</strong> : matrice de changement 2017-2025 disponible</div>
+                        </div>
+                    </div>
+
+                    <p>
+                        L'ensemble de ces données est désormais disponible au format <strong>Shapefile</strong> et <strong>GeoTIFF</strong> dans la rubrique <a href="#open-data" style="color: #70C7FD; font-weight: 500;">Données</a> du Géoportail.
+                    </p>
+
+                    <div class="info-highlight">
+                        <p style="font-size: 14px; color: #1A2C3E; margin-bottom: 0; font-weight: 500;">
+                            📌 <strong>Mise à jour des métadonnées</strong> : La fiche descriptive de chaque classe d'occupation du sol a été actualisée pour intégrer les données 2025.
+                        </p>
+                    </div>
+
+                    <!-- Lien retour -->
+                    <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/pages/actualite" class="back-link">
+                        <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M19 12H5M12 19l-7-7 7-7' /></svg>
+                        Retour aux actualités
+                    </a>
+                </div>
+
+                <!-- Colonne de droite : Sidebar -->
+                <div class="col-side">
+
+                    <!-- Données clés -->
+                    <div class="side-card">
+                        <div class="side-card-head"><span>🛰️</span> Données clés</div>
+                        <div class="side-card-body">
+                            <div class="indicator-list">
+                                <div class="indicator-item">
+                                    <div class="indicator-header">
+                                        <span class="indicator-emoji">📅</span>
+                                        <span class="indicator-title">Période</span>
+                                    </div>
+                                    <div class="indicator-value"><strong>2017 – 2025</strong> (8 ans)</div>
+                                </div>
+                                <div class="indicator-item">
+                                    <div class="indicator-header">
+                                        <span class="indicator-emoji">🛰️</span>
+                                        <span class="indicator-title">Source</span>
+                                    </div>
+                                    <div class="indicator-value"><strong>Sentinel-2</strong> · ESA</div>
+                                </div>
+                                <div class="indicator-item">
+                                    <div class="indicator-header">
+                                        <span class="indicator-emoji">🔍</span>
+                                        <span class="indicator-title">Résolution</span>
+                                    </div>
+                                    <div class="indicator-value"><strong>10 mètres</strong></div>
+                                </div>
+                                <div class="indicator-item">
+                                    <div class="indicator-header">
+                                        <span class="indicator-emoji">📊</span>
+                                        <span class="indicator-title">Classes</span>
+                                    </div>
+                                    <div class="indicator-value"><strong>8 classes</strong> thématiques</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Liens vers les données -->
+                    <div class="side-card">
+                        <div class="side-card-head"><span>📥</span> Accès aux données</div>
+                        <div class="side-card-body">
+                            <div class="modules-links">
+                                <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/pages/donnees-et-telechargement" class="module-link">
+                                    <span class="module-icon">📂</span>
+                                    Télécharger les données 2025
+                                </a>
+                                <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/6fc97807bfba4a8082eeb779e2557431/explore" class="module-link">
+                                    <span class="module-icon">📋</span>
+                                    Métadonnées complètes
+                                </a>
+                                <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/f6b0fcbada1344918fcaa1d76a77d35b/explore" class="module-link">
+                                    <span class="module-icon">🗺️</span>
+                                    Visualiser l'évolution
+                                </a>
+                            </div>
+                            <div class="update-badge">
+                                <span>🔔 Mise à jour : juillet 2025</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sources -->
+                    <div class="side-card">
+                        <div class="side-card-head"><span>📋</span> Sources & licence</div>
+                        <div class="side-card-body">
+                            <p style="font-size: 12px; color: #64748B; line-height: 1.6; margin-bottom: 12px;">
+                                <strong>Images :</strong> Sentinel-2 (ESA – Programme Copernicus)<br>
+                                <strong>Traitement :</strong> Observatoire territorial de Jacqueville<br>
+                                <strong>Licence :</strong> CC BY-NC 4.0
+                            </p>
+                            <p style="font-size: 11px; color: #94A3B8; margin: 0;">
+                                🛰️ Données mises à disposition dans le cadre de l'Observatoire Participatif.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="divider"></div>
+    <!-- PLACEHOLDER FOOTER -->
+    <div id="footer-placeholder"></div>
 
-    <!-- Layout à deux colonnes -->
-    <div class="article-wrap">
-      <!-- Colonne de gauche : Corps de l'article -->
-      <div class="article-content">
-        <p>
-          Dans le cadre du suivi des dynamiques territoriales, l'Observatoire Participatif de la Qualité Environnementale du cordon littoral de Jacqueville a le plaisir d'annoncer l'intégration des <strong>classes d'occupation du sol pour l'année 2025</strong>.
-        </p>
-
-        <p>
-          Réalisée à partir d'images <strong>Sentinel-2</strong> (résolution 10 mètres), la cartographie 2025 confirme les tendances observées ces dernières années : progression des zones urbanisées, dynamique des espaces agricoles et évolution des zones naturelles.
-        </p>
-
-        <!-- STATISTIQUES -->
-        <div class="stats-grid">
-          <div class="stat-card">
-            <span class="stat-number">8</span>
-            <span class="stat-label">années de suivi (2017-2025)</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number">10</span>
-            <span class="stat-label">mètres — résolution</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number">8</span>
-            <span class="stat-label">classes thématiques</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number">+1</span>
-            <span class="stat-label">année intégrée (2025)</span>
-          </div>
-        </div>
-
-        <p>
-          Cette mise à jour permet désormais d'analyser les évolutions du territoire sur une période de <strong>8 années consécutives</strong>, offrant ainsi une vision diachronique précieuse pour la compréhension des transformations du territoire de Jacqueville.
-        </p>
-
-        <!-- Section : Évolutions observées -->
-        <div class="section-header" style="margin-top: 8px;">
-          <div class="section-subtitle">Tendances</div>
-          <div class="section-title">Évolutions <span>observées</span></div>
-        </div>
-
-        <div class="objectives-grid">
-          <div class="objective-card">
-            <div class="objective-text">🏙️ <strong>Urbanisation</strong> : progression des zones bâties et des lotissements</div>
-          </div>
-          <div class="objective-card">
-            <div class="objective-text">🌾 <strong>Agriculture</strong> : dynamique des espaces agricoles et des jachères</div>
-          </div>
-          <div class="objective-card">
-            <div class="objective-text">🌳 <strong>Forêt et lagune</strong> : évolution des espaces naturels et des zones humides</div>
-          </div>
-          <div class="objective-card">
-            <div class="objective-text">📊 <strong>Analyse diachronique</strong> : matrice de changement 2017-2025 disponible</div>
-          </div>
-        </div>
-
-        <p>
-          L'ensemble de ces données est désormais disponible au format <strong>Shapefile</strong> et <strong>GeoTIFF</strong> dans la rubrique <a href="#open-data" style="color: #70C7FD; font-weight: 500;">Données</a> du Géoportail.
-        </p>
-
-        <div class="info-highlight">
-          <p style="font-size: 14px; color: #1A2C3E; margin-bottom: 0; font-weight: 500;">
-            📌 <strong>Mise à jour des métadonnées</strong> : La fiche descriptive de chaque classe d'occupation du sol a été actualisée pour intégrer les données 2025.
-          </p>
-        </div>
-
-        <!-- Lien retour -->
-        <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/pages/actualite" class="back-link">
-          <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M19 12H5M12 19l-7-7 7-7' /></svg>
-          Retour aux actualités
-        </a>
-      </div>
-
-      <!-- Colonne de droite : Sidebar -->
-      <div class="col-side">
-
-        <!-- Données clés -->
-        <div class="side-card">
-          <div class="side-card-head"><span>🛰️</span> Données clés</div>
-          <div class="side-card-body">
-            <div class="indicator-list">
-              <div class="indicator-item">
-                <div class="indicator-header">
-                  <span class="indicator-emoji">📅</span>
-                  <span class="indicator-title">Période</span>
-                </div>
-                <div class="indicator-value"><strong>2017 – 2025</strong> (8 ans)</div>
-              </div>
-              <div class="indicator-item">
-                <div class="indicator-header">
-                  <span class="indicator-emoji">🛰️</span>
-                  <span class="indicator-title">Source</span>
-                </div>
-                <div class="indicator-value"><strong>Sentinel-2</strong> · ESA</div>
-              </div>
-              <div class="indicator-item">
-                <div class="indicator-header">
-                  <span class="indicator-emoji">🔍</span>
-                  <span class="indicator-title">Résolution</span>
-                </div>
-                <div class="indicator-value"><strong>10 mètres</strong></div>
-              </div>
-              <div class="indicator-item">
-                <div class="indicator-header">
-                  <span class="indicator-emoji">📊</span>
-                  <span class="indicator-title">Classes</span>
-                </div>
-                <div class="indicator-value"><strong>8 classes</strong> thématiques</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Liens vers les données -->
-        <div class="side-card">
-          <div class="side-card-head"><span>📥</span> Accès aux données</div>
-          <div class="side-card-body">
-            <div class="modules-links">
-              <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/pages/donnees-et-telechargement" class="module-link">
-                <span class="module-icon">📂</span>
-                Télécharger les données 2025
-              </a>
-              <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/6fc97807bfba4a8082eeb779e2557431/explore" class="module-link">
-                <span class="module-icon">📋</span>
-                Métadonnées complètes
-              </a>
-              <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/f6b0fcbada1344918fcaa1d76a77d35b/explore" class="module-link">
-                <span class="module-icon">🗺️</span>
-                Visualiser l'évolution
-              </a>
-            </div>
-            <div class="update-badge">
-              <span>🔔 Mise à jour : juillet 2025</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sources -->
-        <div class="side-card">
-          <div class="side-card-head"><span>📋</span> Sources & licence</div>
-          <div class="side-card-body">
-            <p style="font-size: 12px; color: #64748B; line-height: 1.6; margin-bottom: 12px;">
-              <strong>Images :</strong> Sentinel-2 (ESA – Programme Copernicus)<br>
-              <strong>Traitement :</strong> Observatoire territorial de Jacqueville<br>
-              <strong>Licence :</strong> CC BY-NC 4.0
-            </p>
-            <p style="font-size: 11px; color: #94A3B8; margin: 0;">
-              🛰️ Données mises à disposition dans le cadre de l'Observatoire Participatif.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
+    <!-- Script principal (navbar + footer) -->
+    <script src="js/main.js"></script>
+</body>
+</html>
