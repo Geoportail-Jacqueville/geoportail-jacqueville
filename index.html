@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Géoportail Territorial de Jacqueville</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f4c81;
+            --secondary: #1f8ac0;
+            --accent: #70C7FD;
+            --background: #f5f7fa;
+            --text-dark: #1A2C3E;
+            --text-medium: #2d3a4a;
+            --text-light: #4A627A;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --border-radius: 10px;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--background);
+            color: var(--text-dark);
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ========== SKIP LINK ========== */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 10px;
+            background: var(--accent);
+            color: #000;
+            padding: 8px 16px;
+            border-radius: 4px;
+            z-index: 10000;
+            font-weight: 600;
+            text-decoration: none;
+            transition: top 0.3s;
+        }
+        .skip-link:focus {
+            top: 10px;
+        }
+
+        /* ========== HERO ========== */
+        .hero-geo {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+                url('https://github.com/Jeant-Tim/Geoportail/blob/main/Jacqueville.png?raw=true') no-repeat center center;
+            background-size: cover;
+            color: #ffffff;
+            padding: clamp(80px, 10vw, 140px) 20px;
+            text-align: center;
+            position: relative;
+            min-height: clamp(400px, 60vh, 600px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-geo-content {
+            max-width: 900px;
+            margin: auto;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-geo h1 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        .hero-geo-subtitle {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            line-height: 1.7;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            font-weight: 400;
+        }
+        .hero-geo-actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .hero-btn {
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-btn-primary {
+            background-color: var(--secondary);
+            color: #ffffff;
+            border: 2px solid var(--secondary);
+        }
+        .hero-btn-primary:hover {
+            background-color: #166c98;
+            border-color: #166c98;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+        }
+        .hero-btn-secondary {
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        .hero-btn-secondary:hover {
+            background-color: #ffffff;
+            color: var(--primary);
+            border-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ========== INTRO ========== */
+        .intro-text-wrapper {
+            width: 100%;
+            background: #ffffff;
+            padding: 30px 20px;
+        }
+        .intro-text {
+            max-width: 850px;
+            margin: 0 auto;
+            text-align: justify;
+            font-size: clamp(1rem, 1.3vw, 1.15rem);
+            line-height: 1.8;
+            color: var(--text-medium);
+            font-weight: 400;
+            hyphens: auto;
+        }
+        .intro-text strong {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* ========== FONCTIONNALITÉS ========== */
+        .jacqueville-home {
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            color: var(--text-dark);
+        }
+        .jacqueville-home .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 60px 20px;
+        }
+        .jacqueville-home h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+        }
+        .jacqueville-home .usages {
+            background-color: var(--background);
+        }
+        .jacqueville-home .usage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .jacqueville-home .usage-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+        }
+        .jacqueville-home .usage-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        .jacqueville-home .usage-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* ========== MOUVEMENT BAR ========== */
+        .movement-bar {
+            width: 100%;
+            background: url('https://t3.ftcdn.net/jpg/09/33/02/06/240_F_933020660_ecBtX8sTiP3mAAuHFRGCkKbY8HGjBrQu.jpg') no-repeat center center;
+            background-size: cover;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: inset 0 0 0 1000px rgba(0, 40, 70, 0.35);
+        }
+        .movement-content {
+            position: relative;
+            z-index: 2;
+            color: #ffffff;
+            border-radius: 8px;
+            padding: 18px 22px;
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(6px);
+        }
+        .movement-title {
+            display: block;
+            font-weight: 800;
+            font-size: clamp(18px, 2.5vw, 2.2rem);
+            line-height: 1.2;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .movement-sub {
+            display: block;
+            font-weight: 500;
+            font-size: clamp(14px, 1.5vw, 1.3rem);
+            margin-top: 6px;
+            opacity: 0.95;
+            letter-spacing: 1px;
+        }
+
+        /* ========== DESCRIPTION ========== */
+        .description-wrapper {
+            width: 100%;
+            background: #f0f2f5;
+            padding: 25px 20px;
+        }
+        .description-text {
+            max-width: 850px;
+            margin: 0 auto;
+            text-align: justify;
+            font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+            line-height: 1.7;
+            color: var(--text-medium);
+            hyphens: auto;
+        }
+        .description-text strong {
+            font-weight: 700;
+        }
+
+        /* ========== IFRAME ========== */
+        .iframe-container {
+            width: 100%;
+            background: #ffffff;
+            padding: 20px 20px 30px;
+            display: flex;
+            justify-content: center;
+        }
+        .iframe-card {
+            width: 100%;
+            max-width: 1200px;
+            height: 650px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            background: #e9edf2;
+            position: relative;
+        }
+        .iframe-card iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* ========== FEATURED DATA ========== */
+        .featured-data {
+            font-family: 'Inter', sans-serif;
+            width: 100%;
+            background: #F5F7FA;
+            padding: 64px 0;
+        }
+        .featured-data .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .featured-data .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .featured-data .section-title {
+            font-size: clamp(24px, 3vw, 36px);
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+        .featured-data .section-title span {
+            color: var(--accent);
+        }
+        .featured-data .section-subtitle {
+            font-size: clamp(14px, 1.2vw, 16px);
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .featured-data .featured-carousel {
+            display: flex;
+            gap: 24px;
+            padding: 20px 10px 40px;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) #E2E8F0;
+            -webkit-overflow-scrolling: touch;
+        }
+        .featured-data .featured-carousel::-webkit-scrollbar {
+            height: 6px;
+        }
+        .featured-data .featured-carousel::-webkit-scrollbar-track {
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+        .featured-data .featured-carousel::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+        .featured-data .featured-card {
+            flex: 0 0 clamp(280px, 30vw, 340px);
+            background: #FFFFFF;
+            border: 1px solid rgba(112, 199, 253, 0.2);
+            border-radius: 24px;
+            padding: 28px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            min-height: 380px;
+        }
+        .featured-data .featured-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-lg);
+        }
+        .featured-data .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .featured-data .card-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, rgba(112, 199, 253, 0.15), rgba(112, 199, 253, 0.05));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .featured-data .card-icon svg {
+            width: 26px;
+            height: 26px;
+            stroke: var(--accent);
+            stroke-width: 1.6;
+            fill: none;
+        }
+        .featured-data .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+        .featured-data .card-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-family: 'Space Mono', monospace;
+            padding: 3px 10px;
+            background: rgba(112, 199, 253, 0.12);
+            color: var(--accent);
+            border-radius: 20px;
+        }
+        .featured-data .card-content {
+            flex: 1;
+            margin-bottom: 24px;
+        }
+        .featured-data .card-content p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+        .featured-data .card-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #F8FAFC;
+            color: var(--text-dark);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: var(--transition);
+            width: fit-content;
+            border: 1px solid rgba(112, 199, 253, 0.2);
+        }
+        .featured-data .card-action:hover {
+            background: var(--accent);
+            color: var(--text-dark);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            gap: 12px;
+        }
+        .featured-data .card-action svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+        .featured-data .scroll-hint {
+            text-align: center;
+            margin-top: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #64748B;
+            font-size: 12px;
+            font-family: 'Space Mono', monospace;
+        }
+        .featured-data .scroll-hint svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 2;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ========== CARTOTHÈQUE ========== */
+        .cartotheque-section {
+            font-family: 'Inter', Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .cartotheque-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .cartotheque-header h2 {
+            font-size: clamp(24px, 3vw, 32px);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+        .cartotheque-header h2 span {
+            color: var(--accent);
+        }
+        .cartotheque-header p {
+            color: var(--text-light);
+            margin-top: 12px;
+            font-size: clamp(14px, 1.2vw, 16px);
+        }
+        .cartotheque-header .divider {
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            margin: 20px auto 0;
+        }
+        .cartotheque-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            content-visibility: auto;
+            contain-intrinsic-size: 0 400px;
+        }
+        .carto-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            will-change: transform;
+            transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.15s ease-out;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            user-select: none;
+        }
+        .carto-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            border-color: var(--accent);
+        }
+        .carto-card:active {
+            transform: scale(0.98);
+        }
+        .carto-card-image {
+            height: 180px;
+			background-size: cover;
+			background-position: center;
+			position: relative;
+			flex-shrink: 0;
+			background-color: #e2e8f0;
+			transform: translateZ(0);
+			will-change: transform;
+        }
+        .carto-card-image::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+			background-size: 200% 100%;
+			animation: shimmer 1.5s infinite;
+			z-index: 0;
+        }
+		/* Masquer le shimmer une fois l'image chargée */
+		.carto-card-image[style*="background-image"]::before {
+			display: none;
+		}
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .carto-card-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            z-index: 1;
+        }
+        .carto-card-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .cartotheque-cta {
+            text-align: center;
+            margin-top: 48px;
+        }
+        .cartotheque-cta a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            color: var(--text-dark);
+            font-weight: 600;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(112, 199, 253, 0.3);
+        }
+        .cartotheque-cta a:hover {
+            background: #5ab4e8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(112, 199, 253, 0.4);
+        }
+        .cartotheque-cta a span {
+            transition: transform 0.3s ease;
+        }
+        .cartotheque-cta a:hover span {
+            transform: translateX(4px);
+        }
+
+        /* ========== MODALE ========== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.15s ease, visibility 0.15s ease;
+            padding: 20px;
+            will-change: opacity;
+            -webkit-backdrop-filter: blur(2px);
+            backdrop-filter: blur(2px);
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            position: relative;
+            max-width: 95vw;
+            max-height: 90vh;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            animation: modalIn 0.15s ease-out;
+            will-change: transform;
+            transform: translateZ(0);
+        }
+        @keyframes modalIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            flex-shrink: 0;
+        }
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #64748B;
+            line-height: 1;
+            padding: 0 4px;
+            transition: color 0.2s;
+            border-radius: 4px;
+        }
+        .modal-close:hover {
+            color: #1A2C3E;
+            background: #e2e8f0;
+        }
+        .modal-image-wrapper {
+            flex: 1;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+            padding: 20px;
+            min-height: 300px;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
+        .modal-image-wrapper img {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+            border-radius: 4px;
+            display: block;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .modal-image-wrapper img.loaded {
+            opacity: 1;
+        }
+        .modal-footer {
+            padding: 12px 24px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .modal-footer a {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .modal-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 900px) {
+            .featured-data { padding: 48px 0; }
+            .cartotheque-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 20px;
+            }
+            .modal-content {
+                max-width: 98vw;
+                max-height: 95vh;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .featured-data { padding: 32px 0; }
+            .featured-data .featured-card {
+                flex: 0 0 280px;
+                min-height: 340px;
+                padding: 20px;
+            }
+            .hero-geo {
+                min-height: 350px;
+                padding: 60px 16px;
+            }
+            .hero-btn {
+                padding: 12px 24px;
+                font-size: 0.9rem;
+            }
+            .cartotheque-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .carto-card {
+                border-radius: 16px;
+            }
+            .carto-card-image {
+                height: 200px;
+            }
+            .modal-content {
+                max-width: 98vw;
+                max-height: 95vh;
+            }
+            .modal-header h3 {
+                font-size: 1rem;
+            }
+            .iframe-card {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <main id="main-content">
+        <!-- HERO -->
+        <section class="hero-geo">
+            <div class="hero-geo-content">
+                <h1>Géoportail Territorial de Jacqueville</h1>
+                <p class="hero-geo-subtitle">
+                    Plateforme géospatiale de référence dédiée à la visualisation,
+                    l'analyse territoriale et à l'aide à la décision pour le
+                    développement durable de la commune de Jacqueville.
+                </p>
+                <div class="hero-geo-actions">
+                    <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/pages/cartographie-thematique" class="hero-btn hero-btn-primary">
+                        Explorer les données
+                    </a>
+                    <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/439f736688bb4e8caaf5240fa48b736c/explore" class="hero-btn hero-btn-secondary">
+                        Visualisation croisée
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTRODUCTION -->
+        <div class="intro-text-wrapper">
+            <div class="intro-text">
+                <strong>Le Géoportail de Jacqueville</strong> est une plateforme cartographique interactive pour visualiser, analyser et valoriser les données géographiques et territoriales. Il constitue un outil d'aide à la décision stratégique pour les acteurs de l'aménagement du territoire, les agences foncières, cadastrales, infrastructurelles, sociales et environnementales. Grâce à une interface conviviale, il permet aussi un accès facile aux informations localisées diversifiées en provenance des acteurs opérationnels comme de la recherche universitaire locale. Il a pour ambition de servir à faire émerger une gestion plus efficace, durable et inclusive du territoire.
+            </div>
+        </div>
+
+        <!-- FONCTIONNALITÉS -->
+        <div class="jacqueville-home">
+            <section class="usages">
+                <div class="container">
+                    <h2>Fonctionnalités clés</h2>
+                    <div class="usage-grid">
+                        <div class="usage-card">
+                            <h3>Visualisation</h3>
+                            <p>Exploration interactive des dynamiques territoriales de Jacqueville à travers des cartes thématiques actualisées.</p>
+                        </div>
+                        <div class="usage-card">
+                            <h3>Analyse croisée</h3>
+                            <p>Croisement des données urbaines, environnementales et socio-économiques pour comprendre les enjeux locaux.</p>
+                        </div>
+                        <div class="usage-card">
+                            <h3>Aide à la décision</h3>
+                            <p>Outil d'appui à la planification urbaine, à la gestion des risques et au développement durable communal.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- MOUVEMENT BAR -->
+        <div class="movement-bar">
+            <div class="movement-content">
+                <span class="movement-title">Jacqueville en mouvement</span>
+                <span class="movement-sub">2017 — 2025</span>
+            </div>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="description-wrapper">
+            <div class="description-text">
+                Découvrez l'évolution du territoire de Jacqueville entre 2017 et 2025 à travers cette carte spatio-temporelle.
+                Elle met en évidence la croissance urbaine et les dynamiques de transformation de l'occupation du sol sur l'ensemble de la période.
+                Explorez les données géospatiales descriptives des dynamiques et des ressources territoriales.<br><br>
+                <strong>Faites glisser le curseur d'Ouest vers l'Est, et inversement, pour comparer l'occupation du sol d'une date à l'autre.</strong>
+            </div>
+        </div>
+
+        <!-- IFRAME -->
+        <div class="iframe-container">
+            <div class="iframe-card">
+                <iframe src="https://experience.arcgis.com/experience/36298f4ddf034bffa5bf1ba40ca7080d" allowfullscreen loading="lazy" title="Carte comparative occupation du sol"></iframe>
+            </div>
+        </div>
+
+        <!-- DONNÉES À LA UNE -->
+        <div class="featured-data">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Données <span>à la une</span></h2>
+                    <p class="section-subtitle">Explorez les jeux de données géospatiales pour comprendre et agir sur le territoire de Jacqueville</p>
+                </div>
+                <div class="featured-carousel">
+                    <div class="featured-card"><div class="card-header"><div class="card-icon"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6'><path d='M12 22V12M12 12C12 7 7 3 2 3s2 9 10 9M12 12c0-5 5-9 10-9s-2 9-10 9'/></svg></div><div><h3 class="card-title">Zones agricoles</h3><span class="card-badge">Production & Écosystèmes</span></div></div><div class="card-content"><p>Cartographie des interactions entre les dynamiques agricoles et l'occupation du sol.</p></div><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/9c67dca6bf2e4556acf829925dec9ca5/explore" class="card-action"><svg viewBox='0 0 24 24'><path d='M5 12h14M12 5l7 7-7 7'/></svg>Accéder à la carte</a></div>
+                    <div class="featured-card"><div class="card-header"><div class="card-icon"><svg viewBox='0 0 24 24'><path d='M12 2L6 12a6 6 0 1 0 12 0z'/><path d='M12 10v4M12 17h.01'/></svg></div><div><h3 class="card-title">Zones à contraintes hydrologiques</h3><span class="card-badge">Risque environnemental</span></div></div><div class="card-content"><p>Analyse des zones exposées aux inondations.</p></div><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/e95864052c49486b8d805babad1135c1/explore" class="card-action"><svg viewBox='0 0 24 24'><path d='M5 12h14M12 5l7 7-7 7'/></svg>Accéder à la carte</a></div>
+                    <div class="featured-card"><div class="card-header"><div class="card-icon"><svg viewBox='0 0 24 24'><path d='M2 12h20M12 2v20M5 5l14 14M19 5L5 19'/></svg></div><div><h3 class="card-title">Analyse territoriale intégrée</h3><span class="card-badge">Superposition de données</span></div></div><div class="card-content"><p>Superposition de l'ensemble des données stratégiques.</p></div><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/439f736688bb4e8caaf5240fa48b736c/explore" class="card-action"><svg viewBox='0 0 24 24'><path d='M5 12h14M12 5l7 7-7 7'/></svg>Accéder à l'analyse</a></div>
+                    <div class="featured-card"><div class="card-header"><div class="card-icon"><svg viewBox='0 0 24 24'><rect x='2' y='2' width='8' height='8' rx='1'/><rect x='14' y='14' width='8' height='8' rx='1'/><path d='M6 10v2a2 2 0 0 0 2 2h2M18 14V12a2 2 0 0 0-2-2h-2M6 6l12 12'/></svg></div><div><h3 class="card-title">Occupation du sol</h3><span class="card-badge">Dynamique territoriale</span></div></div><div class="card-content"><p>Suivi de l'évolution de l'occupation du sol (2017-2025).</p></div><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/6fc97807bfba4a8082eeb779e2557431/explore" class="card-action"><svg viewBox='0 0 24 24'><path d='M5 12h14M12 5l7 7-7 7'/></svg>Explorer la carte</a></div>
+                    <div class="featured-card"><div class="card-header"><div class="card-icon"><svg viewBox='0 0 24 24'><circle cx='12' cy='12' r='3'/><path d='M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1'/></svg></div><div><h3 class="card-title">Séquestration du carbone</h3><span class="card-badge">Environnement & Climat</span></div></div><div class="card-content"><p>Estimation du stock de carbone par données satellitaires.</p></div><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/0d018cb7828e4517ae3e7fd8f910eb7b/explore" class="card-action"><svg viewBox='0 0 24 24'><path d='M5 12h14M12 5l7 7-7 7'/></svg>Voir la carte</a></div>
+                    <div class="featured-card"><div class="card-header"><div class="card-icon"><svg viewBox='0 0 24 24'><polygon points='3 22 8 12 16 12 21 22'/><circle cx='12' cy='8' r='5'/></svg></div><div><h3 class="card-title">Indicateurs environnementaux</h3><span class="card-badge">NDVI, NDWI, NDBI</span></div></div><div class="card-content"><p>Visualisation des indices NDVI, NDWI et NDBI.</p></div><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/1573c9c5e8e246118066a02abfbe4b5b/explore" class="card-action"><svg viewBox='0 0 24 24'><path d='M5 12h14M12 5l7 7-7 7'/></svg>Afficher les indices</a></div>
+                    <div class="featured-card"><div class="card-header"><div class="card-icon"><svg viewBox='0 0 24 24'><rect x='2' y='3' width='20' height='14' rx='2'/><line x1='8' y1='21' x2='16' y2='21'/><line x1='12' y1='17' x2='12' y2='21'/></svg></div><div><h3 class="card-title">Réseau routier & accessibilité</h3><span class="card-badge">Infrastructures</span></div></div><div class="card-content"><p>Cartographie du réseau routier et accessibilité.</p></div><a href="#" class="card-action"><svg viewBox='0 0 24 24'><path d='M5 12h14M12 5l7 7-7 7'/></svg>Voir le réseau</a></div>
+                </div>
+                <div class="scroll-hint"><svg viewBox='0 0 24 24'><path d='M12 5v14M5 12h14'/></svg><span>Faites défiler horizontalement pour voir plus de données</span></div>
+            </div>
+        </div>
+
+        <!-- CARTOTHÈQUE AVEC MODALE -->
+        <section class="cartotheque-section">
+            <div class="cartotheque-header">
+                <h2>Cartothèques du <span>territoire</span></h2>
+                <p>Découvrez l'ensemble des cartes thématiques disponibles. Cliquez sur une carte pour l'agrandir.</p>
+                <div class="divider"></div>
+            </div>
+            <div class="cartotheque-grid" id="cartothequeGrid">
+                <!-- Généré par JavaScript -->
+            </div>
+            <div class="cartotheque-cta">
+                <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/pages/cartotheque">Voir toutes les cartes <span>→</span></a>
+            </div>
+        </section>
+
+        <!-- MODALE -->
+        <div class="modal-overlay" id="mapModal" aria-hidden="true">
+            <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Carte</h3>
+                    <button class="modal-close" id="modalClose" aria-label="Fermer">&times;</button>
+                </div>
+                <div class="modal-image-wrapper">
+                    <img src="" alt="" id="modalImage" loading="lazy">
+                </div>
+                <div class="modal-footer">
+                    <a href="#" id="modalDownloadLink" target="_blank" rel="noopener">Télécharger l'image originale ↗</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+	(function() {
+		const cartes = [
+			{ titre: 'Relief et plan d\'eau', description: 'Cartographie des reliefs et plan d\'eau à Jacqueville.', badge: 'TOPOGRAPHIE', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Carte%20de%20relief%20de%20Jacqueville.png?raw=true', date: '2026' },
+			{ titre: 'Occupation du sol', description: 'Classe d\'occupation du sol 2023.', badge: 'ENVIRONNEMENT', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Occupation%20du%20sol%20Jacqueville.jpg?raw=true', date: '2023' },
+			{ titre: 'Zones agricoles', description: 'Cartographie des zones agricoles.', badge: 'AGRICULTURE', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Agriculture.png?raw=true', date: '2024' },
+			{ titre: 'Indice NDVI', description: 'Analyse spatiale de la couverture végétale.', badge: 'ENVIRONNEMENT', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/NDVI%20Jacqueville.png?raw=true', date: '2025' },
+			{ titre: 'Carte de la ville de Jacqueville', description: 'Représentation cartographique complète.', badge: 'URBANISME', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Carte%20de%20Jacqueville.jpg?raw=true', date: '2025' },
+			{ titre: 'Indice NDRE', description: 'Cartographie de l\'Indice NDRE.', badge: 'ENVIRONNEMENT', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/NDRE%20Jacqueville.png?raw=true', date: '2026' }
+		];
+
+		const grid = document.getElementById('cartothequeGrid');
+		const modal = document.getElementById('mapModal');
+		const modalImage = document.getElementById('modalImage');
+		const modalTitle = document.getElementById('modalTitle');
+		const modalDownloadLink = document.getElementById('modalDownloadLink');
+		const modalClose = document.getElementById('modalClose');
+
+		const imageCache = new Map();
+
+		function preloadImage(url) {
+			if (imageCache.has(url)) return Promise.resolve(imageCache.get(url));
+			return new Promise((resolve) => {
+				const img = new Image();
+				img.onload = () => { 
+					imageCache.set(url, img); 
+					resolve(img); 
+				};
+				img.onerror = () => resolve(null);
+				img.src = url;
+			});
+		}
+
+		const fragment = document.createDocumentFragment();
+
+		cartes.forEach((carte) => {
+			const card = document.createElement('div');
+			card.className = 'carto-card';
+			card.setAttribute('role', 'button');
+			card.setAttribute('tabindex', '0');
+			card.setAttribute('aria-label', 'Agrandir : ' + carte.titre);
+
+			card.innerHTML = `
+				<div class="carto-card-image" data-src="${carte.image}">
+					<span class="carto-card-badge">${carte.badge}</span>
+				</div>
+				<div class="carto-card-body">
+					<h3 style="margin:0 0 8px;font-size:18px;font-weight:600;color:#1A2C3E;">${carte.titre}</h3>
+					<p style="color:#64748B;font-size:13px;line-height:1.5;margin:0 0 16px;flex:1;">${carte.description}</p>
+					<div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#94A3B8;">
+						<span>Mise à jour : ${carte.date}</span>
+						<span style="color:#70C7FD;font-weight:500;">Voir la carte →</span>
+					</div>
+				</div>
+			`;
+
+			// Charger l'image de fond quand elle est prête
+			const imageDiv = card.querySelector('.carto-card-image');
+			
+			// Utiliser un placeholder temporaire
+			imageDiv.style.backgroundColor = '#e2e8f0';
+			
+			// Charger l'image en arrière-plan
+			const tempImg = new Image();
+			tempImg.onload = function() {
+				imageDiv.style.backgroundImage = `url('${carte.image}')`;
+				imageDiv.style.backgroundColor = 'transparent';
+				// Supprimer l'effet shimmer une fois chargé
+				imageDiv.style.setProperty('--shimmer-display', 'none');
+			};
+			tempImg.onerror = function() {
+				// Garder la couleur de fond en cas d'erreur
+				console.warn('Image non chargée :', carte.image);
+			};
+			tempImg.src = carte.image;
+
+			card.addEventListener('click', () => {
+				preloadImage(carte.image).then(() => {
+					modalImage.src = carte.image;
+					modalImage.alt = carte.titre;
+					modalTitle.textContent = carte.titre;
+					modalDownloadLink.href = carte.image;
+					modal.offsetHeight;
+					modal.classList.add('active');
+					modal.setAttribute('aria-hidden', 'false');
+					document.body.style.overflow = 'hidden';
+					modalImage.classList.remove('loaded');
+					requestAnimationFrame(() => {
+						modalImage.classList.add('loaded');
+					});
+					modalClose.focus();
+				});
+			});
+
+			card.addEventListener('keydown', (e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					card.click();
+				}
+			});
+
+			fragment.appendChild(card);
+		});
+
+		grid.appendChild(fragment);
+
+		// Préchargement en arrière-plan
+		if ('requestIdleCallback' in window) {
+			requestIdleCallback(() => {
+				cartes.forEach(carte => preloadImage(carte.image));
+			});
+		} else {
+			setTimeout(() => {
+				cartes.forEach(carte => preloadImage(carte.image));
+			}, 1000);
+		}
+
+		function closeModal() {
+			modal.classList.remove('active');
+			modal.setAttribute('aria-hidden', 'true');
+			document.body.style.overflow = '';
+			setTimeout(() => {
+				if (!modal.classList.contains('active')) {
+					modalImage.src = '';
+					modalImage.classList.remove('loaded');
+				}
+			}, 200);
+		}
+
+		modalClose.addEventListener('click', closeModal);
+		modal.addEventListener('click', (e) => {
+			if (e.target === modal) closeModal();
+		});
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && modal.classList.contains('active')) {
+				closeModal();
+			}
+		});
+	})();
+	</script>
+</body>
+</html>
