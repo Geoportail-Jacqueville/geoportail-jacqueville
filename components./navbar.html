@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Navbar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+</head>
+<body style="margin:0; padding-top:64px; height:200vh; background:#f5f7fa;">
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<nav class="gp-nav" role="navigation" aria-label="Navigation principale">
+  <div class="gp-nav-inner">
+    <a href="#" class="gp-nav-logo" aria-label="Accueil">
+      <img src="https://github.com/Geoportail-Jacqueville/open-data/blob/main/Logo/Logo%20Geoportail.jpg?raw=true" alt="Logo" loading="lazy">
+    </a>
+    <ul class="gp-nav-links" role="list">
+      <li><a href="#" data-page="accueil" class="active">Accueil</a></li>
+      <li><a href="#" data-page="cartes">Cartes thématiques</a></li>
+      <li><a href="#" data-page="visualisation">Visualisation croisée</a></li>
+      <li><a href="#" data-page="alertes">Alerte & Risques</a></li>
+      <li><a href="#" data-page="donnees">Données</a></li>
+      <li><a href="#" data-page="observatoire">Observatoire</a></li>
+      <li><a href="#" data-page="patrimoine">Patrimoine</a></li>
+    </ul>
+    <button class="gp-nav-burger" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="gp-nav-mobile" aria-hidden="true">
+    <ul role="list">
+      <li><a href="#" data-page="accueil">Accueil</a></li>
+      <li><a href="#" data-page="cartes">Cartes thématiques</a></li>
+      <li><a href="#" data-page="visualisation">Visualisation croisée</a></li>
+      <li><a href="#" data-page="alertes">Alerte & Risques</a></li>
+      <li><a href="#" data-page="donnees">Données</a></li>
+      <li><a href="#" data-page="observatoire">Observatoire</a></li>
+      <li><a href="#" data-page="patrimoine">Patrimoine</a></li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+.gp-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: #70C7FD;
+  box-shadow: 0 2px 12px rgba(26,44,62,0.15);
+  font-family: 'Inter', sans-serif;
+}
+.gp-nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.gp-nav-logo { display:flex; align-items:center; flex-shrink:0; text-decoration:none; }
+.gp-nav-logo img { height:44px; width:auto; object-fit:contain; border-radius:6px; }
+.gp-nav-links { display:flex; align-items:center; gap:2px; list-style:none; margin:0; flex-wrap:nowrap; }
+.gp-nav-links > li > a {
+  display:inline-flex; align-items:center; padding:8px 14px; border-radius:8px;
+  font-size:15px; font-weight:500; color:#ffffff; text-decoration:none;
+  transition:background 0.18s; white-space:nowrap; cursor:pointer;
+  background:transparent; font-family:'Inter',sans-serif; position:relative;
+}
+.gp-nav-links > li > a:hover { background:rgba(255,255,255,0.2); }
+.gp-nav-links > li > a.active { font-weight:600; }
+.gp-nav-links > li > a.active::after {
+  content:''; position:absolute; bottom:4px; left:14px; right:14px;
+  height:2px; background:#ffffff; border-radius:2px;
+}
+.gp-nav-burger {
+  display:none; flex-direction:column; justify-content:center; gap:5px;
+  background:none; border:none; cursor:pointer; padding:8px; z-index:1010;
+  -webkit-tap-highlight-color:transparent;
+}
+.gp-nav-burger span {
+  display:block; width:26px; height:3px; background:#ffffff;
+  border-radius:3px; transition:all 0.3s ease; pointer-events:none;
+}
+.gp-nav-burger.open span:nth-child(1) { transform:translateY(8px) rotate(45deg); }
+.gp-nav-burger.open span:nth-child(2) { opacity:0; }
+.gp-nav-burger.open span:nth-child(3) { transform:translateY(-8px) rotate(-45deg); }
+.gp-nav-mobile {
+  display:none; background:#70C7FD; border-top:1px solid rgba(255,255,255,0.3);
+  padding:12px 16px 20px; max-height:calc(100vh - 64px); overflow-y:auto;
+}
+.gp-nav-mobile.open { display:block; }
+.gp-nav-mobile ul { list-style:none; padding:0; margin:0; }
+.gp-nav-mobile li a {
+  display:block; padding:12px 16px; font-size:15px; font-weight:500;
+  color:#ffffff; text-decoration:none; border-radius:8px; transition:background 0.15s;
+}
+.gp-nav-mobile li a:hover { background:rgba(255,255,255,0.2); }
+.gp-nav-mobile li a.active { font-weight:600; background:rgba(255,255,255,0.15); }
+
+@media (max-width: 1100px) {
+  .gp-nav-links > li > a { padding:7px 10px; font-size:15px; }
+  .gp-nav-inner { gap:16px; }
+}
+@media (max-width: 900px) {
+  .gp-nav-links { display:none; }
+  .gp-nav-burger { display:flex; }
+  .gp-nav-inner { gap:12px; }
+}
+</style>
+
+<script>
+(function() {
+  var burger = document.querySelector('.gp-nav-burger');
+  var mobileMenu = document.querySelector('.gp-nav-mobile');
+
+  if (burger && mobileMenu) {
+    burger.onclick = function() {
+      var isOpen = burger.classList.toggle('open');
+      mobileMenu.classList.toggle('open', isOpen);
+      burger.setAttribute('aria-expanded', isOpen);
+      mobileMenu.setAttribute('aria-hidden', !isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    };
+
+    var links = mobileMenu.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+      links[i].onclick = function() {
+        burger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      };
+    }
+  }
+})();
+</script>
+</body>
+</html>
