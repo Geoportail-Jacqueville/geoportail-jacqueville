@@ -1,6 +1,7 @@
 /**
  * Géoportail de Jacqueville – Chargement navbar + footer (GitHub Pages)
  * Essaye fetch, puis fallback intégré si échec.
+ * Version corrigée – toutes les pages sont à la racine.
  */
 (function () {
   'use strict';
@@ -12,7 +13,7 @@
     return match ? match[1] : '/';
   })();
 
-  // ----- HTML de secours (intégré) -----
+  // ----- HTML de secours (intégré) – LIENS CORRIGÉS -----
   const fallbackNavbar = `
 <nav class="gp-nav" role="navigation" aria-label="Navigation principale">
   <div class="gp-nav-inner">
@@ -21,13 +22,13 @@
     </a>
     <ul class="gp-nav-links">
       <li><a href="index.html" data-page="accueil">Accueil</a></li>
-      <li><a href="pages/cartes.html" data-page="cartes">Cartes thématiques</a></li>
-      <li><a href="pages/visualisation.html" data-page="visualisation">Visualisation croisée</a></li>
-      <li><a href="pages/alertes.html" data-page="alertes">Alerte & Risques</a></li>
-      <li><a href="pages/donnees.html" data-page="donnees">Données</a></li>
-      <li><a href="pages/observatoire.html" data-page="observatoire">Observatoire</a></li>
-      <li><a href="pages/patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
-      <li><a href="pages/contact.html" data-page="contact">Contact</a></li>
+      <li><a href="cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
+      <li><a href="visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
+      <li><a href="alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
+      <li><a href="donnees.html" data-page="donnees">Données</a></li>
+      <li><a href="observatoire.html" data-page="observatoire">Observatoire</a></li>
+      <li><a href="patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
+      <li><a href="contact.html" data-page="contact">Contact</a></li>
     </ul>
     <button class="gp-nav-burger" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -36,13 +37,13 @@
   <div class="gp-nav-mobile" aria-hidden="true">
     <ul>
       <li><a href="index.html" data-page="accueil">Accueil</a></li>
-      <li><a href="pages/cartes.html" data-page="cartes">Cartes thématiques</a></li>
-      <li><a href="pages/visualisation.html" data-page="visualisation">Visualisation croisée</a></li>
-      <li><a href="pages/alertes.html" data-page="alertes">Alerte & Risques</a></li>
-      <li><a href="pages/donnees.html" data-page="donnees">Données</a></li>
-      <li><a href="pages/observatoire.html" data-page="observatoire">Observatoire</a></li>
-      <li><a href="pages/patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
-      <li><a href="pages/contact.html" data-page="contact">Contact</a></li>
+      <li><a href="cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
+      <li><a href="visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
+      <li><a href="alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
+      <li><a href="donnees.html" data-page="donnees">Données</a></li>
+      <li><a href="observatoire.html" data-page="observatoire">Observatoire</a></li>
+      <li><a href="patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
+      <li><a href="contact.html" data-page="contact">Contact</a></li>
     </ul>
   </div>
 </nav>
@@ -101,7 +102,7 @@
           <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/pages/actualite">Actualité</a></li>
           <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/pages/sources-et-methodologie">Méthodologie & sources</a></li>
           <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/pages/confidentialite">Politique de confidentialité</a></li>
-          <li><a href="pages/contact.html">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
