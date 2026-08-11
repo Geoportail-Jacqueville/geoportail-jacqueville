@@ -1,19 +1,22 @@
 /**
- * Géoportail de Jacqueville – Chargement navbar + footer (GitHub Pages)
- * Essaye fetch, puis fallback intégré si échec.
- * Version corrigée – toutes les pages sont à la racine.
+ * Géoportail de Jacqueville – Chargement navbar + footer (toutes les pages à la racine)
+ * Avec logs de débogage et fallback intégré.
  */
 (function () {
   'use strict';
 
-  // ----- Détection du chemin de base (racine du dépôt) -----
-  const basePath = (() => {
-    const path = window.location.pathname;
-    const match = path.match(/^(\/(?:[^/]+\/)*)/);
-    return match ? match[1] : '/';
-  })();
+  console.log('🟢 main.js démarré');
 
-  // ----- HTML de secours (intégré) – LIENS CORRIGÉS -----
+  // ----- 1. Placeholders requis -----
+  const navbarPlaceholder = document.getElementById('navbar-placeholder');
+  const footerPlaceholder = document.getElementById('footer-placeholder');
+
+  if (!navbarPlaceholder || !footerPlaceholder) {
+    console.error('❌ Placeholder(s) manquant(s) : #navbar-placeholder ou #footer-placeholder introuvable');
+    return;
+  }
+
+  // ----- 2. Fallbacks intégrés (chemins corrigés) -----
   const fallbackNavbar = `
 <nav class="gp-nav" role="navigation" aria-label="Navigation principale">
   <div class="gp-nav-inner">
@@ -148,27 +151,30 @@
 @media(max-width:768px){.footer-container{padding:32px 20px 24px;}.footer-grid{flex-direction:column;gap:28px;}.footer-col{text-align:center;}.footer-col p{justify-content:center;}.footer-col a:hover{transform:none;}.gp-back-to-top{bottom:20px;right:20px;width:40px;height:40px;}}
 </style>`;
 
-  // ----- Fonction pour injecter du HTML -----
+  // ----- 3. Fonctions d'injection et de chargement -----
   function injectHTML(placeholderId, html) {
     const el = document.getElementById(placeholderId);
-    if (el) el.innerHTML = html;
+    if (el) {
+      el.innerHTML = html;
+      console.log('✅ ' + placeholderId + ' injecté');
+    } else {
+      console.error('❌ Impossible d’injecter ' + placeholderId + ' (élément manquant)');
+    }
   }
 
-  // ----- Chargement avec fetch + fallback -----
-  function loadComponent(url, placeholderId, fallbackHtml) {
-    return fetch(url)
-      .then(response => {
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        return response.text();
-      })
-      .then(html => injectHTML(placeholderId, html))
-      .catch(err => {
-        console.warn('Fallback pour ' + placeholderId + ' (' + err.message + ')');
-        injectHTML(placeholderId, fallbackHtml);
-      });
+  async function loadComponent(url, placeholderId, fallbackHtml) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const html = await response.text();
+      injectHTML(placeholderId, html);
+    } catch (err) {
+      console.warn('⚠️ Fallback pour ' + placeholderId + ' (' + err.message + ')');
+      injectHTML(placeholderId, fallbackHtml);
+    }
   }
 
-  // ----- Initialisation après injection -----
+  // ----- 4. Activation de la navbar et du footer -----
   function initNavbar() {
     const burger = document.querySelector('.gp-nav-burger');
     const mobileMenu = document.querySelector('.gp-nav-mobile');
@@ -189,14 +195,22 @@
           document.body.style.overflow = '';
         });
       });
+      console.log('🍔 Burger initialisé');
+    } else {
+      console.warn('🍔 Burger ou menu mobile introuvable');
     }
 
     // Lien actif
     const path = window.location.pathname;
     let current = path.split('/').pop().replace('.html', '');
     if (!current || current === 'index') current = 'accueil';
+    console.log('📌 Page active détectée : ' + current);
     document.querySelectorAll('[data-page]').forEach(link => {
-      if (link.dataset.page === current) link.classList.add('active');
+      if (link.dataset.page === current) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active'); // au cas où
+      }
     });
   }
 
@@ -216,15 +230,21 @@
     }
   }
 
-  // ----- Exécution -----
+  // ----- 5. Exécution -----
+  const basePath = (window.location.pathname.endsWith('/') || window.location.pathname.endsWith('index.html')) ? '' : '';
   const navbarURL = basePath + 'components/navbar.html';
   const footerURL = basePath + 'components/footer.html';
+
+  console.log('📡 Chargement navbar depuis : ' + navbarURL);
+  console.log('📡 Chargement footer depuis : ' + footerURL);
 
   Promise.all([
     loadComponent(navbarURL, 'navbar-placeholder', fallbackNavbar),
     loadComponent(footerURL, 'footer-placeholder', fallbackFooter)
   ]).then(() => {
-    setTimeout(initNavbar, 10);
-    setTimeout(initFooter, 10);
+    console.log('🔧 Initialisation des scripts...');
+    setTimeout(initNavbar, 20);
+    setTimeout(initFooter, 20);
   });
+
 })();
