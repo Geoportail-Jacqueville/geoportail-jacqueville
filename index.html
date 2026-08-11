@@ -44,6 +44,11 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
+        /* Compensation de la navbar fixe */
+        body {
+            padding-top: 64px;
+        }
+
         /* ========== SKIP LINK ========== */
         .skip-link {
             position: absolute;
@@ -518,30 +523,29 @@
         }
         .carto-card-image {
             height: 180px;
-			background-size: cover;
-			background-position: center;
-			position: relative;
-			flex-shrink: 0;
-			background-color: #e2e8f0;
-			transform: translateZ(0);
-			will-change: transform;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            flex-shrink: 0;
+            background-color: #e2e8f0;
+            transform: translateZ(0);
+            will-change: transform;
         }
         .carto-card-image::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-			background-size: 200% 100%;
-			animation: shimmer 1.5s infinite;
-			z-index: 0;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            z-index: 0;
         }
-		/* Masquer le shimmer une fois l'image chargée */
-		.carto-card-image[style*="background-image"]::before {
-			display: none;
-		}
+        .carto-card-image[style*="background-image"]::before {
+            display: none;
+        }
         @keyframes shimmer {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
@@ -759,6 +763,11 @@
     </style>
 </head>
 <body>
+    <!-- ============================================ -->
+    <!-- PLACEHOLDER NAVBAR                           -->
+    <!-- ============================================ -->
+    <div id="navbar-placeholder"></div>
+
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
     <main id="main-content">
@@ -889,145 +898,148 @@
         </div>
     </main>
 
+    <!-- ============================================ -->
+    <!-- PLACEHOLDER FOOTER                           -->
+    <!-- ============================================ -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Script spécifique à la page (cartothèque) -->
     <script>
-	(function() {
-		const cartes = [
-			{ titre: 'Relief et plan d\'eau', description: 'Cartographie des reliefs et plan d\'eau à Jacqueville.', badge: 'TOPOGRAPHIE', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Carte%20de%20relief%20de%20Jacqueville.png?raw=true', date: '2026' },
-			{ titre: 'Occupation du sol', description: 'Classe d\'occupation du sol 2023.', badge: 'ENVIRONNEMENT', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Occupation%20du%20sol%20Jacqueville.jpg?raw=true', date: '2023' },
-			{ titre: 'Zones agricoles', description: 'Cartographie des zones agricoles.', badge: 'AGRICULTURE', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Agriculture.png?raw=true', date: '2024' },
-			{ titre: 'Indice NDVI', description: 'Analyse spatiale de la couverture végétale.', badge: 'ENVIRONNEMENT', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/NDVI%20Jacqueville.png?raw=true', date: '2025' },
-			{ titre: 'Carte de la ville de Jacqueville', description: 'Représentation cartographique complète.', badge: 'URBANISME', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Carte%20de%20Jacqueville.jpg?raw=true', date: '2025' },
-			{ titre: 'Indice NDRE', description: 'Cartographie de l\'Indice NDRE.', badge: 'ENVIRONNEMENT', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/NDRE%20Jacqueville.png?raw=true', date: '2026' }
-		];
+        (function() {
+            const cartes = [
+                { titre: 'Relief et plan d\'eau', description: 'Cartographie des reliefs et plan d\'eau à Jacqueville.', badge: 'TOPOGRAPHIE', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Carte%20de%20relief%20de%20Jacqueville.png?raw=true', date: '2026' },
+                { titre: 'Occupation du sol', description: 'Classe d\'occupation du sol 2023.', badge: 'ENVIRONNEMENT', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Occupation%20du%20sol%20Jacqueville.jpg?raw=true', date: '2023' },
+                { titre: 'Zones agricoles', description: 'Cartographie des zones agricoles.', badge: 'AGRICULTURE', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Agriculture.png?raw=true', date: '2024' },
+                { titre: 'Indice NDVI', description: 'Analyse spatiale de la couverture végétale.', badge: 'ENVIRONNEMENT', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/NDVI%20Jacqueville.png?raw=true', date: '2025' },
+                { titre: 'Carte de la ville de Jacqueville', description: 'Représentation cartographique complète.', badge: 'URBANISME', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Carte%20de%20Jacqueville.jpg?raw=true', date: '2025' },
+                { titre: 'Indice NDRE', description: 'Cartographie de l\'Indice NDRE.', badge: 'ENVIRONNEMENT', image: 'https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/NDRE%20Jacqueville.png?raw=true', date: '2026' }
+            ];
 
-		const grid = document.getElementById('cartothequeGrid');
-		const modal = document.getElementById('mapModal');
-		const modalImage = document.getElementById('modalImage');
-		const modalTitle = document.getElementById('modalTitle');
-		const modalDownloadLink = document.getElementById('modalDownloadLink');
-		const modalClose = document.getElementById('modalClose');
+            const grid = document.getElementById('cartothequeGrid');
+            const modal = document.getElementById('mapModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDownloadLink = document.getElementById('modalDownloadLink');
+            const modalClose = document.getElementById('modalClose');
 
-		const imageCache = new Map();
+            const imageCache = new Map();
 
-		function preloadImage(url) {
-			if (imageCache.has(url)) return Promise.resolve(imageCache.get(url));
-			return new Promise((resolve) => {
-				const img = new Image();
-				img.onload = () => { 
-					imageCache.set(url, img); 
-					resolve(img); 
-				};
-				img.onerror = () => resolve(null);
-				img.src = url;
-			});
-		}
+            function preloadImage(url) {
+                if (imageCache.has(url)) return Promise.resolve(imageCache.get(url));
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = () => { 
+                        imageCache.set(url, img); 
+                        resolve(img); 
+                    };
+                    img.onerror = () => resolve(null);
+                    img.src = url;
+                });
+            }
 
-		const fragment = document.createDocumentFragment();
+            const fragment = document.createDocumentFragment();
 
-		cartes.forEach((carte) => {
-			const card = document.createElement('div');
-			card.className = 'carto-card';
-			card.setAttribute('role', 'button');
-			card.setAttribute('tabindex', '0');
-			card.setAttribute('aria-label', 'Agrandir : ' + carte.titre);
+            cartes.forEach((carte) => {
+                const card = document.createElement('div');
+                card.className = 'carto-card';
+                card.setAttribute('role', 'button');
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('aria-label', 'Agrandir : ' + carte.titre);
 
-			card.innerHTML = `
-				<div class="carto-card-image" data-src="${carte.image}">
-					<span class="carto-card-badge">${carte.badge}</span>
-				</div>
-				<div class="carto-card-body">
-					<h3 style="margin:0 0 8px;font-size:18px;font-weight:600;color:#1A2C3E;">${carte.titre}</h3>
-					<p style="color:#64748B;font-size:13px;line-height:1.5;margin:0 0 16px;flex:1;">${carte.description}</p>
-					<div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#94A3B8;">
-						<span>Mise à jour : ${carte.date}</span>
-						<span style="color:#70C7FD;font-weight:500;">Voir la carte →</span>
-					</div>
-				</div>
-			`;
+                card.innerHTML = `
+                    <div class="carto-card-image" data-src="${carte.image}">
+                        <span class="carto-card-badge">${carte.badge}</span>
+                    </div>
+                    <div class="carto-card-body">
+                        <h3 style="margin:0 0 8px;font-size:18px;font-weight:600;color:#1A2C3E;">${carte.titre}</h3>
+                        <p style="color:#64748B;font-size:13px;line-height:1.5;margin:0 0 16px;flex:1;">${carte.description}</p>
+                        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#94A3B8;">
+                            <span>Mise à jour : ${carte.date}</span>
+                            <span style="color:#70C7FD;font-weight:500;">Voir la carte →</span>
+                        </div>
+                    </div>
+                `;
 
-			// Charger l'image de fond quand elle est prête
-			const imageDiv = card.querySelector('.carto-card-image');
-			
-			// Utiliser un placeholder temporaire
-			imageDiv.style.backgroundColor = '#e2e8f0';
-			
-			// Charger l'image en arrière-plan
-			const tempImg = new Image();
-			tempImg.onload = function() {
-				imageDiv.style.backgroundImage = `url('${carte.image}')`;
-				imageDiv.style.backgroundColor = 'transparent';
-				// Supprimer l'effet shimmer une fois chargé
-				imageDiv.style.setProperty('--shimmer-display', 'none');
-			};
-			tempImg.onerror = function() {
-				// Garder la couleur de fond en cas d'erreur
-				console.warn('Image non chargée :', carte.image);
-			};
-			tempImg.src = carte.image;
+                const imageDiv = card.querySelector('.carto-card-image');
+                imageDiv.style.backgroundColor = '#e2e8f0';
+                
+                const tempImg = new Image();
+                tempImg.onload = function() {
+                    imageDiv.style.backgroundImage = `url('${carte.image}')`;
+                    imageDiv.style.backgroundColor = 'transparent';
+                };
+                tempImg.onerror = function() {
+                    console.warn('Image non chargée :', carte.image);
+                };
+                tempImg.src = carte.image;
 
-			card.addEventListener('click', () => {
-				preloadImage(carte.image).then(() => {
-					modalImage.src = carte.image;
-					modalImage.alt = carte.titre;
-					modalTitle.textContent = carte.titre;
-					modalDownloadLink.href = carte.image;
-					modal.offsetHeight;
-					modal.classList.add('active');
-					modal.setAttribute('aria-hidden', 'false');
-					document.body.style.overflow = 'hidden';
-					modalImage.classList.remove('loaded');
-					requestAnimationFrame(() => {
-						modalImage.classList.add('loaded');
-					});
-					modalClose.focus();
-				});
-			});
+                card.addEventListener('click', () => {
+                    preloadImage(carte.image).then(() => {
+                        modalImage.src = carte.image;
+                        modalImage.alt = carte.titre;
+                        modalTitle.textContent = carte.titre;
+                        modalDownloadLink.href = carte.image;
+                        modal.offsetHeight;
+                        modal.classList.add('active');
+                        modal.setAttribute('aria-hidden', 'false');
+                        document.body.style.overflow = 'hidden';
+                        modalImage.classList.remove('loaded');
+                        requestAnimationFrame(() => {
+                            modalImage.classList.add('loaded');
+                        });
+                        modalClose.focus();
+                    });
+                });
 
-			card.addEventListener('keydown', (e) => {
-				if (e.key === 'Enter' || e.key === ' ') {
-					e.preventDefault();
-					card.click();
-				}
-			});
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        card.click();
+                    }
+                });
 
-			fragment.appendChild(card);
-		});
+                fragment.appendChild(card);
+            });
 
-		grid.appendChild(fragment);
+            grid.appendChild(fragment);
 
-		// Préchargement en arrière-plan
-		if ('requestIdleCallback' in window) {
-			requestIdleCallback(() => {
-				cartes.forEach(carte => preloadImage(carte.image));
-			});
-		} else {
-			setTimeout(() => {
-				cartes.forEach(carte => preloadImage(carte.image));
-			}, 1000);
-		}
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => {
+                    cartes.forEach(carte => preloadImage(carte.image));
+                });
+            } else {
+                setTimeout(() => {
+                    cartes.forEach(carte => preloadImage(carte.image));
+                }, 1000);
+            }
 
-		function closeModal() {
-			modal.classList.remove('active');
-			modal.setAttribute('aria-hidden', 'true');
-			document.body.style.overflow = '';
-			setTimeout(() => {
-				if (!modal.classList.contains('active')) {
-					modalImage.src = '';
-					modalImage.classList.remove('loaded');
-				}
-			}, 200);
-		}
+            function closeModal() {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    if (!modal.classList.contains('active')) {
+                        modalImage.src = '';
+                        modalImage.classList.remove('loaded');
+                    }
+                }, 200);
+            }
 
-		modalClose.addEventListener('click', closeModal);
-		modal.addEventListener('click', (e) => {
-			if (e.target === modal) closeModal();
-		});
-		document.addEventListener('keydown', (e) => {
-			if (e.key === 'Escape' && modal.classList.contains('active')) {
-				closeModal();
-			}
-		});
-	})();
-	</script>
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+        })();
+    </script>
+
+    <!-- ============================================ -->
+    <!-- SCRIPT PRINCIPAL (charge navbar + footer)   -->
+    <!-- ============================================ -->
+    <script src="js/main.js"></script>
 </body>
 </html>
