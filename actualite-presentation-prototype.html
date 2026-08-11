@@ -1,169 +1,703 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Présentation du Prototype du Géoportail — Jacqueville</title>
-  <link rel="icon" type="image/jpeg" href="https://github.com/Geoportail-Jacqueville/open-data/blob/main/Logo/logo-favicon.jpeg?raw=true">
-  <link rel="stylesheet" href="../css/global.css">
-  <style>
-    .art-hero { max-width:1200px; margin:0 auto; padding:48px 24px 0; }
-    .art-hero h1 { font-size:32px; font-weight:700; line-height:1.3; letter-spacing:-0.02em; color:#1A2C3E; margin-bottom:12px; max-width:820px; }
-    .art-date { font-family:'Space Mono',monospace; font-size:13px; color:#70C7FD; margin-bottom:18px; }
-    .art-lead { font-size:16px; line-height:1.65; color:#4A627A; max-width:700px; margin-bottom:28px; }
-    .art-layout { display:grid; grid-template-columns:1fr 290px; gap:40px; max-width:1200px; margin:0 auto; padding:36px 24px 64px; }
-    .art-body p        { font-size:15px; line-height:1.75; color:#4A627A; margin-bottom:16px; }
-    .art-body strong   { color:#1A2C3E; font-weight:600; }
-    .art-sub-label     { font-family:'Space Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.12em; color:#70C7FD; margin:28px 0 5px; }
-    .art-sub-title     { font-size:19px; font-weight:700; color:#1A2C3E; margin-bottom:12px; }
-    .art-sub-title span { color:#70C7FD; }
-
-    /* objectifs */
-    .art-obj-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:11px; margin:16px 0 24px; }
-    .art-obj { background:#F8FAFC; border-radius:12px; padding:14px 16px; border-left:4px solid #70C7FD; font-size:13px; font-weight:500; color:#1A2C3E; line-height:1.5; transition:all 0.2s; }
-    .art-obj:hover { transform:translateX(3px); background:#FFFFFF; box-shadow:0 3px 10px rgba(0,0,0,0.05); }
-    .art-obj.full { grid-column:span 2; }
-
-    /* photos */
-    .art-photos { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin:20px 0; }
-    .art-photo  { border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
-    .art-photo img { width:100%; height:190px; object-fit:cover; display:block; transition:transform 0.3s; }
-    .art-photo img:hover { transform:scale(1.03); }
-    .art-photo-cap { font-size:10px; color:#64748B; text-align:center; padding:7px 10px; background:#FFFFFF; font-family:'Space Mono',monospace; border-top:1px solid rgba(112,199,253,0.15); }
-
-    /* team */
-    .art-team { display:grid; grid-template-columns:repeat(2,1fr); gap:11px; margin:16px 0 24px; }
-    .art-team-card { background:#FFFFFF; border:1px solid rgba(112,199,253,0.2); border-radius:11px; padding:13px; }
-    .art-team-card.full { grid-column:span 2; }
-    .art-team-card strong { display:block; font-size:13px; font-weight:700; color:#1A2C3E; margin-bottom:3px; }
-    .art-team-card span   { font-size:11px; color:#64748B; }
-
-    .art-back { display:inline-flex; align-items:center; gap:8px; border:2px solid #70C7FD; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; font-size:13px; color:#1A2C3E; transition:all 0.3s; margin-top:8px; }
-    .art-back:hover { background:#70C7FD; gap:12px; }
-
-    /* sidebar */
-    .art-side { display:flex; flex-direction:column; gap:18px; }
-    .art-side-card { background:#FFFFFF; border:1px solid rgba(112,199,253,0.2); border-radius:16px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.04); }
-    .art-side-head { background:linear-gradient(135deg,#1A2C3E,#2D4055); color:#FFFFFF; padding:11px 16px; font-family:'Space Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; display:flex; align-items:center; gap:7px; }
-    .art-side-head span { font-size:14px; }
-    .art-side-body { padding:14px; }
-    .art-ind { display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid rgba(112,199,253,0.1); }
-    .art-ind:last-child { border-bottom:none; }
-    .art-ind-emoji { font-size:17px; flex-shrink:0; margin-top:1px; }
-    .art-ind-title { font-size:12px; font-weight:700; color:#1A2C3E; margin-bottom:3px; }
-    .art-ind-val   { font-family:'Space Mono',monospace; font-size:10px; color:#64748B; line-height:1.4; }
-    .art-ind-val strong { color:#70C7FD; }
-    .art-alert { display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(112,199,253,0.1); font-size:11px; font-weight:600; color:#1A2C3E; gap:8px; }
-    .art-alert:last-child { border-bottom:none; }
-    .art-ab { font-family:'Space Mono',monospace; font-size:9px; font-weight:700; padding:3px 8px; border-radius:14px; white-space:nowrap; }
-    .art-ab.orange { background:#FEF3C7; color:#B45309; }
-    .art-ab.blue   { background:#E8F7FD; color:#70C7FD; }
-    .art-ab.green  { background:#DCFCE7; color:#166534; }
-    .art-mod-link { display:flex; align-items:center; gap:10px; padding:9px 10px; background:#F8FAFC; border-radius:9px; text-decoration:none; font-size:12px; font-weight:500; color:#1A2C3E; margin-bottom:6px; transition:all 0.2s; }
-    .art-mod-link:last-child { margin-bottom:0; }
-    .art-mod-link:hover { background:#E8F7FD; transform:translateX(3px); }
-    .art-mod-link span { font-size:15px; }
-
-    @media (max-width:860px){
-      .art-layout { grid-template-columns:1fr; padding:24px 20px 40px; }
-      .art-hero h1 { font-size:24px; }
-      .art-photos, .art-team, .art-obj-grid { grid-template-columns:1fr; }
-      .art-obj.full, .art-team-card.full { grid-column:span 1; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Présentation du prototype — Géoportail Territorial de Jacqueville</title>
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="https://github.com/Geoportail-Jacqueville/geoportail-jacqueville/blob/main/logo/logo-favicon.jpeg?raw=true">
+    <link rel="apple-touch-icon" href="https://github.com/Geoportail-Jacqueville/geoportail-jacqueville/blob/main/logo/logo-favicon.jpeg?raw=true">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 64px;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-  <div id="navbar-placeholder"></div>
-  <main class="page-content">
+    <!-- PLACEHOLDER NAVBAR -->
+    <div id="navbar-placeholder"></div>
 
-    <div class="art-hero">
-      <div class="eyebrow"><div class="eyebrow-line"></div>GÉOPORTAIL · OBSERVATOIRE TERRITORIAL</div>
-      <h1>Présentation du Prototype du Géoportail à la Direction Technique de la Mairie de Jacqueville</h1>
-      <div class="art-date">Vendredi 19 septembre 2025 — Salle Édouard Etté, Mairie de Jacqueville</div>
-      <p class="art-lead">L'équipe de l'Observatoire a eu l'honneur de présenter à la municipalité de Jacqueville le prototype du Géoportail interactif développé dans le cadre de l'Observatoire Participatif de la Qualité Environnementale du cordon littoral.</p>
+    <!-- ========== CONTENU DE L'ARTICLE ========== -->
+    <div style="display: block; margin: 0; padding: 0;">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Mono:wght@400;700&display=swap');
+
+            .article, .article * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .article {
+                font-family: 'Inter', sans-serif;
+                width: 100%;
+                background: #FFFFFF;
+            }
+
+            /* ========== VERSION MOBILE ========== */
+            @media (max-width: 768px) {
+                .article .hero { padding: 32px 20px 0 !important; }
+                .article .hero h1 { font-size: 28px !important; }
+                .article .hero-date { font-size: 12px !important; }
+                .article .section { padding: 40px 20px !important; }
+                .article .section-title { font-size: 24px !important; }
+                .article .divider { margin-top: 32px !important; }
+                .article .cta-band { flex-direction: column !important; text-align: center !important; margin: 0 20px 40px !important; padding: 32px 24px !important; }
+                .article .btn-cta { width: 100% !important; justify-content: center !important; }
+                .article .article-wrap { grid-template-columns: 1fr !important; padding: 0 20px 40px !important; }
+                .article .objectives-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+                .article .team-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+                .article .photos-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+            }
+
+            /* ========== TABLETTE ========== */
+            @media (min-width: 769px) and (max-width: 1024px) {
+                .article .hero { padding: 48px 32px 0 !important; }
+                .article .hero h1 { font-size: 32px !important; }
+                .article .section { padding: 48px 32px !important; }
+                .article .article-wrap { padding: 0 32px 48px !important; }
+                .article .objectives-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important; }
+            }
+
+            /* ========== STYLES DE BASE ========== */
+            .article .hero {
+                padding: 64px 40px 0;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .article .hero-eyebrow {
+                font-family: 'Space Mono', monospace;
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                color: #70C7FD;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .article .eyebrow-line {
+                width: 40px;
+                height: 2px;
+                background: #70C7FD;
+            }
+
+            .article .hero h1 {
+                font-size: 38px;
+                font-weight: 700;
+                line-height: 1.3;
+                letter-spacing: -0.02em;
+                color: #1A2C3E;
+                margin-bottom: 16px;
+                max-width: 900px;
+            }
+
+            .article .hero-date {
+                font-family: 'Space Mono', monospace;
+                font-size: 14px;
+                color: #70C7FD;
+                margin-bottom: 24px;
+            }
+
+            .article .hero-desc {
+                font-size: 16px;
+                line-height: 1.6;
+                color: #4A627A;
+                max-width: 700px;
+                margin-bottom: 32px;
+            }
+
+            .article .divider {
+                height: 1px;
+                background: linear-gradient(90deg, transparent, rgba(112, 199, 253, 0.4), transparent);
+                margin: 48px auto 0;
+                max-width: 1100px;
+            }
+
+            /* Layout à deux colonnes */
+            .article .article-wrap {
+                display: grid;
+                grid-template-columns: 1fr 300px;
+                gap: 40px;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 48px 40px 64px;
+            }
+
+            /* Colonne de gauche */
+            .article .article-content {
+                max-width: 100%;
+            }
+
+            .article .article-content p {
+                font-size: 16px;
+                line-height: 1.7;
+                color: #4A627A;
+                margin-bottom: 20px;
+            }
+
+            .article .article-content strong {
+                color: #1A2C3E;
+                font-weight: 600;
+            }
+
+            .article .section-header {
+                margin-bottom: 24px;
+            }
+
+            .article .section-title {
+                font-size: 22px;
+                font-weight: 700;
+                color: #1A2C3E;
+                letter-spacing: -0.01em;
+                margin-bottom: 12px;
+            }
+
+            .article .section-title span {
+                color: #70C7FD;
+            }
+
+            .article .section-subtitle {
+                font-size: 14px;
+                color: #70C7FD;
+                font-family: 'Space Mono', monospace;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                margin-bottom: 16px;
+            }
+
+            /* Grille des objectifs */
+            .article .objectives-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+                margin: 32px 0;
+            }
+
+            .article .objective-card {
+                background: #F8FAFC;
+                border-radius: 16px;
+                padding: 18px 20px;
+                border-left: 4px solid #70C7FD;
+                transition: all 0.2s ease;
+            }
+
+            .article .objective-card:hover {
+                transform: translateX(4px);
+                background: #FFFFFF;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+
+            .article .objective-text {
+                font-size: 14px;
+                font-weight: 500;
+                color: #1A2C3E;
+                line-height: 1.5;
+            }
+
+            /* Grille équipe */
+            .article .team-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+                margin: 24px 0;
+            }
+
+            .article .team-card {
+                background: #FFFFFF;
+                border: 1px solid rgba(112, 199, 253, 0.2);
+                border-radius: 12px;
+                padding: 16px;
+            }
+
+            .article .team-info h4 {
+                font-size: 15px;
+                font-weight: 700;
+                color: #1A2C3E;
+                margin-bottom: 4px;
+            }
+
+            .article .team-info p {
+                font-size: 12px;
+                color: #64748B;
+                margin-bottom: 0;
+            }
+
+            /* Grille pour les photos */
+            .article .photos-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                margin: 24px 0 16px 0;
+            }
+
+            .article .photo-item {
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                background: #F8FAFC;
+            }
+
+            .article .photo-item img {
+                width: 100%;
+                height: 220px;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.3s ease;
+            }
+
+            .article .photo-item img:hover {
+                transform: scale(1.02);
+            }
+
+            .article .photo-caption {
+                font-size: 11px;
+                color: #64748B;
+                text-align: center;
+                padding: 8px 12px;
+                font-family: 'Space Mono', monospace;
+                background: #FFFFFF;
+                border-top: 1px solid rgba(112, 199, 253, 0.15);
+            }
+
+            .article .info-highlight {
+                background: linear-gradient(135deg, #F8FCFF, #FFFFFF);
+                border-left: 4px solid #70C7FD;
+                padding: 24px;
+                margin: 32px 0;
+                border-radius: 16px;
+            }
+
+            .article .back-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: #FFFFFF;
+                border: 2px solid #70C7FD;
+                border-radius: 60px;
+                padding: 12px 28px;
+                text-decoration: none;
+                font-weight: 600;
+                color: #1A2C3E;
+                transition: all 0.3s ease;
+                margin-top: 24px;
+            }
+
+            .article .back-link:hover {
+                background: #70C7FD;
+                gap: 12px;
+            }
+
+            /* ========== SIDEBAR ========== */
+            .article .col-side {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .article .side-card {
+                background: #FFFFFF;
+                border: 1px solid rgba(112, 199, 253, 0.2);
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+
+            .article .side-card-head {
+                background: linear-gradient(135deg, #1A2C3E, #2D4055);
+                color: white;
+                padding: 14px 18px;
+                font-family: 'Space Mono', monospace;
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .article .side-card-head span {
+                font-size: 16px;
+            }
+
+            .article .side-card-body {
+                padding: 18px;
+            }
+
+            .article .indicator-list {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .article .indicator-item {
+                padding-bottom: 12px;
+                border-bottom: 1px solid rgba(112, 199, 253, 0.15);
+            }
+
+            .article .indicator-item:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+
+            .article .indicator-header {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 6px;
+            }
+
+            .article .indicator-emoji {
+                font-size: 20px;
+            }
+
+            .article .indicator-title {
+                font-weight: 700;
+                font-size: 14px;
+                color: #1A2C3E;
+            }
+
+            .article .indicator-value {
+                font-family: 'Space Mono', monospace;
+                font-size: 12px;
+                color: #64748B;
+                margin-left: 30px;
+                line-height: 1.5;
+            }
+
+            .article .indicator-value strong {
+                color: #70C7FD;
+            }
+
+            .article .alerts-list {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .article .alert-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 12px;
+                background: #F8FAFC;
+                border-radius: 12px;
+            }
+
+            .article .alert-name {
+                font-size: 13px;
+                font-weight: 600;
+                color: #1A2C3E;
+            }
+
+            .article .alert-level {
+                font-family: 'Space Mono', monospace;
+                font-size: 10px;
+                font-weight: 700;
+                padding: 4px 10px;
+                border-radius: 20px;
+            }
+
+            .article .alert-level.orange {
+                background: #FEF3C7;
+                color: #B45309;
+            }
+
+            .article .alert-level.blue {
+                background: #E8F7FD;
+                color: #70C7FD;
+            }
+
+            .article .alert-level.green {
+                background: #DCFCE7;
+                color: #166534;
+            }
+
+            .article .update-badge {
+                background: #E8F7FD;
+                border-radius: 16px;
+                padding: 10px 12px;
+                text-align: center;
+                margin-top: 12px;
+            }
+
+            .article .update-badge span {
+                font-family: 'Space Mono', monospace;
+                font-size: 11px;
+                font-weight: 600;
+                color: #1A2C3E;
+            }
+
+            .article .modules-links {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .article .module-link {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px 14px;
+                background: #F8FAFC;
+                border-radius: 12px;
+                text-decoration: none;
+                font-size: 13px;
+                font-weight: 500;
+                color: #1A2C3E;
+                transition: all 0.2s ease;
+            }
+
+            .article .module-link:hover {
+                background: #E8F7FD;
+                transform: translateX(4px);
+            }
+
+            .article .module-icon {
+                font-size: 18px;
+            }
+
+            /* CTA Band */
+            .article .cta-band {
+                margin: 0 40px 64px;
+                background: linear-gradient(135deg, #70C7FD, #4BB3F0);
+                border-radius: 28px;
+                padding: 48px 48px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 32px;
+                max-width: 1120px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .article .cta-text h2 {
+                font-size: 26px;
+                font-weight: 700;
+                color: #1A2C3E;
+                letter-spacing: -0.01em;
+                margin-bottom: 10px;
+            }
+
+            .article .cta-text p {
+                font-size: 15px;
+                color: #1A2C3E;
+                opacity: 0.85;
+                line-height: 1.6;
+                max-width: 460px;
+            }
+
+            .article .btn-cta {
+                display: inline-flex;
+                align-items: center;
+                gap: 12px;
+                background: #1A2C3E;
+                color: white;
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                font-weight: 600;
+                padding: 16px 32px;
+                border-radius: 50px;
+                border: none;
+                cursor: pointer;
+                text-decoration: none;
+                white-space: nowrap;
+                flex-shrink: 0;
+                transition: all 0.3s ease;
+            }
+
+            .article .btn-cta:hover {
+                transform: translateY(-2px);
+                background: #2D4055;
+                gap: 16px;
+            }
+        </style>
+
+        <div class="article">
+            <!-- Section Héro -->
+            <div class="hero">
+                <div class="hero-eyebrow">
+                    <div class="eyebrow-line"></div>
+                    GÉOPORTAIL · OBSERVATOIRE TERRITORIAL
+                </div>
+                <h1>Présentation du Prototype du Géoportail à la Direction Technique de la Mairie de Jacqueville</h1>
+                <div class="hero-date">Vendredi 19 septembre 2025 — Salle Édouard Etté, Mairie de Jacqueville</div>
+                <p class="hero-desc">
+                    L'équipe de l'Observatoire a eu l'honneur de présenter à la municipalité de Jacqueville le prototype du Géoportail interactif développé dans le cadre de l'Observatoire Participatif de la Qualité Environnementale du cordon littoral.
+                </p>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Layout à deux colonnes -->
+            <div class="article-wrap">
+                <!-- Colonne de gauche : Corps de l'article -->
+                <div class="article-content">
+                    <p>
+                        Ce vendredi 19 septembre 2025, l'équipe de l'observatoire composée du <strong>Professeur Roche Gnabeli</strong> président fondateur de l'Université du Sud de Jacqueville, <strong>Dominique Couret</strong> directeur de recherche à l'IRD, <strong>Dr Meité Youssouf</strong> Directeur administratif et financier, <strong>MONSAN Adiko Elvis</strong> représentant du personnel, et <strong>Jean Timothé Goueu</strong> Ingénieur Géomaticien et concepteur du Géoportail, a eu l'honneur de présenter à la municipalité de Jacqueville le prototype du Géoportail interactif.
+                    </p>
+
+                    <p>
+                        Cet outil innovant, conçu avec l'appui de la <strong>Mission Science Ouverte de l'IRD</strong> (notamment via la plateforme <strong>DataSuds</strong>), a pour ambition de :
+                    </p>
+
+                    <!-- Grille des objectifs -->
+                    <div class="objectives-grid">
+                        <div class="objective-card">
+                            <div class="objective-text">Accompagner la planification urbaine et la gestion foncière</div>
+                        </div>
+                        <div class="objective-card">
+                            <div class="objective-text">Suivre l'agriculture et l'occupation du sol</div>
+                        </div>
+                        <div class="objective-card">
+                            <div class="objective-text">Appuyer l'aménagement des infrastructures</div>
+                        </div>
+                        <div class="objective-card">
+                            <div class="objective-text">Prévenir les risques environnementaux</div>
+                        </div>
+                        <div class="objective-card">
+                            <div class="objective-text">Favoriser le partage de savoirs entre décideurs, chercheurs, opérateurs économiques et société civile</div>
+                        </div>
+                    </div>
+
+                    <!-- Section participants -->
+                    <div class="section-header" style="margin-top: 16px;">
+                        <div class="section-subtitle">Participants</div>
+                        <div class="section-title">Une rencontre <span>riche en échanges</span></div>
+                    </div>
+
+                    <p>
+                        La rencontre, tenue en salle <strong>Édouard Etté</strong> à la Mairie, a réuni des représentants de la municipalité (<strong>4ème Adjoint au Maire, Secrétaire Général, conseillers techniques et administratifs</strong>), de l'<strong>Institut Universitaire du Sud de Jacqueville</strong>, et de l'<strong>IRD</strong>.
+                    </p>
+
+                    <p>
+                        La municipalité a manifesté un réel intérêt pour cette initiative, qui s'inscrit dans une dynamique de modernisation de la gouvernance locale par la donnée géospatiale.
+                    </p>
+
+                    <!-- GRILLE DES 2 PHOTOS AJOUTÉES -->
+                    <div class="photos-grid">
+                        <div class="photo-item">
+                            <img src="https://github.com/Jeant-Tim/Geoportail/blob/main/Rencontre%20pr%C3%A9sentation%20prototype.jpeg?raw=true" alt="Présentation du Géoportail à la Mairie de Jacqueville">
+                            <div class="photo-caption">Présentation du prototype du Géoportail en salle Édouard Etté</div>
+                        </div>
+                        <div class="photo-item">
+                            <img src="https://github.com/Jeant-Tim/Geoportail/blob/main/%C3%89changes%20entre%20l'%C3%A9quipe%20de%20l'Observatoire%20et%20les%20repr%C3%A9sentants%20municipaux.jpeg?raw=true" alt="Échanges entre l'équipe de l'Observatoire et la municipalité">
+                            <div class="photo-caption">Échanges entre l'équipe de l'Observatoire et les représentants municipaux</div>
+                        </div>
+                    </div>
+
+                    <!-- Section acteurs présents -->
+                    <div class="section-header" style="margin-top: 16px;">
+                        <div class="section-subtitle">Les acteurs présents</div>
+                        <div class="section-title">L'équipe de l'Observatoire</div>
+                    </div>
+
+                    <div class="team-grid">
+                        <div class="team-card">
+                            <div class="team-info">
+                                <h4>Pr Roch Gnabeli</h4>
+                                <p>Président fondateur · Univ-Sud</p>
+                            </div>
+                        </div>
+                        <div class="team-card">
+                            <div class="team-info">
+                                <h4>Dominique Couret</h4>
+                                <p>Directeur de recherche · IRD</p>
+                            </div>
+                        </div>
+                        <div class="team-card">
+                            <div class="team-info">
+                                <h4>Dr Meité Youssouf</h4>
+                                <p>Directeur administratif et financier</p>
+                            </div>
+                        </div>
+                        <div class="team-card">
+                            <div class="team-info">
+                                <h4>MONSAN Adiko Elvis</h4>
+                                <p>Représentant du personnel</p>
+                            </div>
+                        </div>
+                        <div class="team-card">
+                            <div class="team-info">
+                                <h4>Jean Timothé Goueu</h4>
+                                <p>Ingénieur Géomaticien · Architecte et Concepteur du Géoportail</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lien retour -->
+                    <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/pages/actualite" class="back-link">
+                        <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M19 12H5M12 19l-7-7 7-7' /></svg>
+                        Retour aux actualités
+                    </a>
+                </div>
+
+                <!-- Colonne de droite : Sidebar -->
+                <div class="col-side">
+                    <div class="side-card">
+                        <div class="side-card-head"><span>📊</span> Visualisation croisée · Indicateurs clés</div>
+                        <div class="side-card-body">
+                            <div class="indicator-list">
+                                <div class="indicator-item">
+                                    <div class="indicator-header"><span class="indicator-emoji">🏖️</span><span class="indicator-title">Fréquentation</span></div>
+                                    <div class="indicator-value"><strong>+50k visiteurs / pic</strong> → impact routier</div>
+                                </div>
+                                <div class="indicator-item">
+                                    <div class="indicator-header"><span class="indicator-emoji">💧</span><span class="indicator-title">Eau potable</span></div>
+                                    <div class="indicator-value"><strong>Saturation</strong> de la capacité du château d'eau</div>
+                                </div>
+                                <div class="indicator-item">
+                                    <div class="indicator-header"><span class="indicator-emoji">⚡</span><span class="indicator-title">Électricité</span></div>
+                                    <div class="indicator-value"><strong>Surcharge sur la capacité</strong>, coupures récurrentes</div>
+                                </div>
+                                <div class="indicator-item">
+                                    <div class="indicator-header"><span class="indicator-emoji">🗑️</span><span class="indicator-title">Déchets</span></div>
+                                    <div class="indicator-value">Collecte renforcée via <strong>ANAGED</strong>, risque nappe</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="side-card">
+                        <div class="side-card-head"><span>⚠️</span> Alertes & risques actifs</div>
+                        <div class="side-card-body">
+                            <div class="alerts-list">
+                                <div class="alert-item"><span class="alert-name">Inondation Tiémien</span><span class="alert-level orange">Alerte orange</span></div>
+                                <div class="alert-item"><span class="alert-name">Saturation électrique</span><span class="alert-level orange">Niveau élevé</span></div>
+                                <div class="alert-item"><span class="alert-name">Déchets / nappe phréatique</span><span class="alert-level blue">Surveillance</span></div>
+                                <div class="alert-item"><span class="alert-name">Dégradation route principale</span><span class="alert-level green">Suivi infrastructure</span></div>
+                            </div>
+                            <div class="update-badge"><span>🔔 Mise à jour : 3 alertes actives dans le périmètre communal</span></div>
+                        </div>
+                    </div>
+
+                    <div class="side-card">
+                        <div class="side-card-head"><span>🗺️</span> Liens vers modules</div>
+                        <div class="side-card-body">
+                            <div class="modules-links">
+                                <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/439f736688bb4e8caaf5240fa48b736c/explore" class="module-link"><span class="module-icon">📈</span>Visualisation croisée : urbanisation / réseaux</a>
+                                <a href="#" class="module-link"><span class="module-icon">⚠️</span>Centre d'alerte inondation & saturations</a>
+                                <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/f5ad41cf89ee4be6b1cc1073d295d911/explore" class="module-link"><span class="module-icon">🌍</span>Géoportail · superposition risques</a>
+                                <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/c72dd1b649524851b250ec4822b06b35/explore" class="module-link"><span class="module-icon">📋</span>Indicateurs de suivi territorial</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="divider"></div>
+    <!-- PLACEHOLDER FOOTER -->
+    <div id="footer-placeholder"></div>
 
-    <div class="art-layout">
-      <article class="art-body">
-
-        <p>Ce vendredi 19 septembre 2025, l'équipe de l'observatoire composée du <strong>Professeur Roche Gnabeli</strong> président fondateur de l'Université du Sud de Jacqueville, <strong>Dominique Couret</strong> directeur de recherche à l'IRD, <strong>Dr Meité Youssouf</strong> Directeur administratif et financier, <strong>MONSAN Adiko Elvis</strong> représentant du personnel, et <strong>Jean Timothé Goueu</strong> Ingénieur Géomaticien et concepteur du Géoportail, a eu l'honneur de présenter à la municipalité de Jacqueville le prototype du Géoportail interactif.</p>
-        <p>Cet outil innovant, conçu avec l'appui de la <strong>Mission Science Ouverte de l'IRD</strong> (notamment via la plateforme <strong>DataSuds</strong>), a pour ambition de :</p>
-
-        <div class="art-obj-grid">
-          <div class="art-obj">Accompagner la planification urbaine et la gestion foncière</div>
-          <div class="art-obj">Suivre l'agriculture et l'occupation du sol</div>
-          <div class="art-obj">Appuyer l'aménagement des infrastructures</div>
-          <div class="art-obj">Prévenir les risques environnementaux</div>
-          <div class="art-obj full">Favoriser le partage de savoirs entre décideurs, chercheurs, opérateurs économiques et société civile</div>
-        </div>
-
-        <div class="art-sub-label">Participants</div>
-        <h3 class="art-sub-title">Une rencontre <span>riche en échanges</span></h3>
-        <p>La rencontre, tenue en salle <strong>Édouard Etté</strong> à la Mairie, a réuni des représentants de la municipalité (<strong>4ème Adjoint au Maire, Secrétaire Général, conseillers techniques et administratifs</strong>), de l'<strong>Institut Universitaire du Sud de Jacqueville</strong>, et de l'<strong>IRD</strong>.</p>
-        <p>La municipalité a manifesté un réel intérêt pour cette initiative, qui s'inscrit dans une dynamique de modernisation de la gouvernance locale par la donnée géospatiale.</p>
-
-        <div class="art-photos">
-          <div class="art-photo">
-            <img src="https://github.com/Jeant-Tim/Geoportail/blob/main/Rencontre%20pr%C3%A9sentation%20prototype.jpeg?raw=true" alt="Présentation du Géoportail en salle Édouard Etté" loading="lazy">
-            <div class="art-photo-cap">Présentation du prototype en salle Édouard Etté</div>
-          </div>
-          <div class="art-photo">
-            <img src="https://github.com/Jeant-Tim/Geoportail/blob/main/%C3%89changes%20entre%20l'%C3%A9quipe%20de%20l'Observatoire%20et%20les%20repr%C3%A9sentants%20municipaux.jpeg?raw=true" alt="Échanges entre l'équipe et les représentants municipaux" loading="lazy">
-            <div class="art-photo-cap">Échanges entre l'Observatoire et les représentants municipaux</div>
-          </div>
-        </div>
-
-        <div class="art-sub-label">Les acteurs présents</div>
-        <h3 class="art-sub-title">L'équipe de l'Observatoire</h3>
-        <div class="art-team">
-          <div class="art-team-card"><strong>Pr Roch Gnabeli</strong><span>Président fondateur · Univ-Sud</span></div>
-          <div class="art-team-card"><strong>Dominique Couret</strong><span>Directeur de recherche · IRD</span></div>
-          <div class="art-team-card"><strong>Dr Meité Youssouf</strong><span>Directeur administratif et financier</span></div>
-          <div class="art-team-card"><strong>MONSAN Adiko Elvis</strong><span>Représentant du personnel</span></div>
-          <div class="art-team-card full"><strong>Jean Timothé Goueu</strong><span>Ingénieur Géomaticien · Architecte et Concepteur du Géoportail</span></div>
-        </div>
-
-        <a href="actualites.html" class="art-back">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          Retour aux actualités
-        </a>
-      </article>
-
-      <aside class="art-side">
-        <div class="art-side-card">
-          <div class="art-side-head"><span>📊</span>Indicateurs clés</div>
-          <div class="art-side-body">
-            <div class="art-ind"><span class="art-ind-emoji">🏖️</span><div><div class="art-ind-title">Fréquentation</div><div class="art-ind-val"><strong>+50k visiteurs / pic</strong> → impact routier</div></div></div>
-            <div class="art-ind"><span class="art-ind-emoji">💧</span><div><div class="art-ind-title">Eau potable</div><div class="art-ind-val"><strong>Saturation</strong> du château d'eau</div></div></div>
-            <div class="art-ind"><span class="art-ind-emoji">⚡</span><div><div class="art-ind-title">Électricité</div><div class="art-ind-val"><strong>Surcharge</strong>, coupures récurrentes</div></div></div>
-            <div class="art-ind"><span class="art-ind-emoji">🗑️</span><div><div class="art-ind-title">Déchets</div><div class="art-ind-val">Collecte renforcée via <strong>ANAGED</strong></div></div></div>
-          </div>
-        </div>
-        <div class="art-side-card">
-          <div class="art-side-head"><span>⚠️</span>Alertes actives</div>
-          <div class="art-side-body">
-            <div class="art-alert"><span>Inondation Tiémien</span><span class="art-ab orange">Alerte orange</span></div>
-            <div class="art-alert"><span>Saturation électrique</span><span class="art-ab orange">Niveau élevé</span></div>
-            <div class="art-alert"><span>Déchets / nappe phréatique</span><span class="art-ab blue">Surveillance</span></div>
-            <div class="art-alert"><span>Dégradation route principale</span><span class="art-ab green">Suivi infra</span></div>
-          </div>
-        </div>
-        <div class="art-side-card">
-          <div class="art-side-head"><span>🗺️</span>Modules liés</div>
-          <div class="art-side-body" style="padding:10px;">
-            <a href="visualisation.html" class="art-mod-link"><span>📈</span>Visualisation croisée</a>
-            <a href="alertes.html"       class="art-mod-link"><span>⚠️</span>Centre d'alerte inondation</a>
-            <a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/f5ad41cf89ee4be6b1cc1073d295d911/explore" target="_blank" class="art-mod-link"><span>🌍</span>Géoportail risques</a>
-            <a href="donnees.html"       class="art-mod-link"><span>📋</span>Données territoriales</a>
-          </div>
-        </div>
-      </aside>
-    </div>
-
-  </main>
-  <div id="footer-placeholder"></div>
-  <script src="js/main.js"></script>
+    <!-- Script principal (navbar + footer) -->
+    <script src="js/main.js"></script>
 </body>
 </html>
