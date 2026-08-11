@@ -1,0 +1,238 @@
+<!-- ============================================================
+     GÉOPORTAIL DE JACQUEVILLE — NAVBAR COMPONENT
+     Fichier : components/navbar.html
+     Chargé dynamiquement par js/main.js
+     ============================================================ -->
+<nav class="gp-nav" role="navigation" aria-label="Navigation principale">
+  <div class="gp-nav-inner">
+
+    <!-- LOGO -->
+    <a href="index.html" class="gp-nav-logo" aria-label="Accueil Géoportail de Jacqueville">
+      <img src="https://github.com/Geoportail-Jacqueville/open-data/blob/main/Logo/Logo%20Geoportail.jpg?raw=true"
+           alt="Logo Géoportail de Jacqueville"
+           loading="lazy">
+    </a>
+
+    <!-- LIENS DESKTOP -->
+    <ul class="gp-nav-links" role="list">
+      <li><a href="index.html"                 data-page="accueil">Accueil</a></li>
+      <li><a href="pages/cartes.html"          data-page="cartes">Cartes thématiques</a></li>
+      <li><a href="pages/visualisation.html"   data-page="visualisation">Visualisation croisée</a></li>
+      <li><a href="pages/alertes.html"         data-page="alertes">Alerte &amp; Risques</a></li>
+      <li><a href="pages/donnees.html"         data-page="donnees">Données</a></li>
+      <li><a href="pages/observatoire.html"    data-page="observatoire">Observatoire</a></li>
+      <li><a href="pages/patrimoine.html"      data-page="patrimoine">Patrimoine</a></li>
+      <li><a href="pages/contact.html"         data-page="contact">Contact</a></li>
+    </ul>
+
+    <!-- BURGER MOBILE -->
+    <button class="gp-nav-burger" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- MENU MOBILE -->
+  <div class="gp-nav-mobile" aria-hidden="true">
+    <ul role="list">
+      <li><a href="index.html"                 data-page="accueil">Accueil</a></li>
+      <li><a href="pages/cartes.html"          data-page="cartes">Cartes thématiques</a></li>
+      <li><a href="pages/visualisation.html"   data-page="visualisation">Visualisation croisée</a></li>
+      <li><a href="pages/alertes.html"         data-page="alertes">Alerte &amp; Risques</a></li>
+      <li><a href="pages/donnees.html"         data-page="donnees">Données</a></li>
+      <li><a href="pages/observatoire.html"    data-page="observatoire">Observatoire</a></li>
+      <li><a href="pages/patrimoine.html"      data-page="patrimoine">Patrimoine</a></li>
+      <li><a href="pages/contact.html"         data-page="contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+/* ====================================================
+   NAVBAR — Styles
+   ==================================================== */
+.gp-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: #70C7FD;
+  box-shadow: 0 2px 12px rgba(26, 44, 62, 0.15);
+  font-family: 'Inter', sans-serif;
+}
+
+.gp-nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* LOGO */
+.gp-nav-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.gp-nav-logo img {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+/* LIENS DESKTOP */
+.gp-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  list-style: none;
+  margin: 0;
+  flex-wrap: nowrap;
+}
+
+.gp-nav-links > li > a {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s;
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+}
+
+.gp-nav-links > li > a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Lien actif */
+.gp-nav-links > li > a.active {
+  background: transparent;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.gp-nav-links > li > a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: #ffffff;
+  border-radius: 2px;
+}
+
+/* BURGER */
+.gp-nav-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1010;
+  -webkit-tap-highlight-color: transparent;
+}
+.gp-nav-burger span {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background: #ffffff;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.gp-nav-burger.open span:nth-child(1) { 
+  transform: translateY(8px) rotate(45deg); 
+}
+.gp-nav-burger.open span:nth-child(2) { 
+  opacity: 0; 
+}
+.gp-nav-burger.open span:nth-child(3) { 
+  transform: translateY(-8px) rotate(-45deg); 
+}
+
+/* MENU MOBILE */
+.gp-nav-mobile {
+  display: none;
+  background: #70C7FD;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 16px 20px;
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+.gp-nav-mobile.open { 
+  display: block; 
+}
+.gp-nav-mobile ul { 
+  list-style: none; 
+  padding: 0;
+  margin: 0;
+}
+.gp-nav-mobile li a {
+  display: block;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+.gp-nav-mobile li a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.gp-nav-mobile li a.active {
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.gp-nav-mobile li a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: #ffffff;
+  border-radius: 2px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px) {
+  .gp-nav-links > li > a {
+    padding: 7px 10px;
+    font-size: 14px;
+  }
+  .gp-nav-inner {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 900px) {
+  .gp-nav-links {
+    display: none;
+  }
+  .gp-nav-burger {
+    display: flex;
+  }
+  .gp-nav-inner {
+    gap: 12px;
+  }
+}
+</style>
