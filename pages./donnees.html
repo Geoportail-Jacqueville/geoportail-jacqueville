@@ -1,0 +1,1592 @@
+<div style="display: block; margin: 0; padding: 0;">
+  <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Mono:wght@400;700&display=swap');
+
+    .data-module, .data-module * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .data-module {
+      font-family: 'Inter', sans-serif;
+      width: 100%;
+      background: #FFFFFF;
+    }
+
+    /* Fond décoratif subtil sur le hero */
+    .data-module .hero {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .data-module .hero::before {
+      content: "🌍";
+      position: absolute;
+      font-size: 200px;
+      opacity: 0.03;
+      bottom: -50px;
+      right: -50px;
+      pointer-events: none;
+    }
+
+    /* ========== VERSION MOBILE ========== */
+    @media (max-width: 768px) {
+      .data-module .hero {
+        grid-template-columns: 1fr !important;
+        padding: 32px 20px 0 !important;
+        gap: 32px !important;
+      }
+      .data-module .hero h1 {
+        font-size: 32px !important;
+      }
+      .data-module .hero-desc {
+        font-size: 14px !important;
+        max-width: 100% !important;
+      }
+      .data-module .domain-nav {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+      }
+      .data-module .domain-link {
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+      }
+      .data-module .datasets-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+      .data-module .section {
+        padding: 40px 20px !important;
+      }
+      .data-module .section-header {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 12px !important;
+      }
+      .data-module .section-title {
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        font-size: 24px !important;
+      }
+      .data-module .cta-band {
+        flex-direction: column !important;
+        text-align: center !important;
+        margin: 0 20px 40px !important;
+        padding: 32px 24px !important;
+      }
+      .data-module .btn-cta {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+      .data-module .domains-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .data-module .tiers-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+      }
+      /* Section contribuer responsive */
+      .cb {
+        padding: 32px 16px !important;
+      }
+      .cb-layout {
+        grid-template-columns: 1fr !important;
+        border-radius: 16px !important;
+      }
+      .cb-left {
+        padding: 28px 20px !important;
+        border-right: none !important;
+        border-bottom: 1px solid rgba(112,199,253,0.18) !important;
+      }
+      .cb-right {
+        padding: 28px 20px !important;
+      }
+      .cb-categories {
+        grid-template-columns: 1fr !important;
+      }
+      .cb-title {
+        font-size: 24px !important;
+      }
+      .cb-why {
+        grid-template-columns: 1fr !important;
+      }
+      .cb-guarantees {
+        flex-wrap: wrap !important;
+        gap: 12px !important;
+      }
+    }
+
+    /* ========== TABLETTE ========== */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .data-module .hero {
+        padding: 48px 32px 0 !important;
+        gap: 40px !important;
+      }
+      .data-module .hero h1 {
+        font-size: 36px !important;
+      }
+      .data-module .datasets-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .data-module .section {
+        padding: 48px 32px !important;
+      }
+      .data-module .domains-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .data-module .tiers-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 16px !important;
+      }
+      .cb {
+        padding: 40px 24px !important;
+      }
+      .cb-left {
+        padding: 32px 28px !important;
+      }
+      .cb-right {
+        padding: 32px 28px !important;
+      }
+      .cb-categories {
+        grid-template-columns: 1fr 1fr !important;
+      }
+    }
+
+    /* ========== STYLES DE BASE ========== */
+    .data-module .hero {
+      padding: 64px 40px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .data-module .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #70C7FD;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .data-module .eyebrow-line {
+      width: 40px;
+      height: 2px;
+      background: #70C7FD;
+    }
+
+    .data-module .hero h1 {
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #1A2C3E;
+      margin-bottom: 24px;
+    }
+
+    .data-module .hero h1 span {
+      color: #70C7FD;
+    }
+
+    .data-module .hero-desc {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #4A627A;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .data-module .hero-meta {
+      display: flex;
+      gap: 32px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(112, 199, 253, 0.2);
+    }
+
+    .data-module .meta-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: #70C7FD;
+    }
+
+    .data-module .meta-label {
+      font-size: 12px;
+      color: #64748B;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    .data-module .hero-visual {
+      position: relative;
+    }
+
+    .data-module .preview-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(112, 199, 253, 0.3);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    .data-module .preview-header {
+      background: linear-gradient(135deg, #70C7FD, #4BB3F0);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .data-module .preview-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #1A2C3E;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .data-module .preview-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #FFFFFF;
+    }
+
+    .data-module .preview-body {
+      padding: 24px;
+    }
+
+    .data-module .stat-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(112, 199, 253, 0.15);
+    }
+
+    .data-module .stat-item:last-child {
+      border-bottom: none;
+    }
+
+    .data-module .stat-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #1A2C3E;
+    }
+
+    .data-module .stat-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 18px;
+      font-weight: 700;
+      color: #70C7FD;
+    }
+
+    .data-module .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(112, 199, 253, 0.4), transparent);
+      margin: 48px auto 0;
+      max-width: 1100px;
+    }
+
+    /* ========== NAVIGATION PAR DOMAINES ========== */
+    .data-module .domain-nav {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+      padding: 0 20px;
+    }
+
+    .data-module .domain-link {
+      display: inline-block;
+      padding: 8px 20px;
+      background: #F1F5F9;
+      color: #1A2C3E;
+      text-decoration: none;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .data-module .domain-link:hover {
+      background: #70C7FD;
+      color: #1A2C3E;
+    }
+
+    /* ========== SECTION ========== */
+    .data-module .section {
+      padding: 64px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      scroll-margin-top: 40px;
+    }
+
+    .data-module .section-header {
+      margin-bottom: 48px;
+    }
+
+    .data-module .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1A2C3E;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .data-module .section-title .badge {
+      font-size: 12px;
+      font-weight: 500;
+      background: #E2E8F0;
+      padding: 4px 12px;
+      border-radius: 20px;
+      color: #475569;
+    }
+
+    .data-module .section-title span {
+      color: #70C7FD;
+    }
+
+    .data-module .section-desc {
+      font-size: 15px;
+      color: #4A627A;
+      margin-top: 12px;
+    }
+
+    /* ========== CENTRAGE DES TITRES ========== */
+    .data-module .section:has(.tiers-grid) .section-header {
+      text-align: center;
+    }
+    .data-module .section:has(.tiers-grid) .section-title {
+      justify-content: center;
+    }
+    .data-module .section:has(.tiers-grid) .section-desc {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 600px;
+    }
+    .data-module #open-data .section-header {
+      text-align: center;
+    }
+    .data-module #open-data .section-title {
+      justify-content: center;
+    }
+    .data-module #open-data .section-desc {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 600px;
+    }
+    .data-module #sur-demande .section-header {
+      text-align: center;
+    }
+    .data-module #sur-demande .section-title {
+      justify-content: center;
+    }
+    .data-module #sur-demande .section-desc {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 600px;
+    }
+
+    /* ========== SOUS-TITRES ========== */
+    .data-module #open-data .section,
+    .data-module #sur-demande .section {
+      padding: 48px 0 0 0;
+    }
+    .data-module #open-data .section:first-of-type,
+    .data-module #sur-demande .section:first-of-type {
+      padding-top: 24px;
+    }
+    .data-module #open-data .section .section-header,
+    .data-module #sur-demande .section .section-header {
+      text-align: left;
+      margin-bottom: 24px;
+    }
+    .data-module #open-data .section .section-title,
+    .data-module #sur-demande .section .section-title {
+      font-size: 22px;
+      justify-content: flex-start;
+    }
+    .data-module #open-data .section .section-desc,
+    .data-module #sur-demande .section .section-desc {
+      text-align: left;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .data-module #open-data .section,
+    .data-module #sur-demande .section {
+      margin-top: 40px !important;
+      padding-top: 0 !important;
+    }
+    .data-module #open-data .section:first-of-type,
+    .data-module #sur-demande .section:first-of-type {
+      margin-top: 0 !important;
+    }
+    .data-module #open-data .section .section-header,
+    .data-module #sur-demande .section .section-header {
+      margin-bottom: 32px !important;
+    }
+
+    /* ========== GRILLE DES DOMAINES ========== */
+    .data-module .domains-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .data-module .domain-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(112, 199, 253, 0.2);
+      border-radius: 20px;
+      padding: 28px 24px;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: block;
+    }
+
+    .data-module .domain-card:hover {
+      transform: translateY(-4px);
+      border-color: #70C7FD;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .data-module .domain-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .data-module .domain-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1A2C3E;
+      margin-bottom: 8px;
+    }
+
+    .data-module .domain-count {
+      font-size: 13px;
+      color: #70C7FD;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ========== 3 NIVEAUX D'ACCÈS ========== */
+    .data-module .tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 32px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .data-module .tier-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 32px 28px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .data-module .tier-card.open {
+      border-color: rgba(112, 199, 253, 0.4);
+      background: linear-gradient(135deg, #FFFFFF, #F8FCFF);
+    }
+    .data-module .tier-card.premium {
+      border-color: rgba(163, 45, 45, 0.3);
+      background: linear-gradient(135deg, #FFFFFF, #FFF8F8);
+    }
+    .data-module .tier-card.citoyenne {
+      border-color: rgba(112, 199, 253, 0.3);
+      background: linear-gradient(135deg, #FFFFFF, #F8FCFF);
+    }
+    .data-module .tier-card:hover {
+      transform: translateY(-5px);
+    }
+    .data-module .tier-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .data-module .tier-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .data-module .tier-card.open .tier-title { color: #70C7FD; }
+    .data-module .tier-card.premium .tier-title { color: #A32D2D; }
+    .data-module .tier-card.citoyenne .tier-title { color: #70C7FD; }
+    .data-module .tier-price {
+      font-size: 14px;
+      color: #64748B;
+      margin-bottom: 20px;
+      font-family: 'Space Mono', monospace;
+    }
+    .data-module .tier-features {
+      list-style: none;
+      text-align: left;
+      margin: 20px 0;
+    }
+    .data-module .tier-features li {
+      padding: 8px 0;
+      font-size: 13px;
+      color: #4A627A;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .data-module .tier-features li::before {
+      content: "✓";
+      font-weight: 700;
+    }
+    .data-module .tier-card.open .tier-features li::before { color: #70C7FD; }
+    .data-module .tier-card.premium .tier-features li::before { color: #A32D2D; }
+    .data-module .tier-card.citoyenne .tier-features li::before { color: #70C7FD; }
+    .data-module .tier-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      margin-top: 16px;
+      width: 100%;
+      text-align: center;
+    }
+    .data-module .tier-card.open .tier-btn {
+      background: #70C7FD;
+      color: #1A2C3E;
+    }
+    .data-module .tier-card.premium .tier-btn {
+      background: #A32D2D;
+      color: white;
+    }
+    .data-module .tier-card.citoyenne .tier-btn {
+      background: #70C7FD;
+      color: #1A2C3E;
+    }
+    .data-module .tier-card .tier-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ========== JEUX DE DONNÉES ========== */
+    .data-module .datasets-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .data-module .dataset-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 20px;
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+    .data-module .dataset-card:hover {
+      transform: translateY(-3px);
+      border-color: #70C7FD;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+    .data-module .dataset-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .data-module .dataset-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(112, 199, 253, 0.12);
+      flex-shrink: 0;
+    }
+    .data-module .dataset-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: #70C7FD;
+      stroke-width: 1.6;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .data-module .dataset-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1A2C3E;
+    }
+    .data-module .dataset-desc {
+      font-size: 13px;
+      color: #64748B;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .data-module .dataset-metadata {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .data-module .metadata-badge {
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-family: 'Space Mono', monospace;
+    }
+    .data-module .badge-category { background: #E0F2FE; color: #0369A1; }
+    .data-module .badge-type { background: #F1F5F9; color: #475569; }
+    .data-module .badge-format { background: #F1F5F9; color: #475569; }
+    .data-module .badge-year { background: #FEF3C7; color: #92400E; }
+    .data-module .badge-access-open { background: rgba(112, 199, 253, 0.15); color: #70C7FD; }
+    .data-module .badge-access-premium { background: rgba(163, 45, 45, 0.15); color: #A32D2D; }
+    .data-module .dataset-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .data-module .dataset-size {
+      font-size: 11px;
+      color: #94A3B8;
+      font-family: 'Space Mono', monospace;
+    }
+    .data-module .dataset-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: #70C7FD;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap 0.2s;
+    }
+    .data-module .dataset-link:hover {
+      gap: 8px;
+    }
+
+    /* ========== CTA BAND ========== */
+    .data-module .cta-band {
+      margin: 0 40px 64px;
+      background: linear-gradient(135deg, #70C7FD, #4BB3F0);
+      border-radius: 28px;
+      padding: 48px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      max-width: 1120px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .data-module .cta-text h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1A2C3E;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+    .data-module .cta-text p {
+      font-size: 15px;
+      color: #1A2C3E;
+      opacity: 0.85;
+      line-height: 1.6;
+      max-width: 460px;
+    }
+    .data-module .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #1A2C3E;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 16px 32px;
+      border-radius: 50px;
+      border: none;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+    .data-module .btn-cta:hover {
+      transform: translateY(-2px);
+      background: #2D4055;
+      gap: 16px;
+    }
+
+    /* ========== LICENCE SECTION ========== */
+    .data-module .licence-box {
+      background: #F8FAFC;
+      border-radius: 20px;
+      padding: 24px;
+      margin-top: 40px;
+      text-align: center;
+      border: 1px solid rgba(112, 199, 253, 0.2);
+    }
+    .data-module .licence-box p {
+      font-size: 13px;
+      color: #64748B;
+      margin-bottom: 12px;
+    }
+    .data-module .licence-link {
+      color: #70C7FD;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* ========== INDEX DES FORMATS ========== */
+    .data-module .format-index {
+      background: #F8FAFC;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 32px;
+      text-align: center;
+      border: 1px solid rgba(112, 199, 253, 0.15);
+    }
+    .data-module .format-index p {
+      font-size: 13px;
+      color: #64748B;
+    }
+    .data-module .format-index strong {
+      color: #1A2C3E;
+    }
+
+    /* ========== SECTION CONTRIBUER (cb) ========== */
+    .cb * { box-sizing: border-box; margin: 0; padding: 0; }
+    .cb {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      padding: 72px 48px;
+      max-width: 1190px;
+      margin: 0 auto;
+    }
+
+    .cb-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #70C7FD;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .cb-eyebrow-line { width: 36px; height: 2px; background: #70C7FD; flex-shrink: 0; }
+
+    .cb-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid rgba(112,199,253,0.22);
+      border-radius: 20px;
+      overflow: hidden;
+      min-height: 520px;
+    }
+
+    .cb-left {
+      padding: 56px 48px;
+      border-right: 1px solid rgba(112,199,253,0.18);
+    }
+
+    .cb-title {
+      font-size: 30px;
+      font-weight: 700;
+      color: #1A2C3E;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .cb-title span { color: #70C7FD; }
+
+    .cb-desc {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #4A627A;
+      margin-bottom: 32px;
+      max-width: 380px;
+    }
+
+    .cb-categories {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+
+    .cb-cat {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 11px 14px;
+      border: 1px solid rgba(112,199,253,0.18);
+      border-radius: 10px;
+      background: #FAFCFF;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: default;
+    }
+    .cb-cat:hover {
+      border-color: rgba(112,199,253,0.5);
+      background: #F0F9FF;
+    }
+    .cb-cat-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(112,199,253,0.12);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .cb-cat-icon svg {
+      width: 16px; height: 16px;
+      stroke: #70C7FD; stroke-width: 1.7;
+      fill: none; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .cb-cat-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1A2C3E;
+      line-height: 1.3;
+    }
+
+    .cb-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #70C7FD;
+      color: #1A2C3E;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 13px 26px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.2s, gap 0.2s;
+      letter-spacing: 0.01em;
+    }
+    .cb-btn:hover { background: #4BB3F0; gap: 14px; }
+    .cb-btn svg { width: 15px; height: 15px; stroke: #1A2C3E; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    .cb-guarantees {
+      display: flex;
+      gap: 24px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .cb-guarantee {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      color: #64748B;
+      font-family: 'Space Mono', monospace;
+    }
+    .cb-guarantee-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #70C7FD;
+      flex-shrink: 0;
+    }
+
+    .cb-right {
+      padding: 56px 48px;
+      background: #F8FBFF;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .cb-right-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1A2C3E;
+      margin-bottom: 28px;
+      letter-spacing: -0.01em;
+    }
+
+    .cb-process {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      flex: 1;
+    }
+
+    .cb-step {
+      display: flex;
+      gap: 16px;
+      position: relative;
+    }
+    .cb-step:not(:last-child) { padding-bottom: 28px; }
+
+    .cb-step-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .cb-step-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #70C7FD;
+      color: #fff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .cb-step-line {
+      width: 1px;
+      flex: 1;
+      background: rgba(112,199,253,0.2);
+      margin-top: 6px;
+    }
+    .cb-step:last-child .cb-step-line { display: none; }
+
+    .cb-step-content { padding-top: 4px; }
+    .cb-step-heading {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1A2C3E;
+      margin-bottom: 4px;
+    }
+    .cb-step-text {
+      font-size: 12px;
+      color: #64748B;
+      line-height: 1.6;
+    }
+
+    .cb-divider-horiz {
+      height: 1px;
+      background: rgba(112,199,253,0.15);
+      margin: 28px 0;
+    }
+
+    .cb-why {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .cb-why-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 12px;
+      color: #4A627A;
+      line-height: 1.5;
+    }
+    .cb-why-check {
+      width: 16px; height: 16px;
+      background: rgba(112,199,253,0.14);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .cb-why-check svg {
+      width: 9px; height: 9px;
+      stroke: #70C7FD; stroke-width: 2.5;
+      fill: none; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* Espacement avant le bloc cb */
+    .cb-spacer {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(112, 199, 253, 0.4), transparent);
+      max-width: 1100px;
+      margin: 48px auto 0;
+    }
+  </style>
+
+  <div class="data-module">
+    <!-- ========== HERO ========== -->
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-eyebrow">
+          <div class="eyebrow-line"></div>
+          ACCÈS AUX DONNÉES
+        </div>
+        <h1>Accès et partage<br><span>des données</span></h1>
+        <p class="hero-desc">
+           Accédez et contribuez aux données géospatiales du territoire de Jacqueville. Un modèle hybride vous permet de partager des informations, de télécharger certaines données gratuitement ou de faire une demande spécifique.
+        </p>
+        <div class="hero-meta">
+          <div class="meta-item">
+            <div class="meta-value">42</div>
+            <div class="meta-label">Localités<br>répertoriées</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-value">31+</div>
+            <div class="meta-label">Couches<br>disponibles</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-value">2026</div>
+            <div class="meta-label">Mise à jour<br>des données</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="preview-card">
+          <div class="preview-header">
+            <div class="preview-title">📊 INDICATEURS TERRITORIAUX</div>
+            <div class="preview-dot"></div>
+          </div>
+          <div class="preview-body">
+            <div class="stat-item"><div class="stat-label">🏘️ Villages et quartiers</div><div class="stat-number">42</div></div>
+            <div class="stat-item"><div class="stat-label">🏫 Établissements scolaires</div><div class="stat-number">43</div></div>
+            <div class="stat-item"><div class="stat-label">🏥 Structures sanitaires</div><div class="stat-number">10</div></div>
+            <div class="stat-item"><div class="stat-label">👮 Gendarmerie</div><div class="stat-number">1</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ========== NAVIGATION PAR DOMAINES ========== -->
+    <div class="domain-nav">
+      <a href="#domaine-administratif" class="domain-link">Administration</a>
+      <a href="#domaine-sante" class="domain-link">Santé</a>
+      <a href="#domaine-education" class="domain-link">Éducation</a>
+      <a href="#domaine-environnement" class="domain-link">Environnement</a>
+      <a href="#domaine-infrastructures" class="domain-link">Infrastructures</a>
+      <a href="#domaine-risques" class="domain-link">Risques</a>
+      <a href="#domaine-tourisme" class="domain-link">Tourisme</a>
+      <a href="#domaine-agriculture" class="domain-link">Agriculture</a>
+      <a href="#domaine-mobilité" class="domain-link">Transport et mobilité</a>
+    </div>
+
+    <!-- ========== 3 NIVEAUX D'ACCÈS ========== -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">3 niveaux <span>d'accès</span></div>
+        <div class="section-desc">Valoriser la connaissance territoriale tout en préservant l'expertise d'analyse</div>
+      </div>
+
+      <div class="tiers-grid">
+        <!-- Carte 1 : Open Data -->
+        <div class="tier-card open">
+          <div class="tier-icon">📂🟢</div>
+          <div class="tier-title">Open Data</div>
+          <div class="tier-price">Gratuit · Téléchargement libre</div>
+          <ul class="tier-features">
+            <li>Données de référence du territoire</li>
+            <li>Consultation et réutilisation libre</li>
+            <li>Formats standards (SHP, GeoJSON, CSV)</li>
+            <li>Mise à jour annuelle</li>
+            <li>Licence ouverte (CC BY-NC)</li>
+          </ul>
+          <a href="#open-data" class="tier-btn">Accéder aux données ouvertes ↓</a>
+        </div>
+
+        <!-- Carte 2 : Sur demande -->
+        <div class="tier-card premium">
+          <div class="tier-icon">🔒🔴</div>
+          <div class="tier-title">Sur demande</div>
+          <div class="tier-price">Accès contrôlé · Étude personnalisée</div>
+          <ul class="tier-features">
+            <li>Données enrichies et analyses sur mesure</li>
+            <li>Expertise territoriale approfondie</li>
+            <li>Rapports et cartes personnalisés</li>
+            <li>Accompagnement méthodologique</li>
+            <li>Tarification selon le périmètre</li>
+          </ul>
+          <a href="#sur-demande" class="tier-btn">Faire une demande →</a>
+        </div>
+
+        <!-- Carte 3 : Contribution citoyenne -->
+        <div class="tier-card citoyenne">
+          <div class="tier-icon">📝</div>
+          <div class="tier-title">Contribution citoyenne</div>
+          <div class="tier-price">Partagez vos observations</div>
+          <ul class="tier-features">
+            <li>Partagez vos connaissances du territoire</li>
+            <li>Enrichissez les données communes</li>
+            <li>Valorisez votre expertise locale</li>
+            <li>Géolocalisation automatique</li>
+            <li>Validation par l'Observatoire</li>
+          </ul>
+          <a href="#contribution-citoyenne" class="tier-btn">Participer →</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========== INDEX DES FORMATS ========== -->
+    <div class="format-index">
+      <p>📁 <strong>Standards du catalogue</strong> — Formats supportés : <strong>SHP</strong> (Shapefile) · <strong>GeoJSON</strong> · <strong>TIFF</strong> (GeoTIFF) · <strong>GPKG</strong> (GeoPackage) · <strong>CSV</strong> · <strong>NetCDF</strong></p>
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- ========== SECTION OPEN DATA ========== -->
+    <!-- ================================================================== -->
+
+    <div class="section" id="open-data">
+      <div class="section-header">
+        <div class="section-title">📦 Données <span>Open Data</span> <span class="badge">8 jeux</span></div>
+        <div class="section-desc">Téléchargement libre et gratuit — Données de référence du territoire — Licence CC BY-NC 4.0</div>
+      </div>
+
+      <!-- ADMINISTRATION -->
+      <div class="section" id="domaine-administratif" style="padding-top: 0;">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <div class="section-title" style="font-size: 22px;">Administration territoriale</div>
+        </div>
+        <div class="datasets-grid">
+          <div class="dataset-card">
+            <div class="dataset-header">
+              <div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z' /><circle cx='12' cy='10' r='3' /></svg></div>
+              <div class="dataset-title">Limites du département</div>
+            </div>
+            <div class="dataset-desc">Limites administratives du département de Jacqueville.</div>
+            <div class="dataset-metadata">
+              <span class="metadata-badge badge-category">Administratif</span>
+              <span class="metadata-badge badge-type">Vectoriel</span>
+              <span class="metadata-badge badge-format">SHP</span>
+              <span class="metadata-badge badge-year">2024</span>
+              <span class="metadata-badge badge-access-open">Open Data</span>
+            </div>
+            <div class="dataset-footer">
+              <span class="dataset-size">13,2 Ko</span>
+              <a href="https://github.com/Geoportail-Jacqueville/open-data/raw/refs/heads/main/data/administratif/D%C3%A9partement_jacqueville.zip" class="dataset-link">Télécharger →</a>
+            </div>
+          </div>
+          <div class="dataset-card">
+            <div class="dataset-header">
+              <div class="dataset-icon"><svg viewBox='0 0 24 24'><circle cx='12' cy='8' r='4' /><path d='M5 8h14M12 4v8' /><path d='M3 16c2-2 4-3 6-3s4 1 6 3 4 3 6 3' /></svg></div>
+              <div class="dataset-title">Localités</div>
+            </div>
+            <div class="dataset-desc">48 localités avec géoréférencement précis.</div>
+            <div class="dataset-metadata">
+              <span class="metadata-badge badge-category">Administratif</span>
+              <span class="metadata-badge badge-type">Vectoriel</span>
+              <span class="metadata-badge badge-format">SHP</span>
+              <span class="metadata-badge badge-year">2025</span>
+              <span class="metadata-badge badge-access-open">Open Data</span>
+            </div>
+            <div class="dataset-footer">
+              <span class="dataset-size">4,65 Ko</span>
+              <a href="https://github.com/Geoportail-Jacqueville/open-data/raw/refs/heads/main/data/administratif/Localit%C3%A9.zip" class="dataset-link">Télécharger →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÉDUCATION -->
+      <div class="section" id="domaine-education" style="padding-top: 0;">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <div class="section-title" style="font-size: 22px;">Éducation</div>
+        </div>
+        <div class="datasets-grid">
+          <div class="dataset-card">
+            <div class="dataset-header">
+              <div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M22 10v6M2 10l10-5 10 5-10 5-10-5z' /><path d='M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5' /></svg></div>
+              <div class="dataset-title">Éducation</div>
+            </div>
+            <div class="dataset-desc">Établissements scolaires et universitaires.</div>
+            <div class="dataset-metadata">
+              <span class="metadata-badge badge-category">Éducation</span>
+              <span class="metadata-badge badge-type">Vectoriel</span>
+              <span class="metadata-badge badge-format">SHP</span>
+              <span class="metadata-badge badge-year">2024</span>
+              <span class="metadata-badge badge-access-open">Open Data</span>
+            </div>
+            <div class="dataset-footer">
+              <span class="dataset-size">6,01 Ko</span>
+              <a href="https://github.com/Geoportail-Jacqueville/open-data/raw/refs/heads/main/data/education/Education.zip" class="dataset-link">Télécharger →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SANTÉ -->
+      <div class="section" id="domaine-sante" style="padding-top: 0;">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <div class="section-title" style="font-size: 22px;">Santé</div>
+        </div>
+        <div class="datasets-grid">
+          <div class="dataset-card">
+            <div class="dataset-header">
+              <div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M22 12h-4M6 12H2M12 6V2M12 22v-4' /><rect x='8' y='8' width='8' height='8' rx='2' /></svg></div>
+              <div class="dataset-title">Santé</div>
+            </div>
+            <div class="dataset-desc">Hôpitaux, centres de santé, dispensaires, pharmacies.</div>
+            <div class="dataset-metadata">
+              <span class="metadata-badge badge-category">Santé</span>
+              <span class="metadata-badge badge-type">Vectoriel</span>
+              <span class="metadata-badge badge-format">SHP</span>
+              <span class="metadata-badge badge-year">2024</span>
+              <span class="metadata-badge badge-access-open">Open Data</span>
+            </div>
+            <div class="dataset-footer">
+              <span class="dataset-size">4,53 Ko</span>
+              <a href="https://github.com/Geoportail-Jacqueville/open-data/raw/refs/heads/main/data/sante/Sant%C3%A9.zip" class="dataset-link">Télécharger →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CULTURE -->
+      <div class="section" id="domaine-culture" style="padding-top: 0;">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <div class="section-title" style="font-size: 22px;">Culture et lieux de culte</div>
+        </div>
+        <div class="datasets-grid">
+          <div class="dataset-card">
+            <div class="dataset-header">
+              <div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5' /></svg></div>
+              <div class="dataset-title">Lieux de culte et culture</div>
+            </div>
+            <div class="dataset-desc">Églises, temples, mosquées, équipements culturels.</div>
+            <div class="dataset-metadata">
+              <span class="metadata-badge badge-category">Culture</span>
+              <span class="metadata-badge badge-type">Vectoriel</span>
+              <span class="metadata-badge badge-format">SHP</span>
+              <span class="metadata-badge badge-year">2024</span>
+              <span class="metadata-badge badge-access-open">Open Data</span>
+            </div>
+            <div class="dataset-footer">
+              <span class="dataset-size">3,57 Ko</span>
+              <a href="https://github.com/Geoportail-Jacqueville/open-data/raw/refs/heads/main/data/patrimoine_culturel/Lieux_de_culte_et_culture.zip" class="dataset-link">Télécharger →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRANSPORT -->
+      <div class="section" id="domaine-mobilité" style="padding-top: 0;">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <div class="section-title" style="font-size: 22px;">Transport et mobilité</div>
+        </div>
+        <div class="datasets-grid">
+          <div class="dataset-card">
+            <div class="dataset-header">
+              <div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M22 12h-4M6 12H2M12 6V2M12 22v-4' /><rect x='8' y='8' width='8' height='8' rx='2' /></svg></div>
+              <div class="dataset-title">Voirie</div>
+            </div>
+            <div class="dataset-desc">Réseau routier du département.</div>
+            <div class="dataset-metadata">
+              <span class="metadata-badge badge-category">Voirie</span>
+              <span class="metadata-badge badge-type">Vectoriel</span>
+              <span class="metadata-badge badge-format">SHP</span>
+              <span class="metadata-badge badge-year">2026</span>
+              <span class="metadata-badge badge-access-open">Open Data</span>
+            </div>
+            <div class="dataset-footer">
+              <span class="dataset-size">297 Ko</span>
+              <a href="https://github.com/Geoportail-Jacqueville/open-data/raw/refs/heads/main/data/Transport%20et%20mobilit%C3%A9./Voirie.zip" class="dataset-link">Télécharger →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENVIRONNEMENT -->
+      <div class="section" id="domaine-environnement" style="padding-top: 0;">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <div class="section-title" style="font-size: 22px;">Environnement</div>
+        </div>
+        <div class="datasets-grid">
+          <div class="dataset-card">
+            <div class="dataset-header">
+              <div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M12 2L3 12h5l-4 8h16l-4-8h5L12 2z' /></svg></div>
+              <div class="dataset-title">Forêt</div>
+            </div>
+            <div class="dataset-desc">Zones forestières, forêts classées.</div>
+            <div class="dataset-metadata">
+              <span class="metadata-badge badge-category">Environnement</span>
+              <span class="metadata-badge badge-type">Vectoriel</span>
+              <span class="metadata-badge badge-format">SHP</span>
+              <span class="metadata-badge badge-year">2024</span>
+              <span class="metadata-badge badge-access-open">Open Data</span>
+            </div>
+            <div class="dataset-footer">
+              <span class="dataset-size">2,4 MB</span>
+              <a href="https://github.com/Geoportail-Jacqueville/open-data/raw/refs/heads/main/data/environnement/For%C3%AAts.zip" class="dataset-link">Télécharger →</a>
+            </div>
+          </div>
+          <div class="dataset-card">
+            <div class="dataset-header">
+              <div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M2 12c1.5-2 3-3 4.5-3s3 2 4.5 2 3-3 4.5-3 3 1 4.5 1' /><path d='M2 17c1.5-2 3-3 4.5-3s3 2 4.5 2 3-3 4.5-3 3 1 4.5 1' /></svg></div>
+              <div class="dataset-title">Lagune</div>
+            </div>
+            <div class="dataset-desc">Tracé de la lagune Ébrié.</div>
+            <div class="dataset-metadata">
+              <span class="metadata-badge badge-category">Environnement</span>
+              <span class="metadata-badge badge-type">Vectoriel</span>
+              <span class="metadata-badge badge-format">SHP</span>
+              <span class="metadata-badge badge-year">2026</span>
+              <span class="metadata-badge badge-access-open">Open Data</span>
+            </div>
+            <div class="dataset-footer">
+              <span class="dataset-size">30,1 Ko</span>
+              <a href="https://github.com/Geoportail-Jacqueville/open-data/raw/refs/heads/main/data/hydrographie/Lagune.zip" class="dataset-link">Télécharger →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- ========== SECTION SUR DEMANDE ========== -->
+    <!-- ================================================================== -->
+
+    <div class="section" id="sur-demande">
+      <div class="section-header">
+        <div class="section-title">🔒 Données <span>sur demande</span> <span class="badge">12 jeux</span></div>
+        <div class="section-desc">Accès contrôlé après étude du projet — Données enrichies et analyses spécialisées</div>
+      </div>
+
+      <div class="section" id="domaine-environnement-premium" style="padding-top: 0;">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <div class="section-title" style="font-size: 22px;">Environnement & Topographie</div>
+        </div>
+        <div class="datasets-grid">
+          <div class="dataset-card"><div class="dataset-header"><div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M3 20l5-10 4 6 3-4 6 8H3z' /><path d='M17 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z' /></svg></div><div class="dataset-title">Pente</div></div><div class="dataset-desc">Analyse de pente dérivée du MNT.</div><div class="dataset-metadata"><span class="metadata-badge badge-category">Topographie</span><span class="metadata-badge badge-type">Raster</span><span class="metadata-badge badge-format">TIFF</span><span class="metadata-badge badge-year">2025</span><span class="metadata-badge badge-access-premium">Sur demande</span></div><div class="dataset-footer"><span class="dataset-size">4,2 MB</span><a href="https://geoportail-jacqueville.github.io/formulaire/?dataset=Pente" class="dataset-link">Faire une demande →</a></div></div>
+          <div class="dataset-card"><div class="dataset-header"><div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M3 20l2-6 3 2 4-8 3 6 2-4 2 10H3z' /><circle cx='18' cy='6' r='2' /></svg></div><div class="dataset-title">Courbe de niveau</div></div><div class="dataset-desc">Lignes d'isovaleurs (5m et 10m).</div><div class="dataset-metadata"><span class="metadata-badge badge-category">Topographie</span><span class="metadata-badge badge-type">Vectoriel</span><span class="metadata-badge badge-format">SHP</span><span class="metadata-badge badge-year">2025</span><span class="metadata-badge badge-access-premium">Sur demande</span></div><div class="dataset-footer"><span class="dataset-size">2,8 MB</span><a href="https://geoportail-jacqueville.github.io/formulaire/?dataset=Courbe%20de%20niveau" class="dataset-link">Faire une demande →</a></div></div>
+          <div class="dataset-card"><div class="dataset-header"><div class="dataset-icon"><svg viewBox='0 0 24 24'><circle cx='12' cy='12' r='3' /><path d='M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1' /></svg></div><div class="dataset-title">Stockage carbone</div></div><div class="dataset-desc">Stock de carbone biomasse et sols.</div><div class="dataset-metadata"><span class="metadata-badge badge-category">Environnement</span><span class="metadata-badge badge-type">Raster</span><span class="metadata-badge badge-format">TIFF</span><span class="metadata-badge badge-year">2025</span><span class="metadata-badge badge-access-premium">Sur demande</span></div><div class="dataset-footer"><span class="dataset-size">12,3 MB</span><a href="https://geoportail-jacqueville.github.io/formulaire/?dataset=Stockage%20carbone" class="dataset-link">Faire une demande →</a></div></div>
+          <div class="dataset-card"><div class="dataset-header"><div class="dataset-icon"><svg viewBox='0 0 24 24'><rect x='2' y='2' width='8' height='8' rx='1' /><rect x='14' y='14' width='8' height='8' rx='1' /><path d='M6 10v2a2 2 0 0 0 2 2h2M18 14V12a2 2 0 0 0-2-2h-2M6 6l12 12' /></svg></div><div class="dataset-title">Indices normalisés Raster</div></div><div class="dataset-desc">NDVI, NDWI, NDBI, NBR (2017-2025).</div><div class="dataset-metadata"><span class="metadata-badge badge-category">Télédétection</span><span class="metadata-badge badge-type">Raster</span><span class="metadata-badge badge-format">TIFF</span><span class="metadata-badge badge-year">2017-2025</span><span class="metadata-badge badge-access-premium">Sur demande</span></div><div class="dataset-footer"><span class="dataset-size">245 MB</span><a href="https://geoportail-jacqueville.github.io/formulaire/?dataset=Indices%20normalis%C3%A9s%20Raster" class="dataset-link">Faire une demande →</a></div></div>
+          <div class="dataset-card"><div class="dataset-header"><div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5' /></svg></div><div class="dataset-title">Occupation du sol détaillée</div></div><div class="dataset-desc">9 classes thématiques (2025).</div><div class="dataset-metadata"><span class="metadata-badge badge-category">Occupation du sol</span><span class="metadata-badge badge-type">Vectoriel</span><span class="metadata-badge badge-format">SHP</span><span class="metadata-badge badge-year">2025</span><span class="metadata-badge badge-access-premium">Sur demande</span></div><div class="dataset-footer"><span class="dataset-size">8,5 MB</span><a href="https://geoportail-jacqueville.github.io/formulaire/?dataset=Occupation%20du%20sol%20d%C3%A9taill%C3%A9e" class="dataset-link">Faire une demande →</a></div></div>
+          <div class="dataset-card"><div class="dataset-header"><div class="dataset-icon"><svg viewBox='0 0 24 24'><polyline points='23 6 13.5 15.5 8.5 10.5 1 18' /><polyline points='17 6 23 6 23 12' /></svg></div><div class="dataset-title">Évolution 2017-2025</div></div><div class="dataset-desc">Matrice de changement et taux d'artificialisation.</div><div class="dataset-metadata"><span class="metadata-badge badge-category">Dynamique</span><span class="metadata-badge badge-type">Vectoriel</span><span class="metadata-badge badge-format">GPKG</span><span class="metadata-badge badge-year">2017-2025</span><span class="metadata-badge badge-access-premium">Sur demande</span></div><div class="dataset-footer"><span class="dataset-size">12,6 MB</span><a href="https://geoportail-jacqueville.github.io/formulaire/?dataset=%C3%89volution%202017-2025" class="dataset-link">Faire une demande →</a></div></div>
+        </div>
+      </div>
+
+      <div class="section" id="domaine-infrastructures" style="padding-top: 0;">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <div class="section-title" style="font-size: 22px;">Infrastructures & Urbanisme</div>
+        </div>
+        <div class="datasets-grid">
+          <div class="dataset-card"><div class="dataset-header"><div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' /><polyline points='9 22 9 12 15 12 15 22' /></svg></div><div class="dataset-title">Trame des lotissements</div></div><div class="dataset-desc">Parcelles viabilisées et zones d'habitat planifié.</div><div class="dataset-metadata"><span class="metadata-badge badge-category">Urbanisme</span><span class="metadata-badge badge-type">Vectoriel</span><span class="metadata-badge badge-format">SHP</span><span class="metadata-badge badge-year">2025</span><span class="metadata-badge badge-access-premium">Sur demande</span></div><div class="dataset-footer"><span class="dataset-size">5,7 MB</span><a href="https://geoportail-jacqueville.github.io/formulaire/?dataset=Trame%20des%20lotissements" class="dataset-link">Faire une demande →</a></div></div>
+          <div class="dataset-card"><div class="dataset-header"><div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M13 2L3 14h9l-1 8 10-12h-9l1-8z' /></svg></div><div class="dataset-title">Infrastructures énergétiques</div></div><div class="dataset-desc">Réseaux électriques, pipelines, centrales.</div><div class="dataset-metadata"><span class="metadata-badge badge-category">Énergie</span><span class="metadata-badge badge-type">Vectoriel</span><span class="metadata-badge badge-format">SHP</span><span class="metadata-badge badge-year">2025</span><span class="metadata-badge badge-access-premium">Sur demande</span></div><div class="dataset-footer"><span class="dataset-size">8,9 MB</span><a href="https://geoportail-jacqueville.github.io/formulaire/?dataset=Infrastructures%20%C3%A9nerg%C3%A9tiques" class="dataset-link">Faire une demande →</a></div></div>
+          <div class="dataset-card"><div class="dataset-header"><div class="dataset-icon"><svg viewBox='0 0 24 24'><rect x='2' y='2' width='20' height='20' rx='2' /><path d='M8 2v20M16 2v20M2 8h20M2 16h20' /></svg></div><div class="dataset-title">Zones constructibles</div></div><div class="dataset-desc">Analyse multicritère (pente, risques).</div><div class="dataset-metadata"><span class="metadata-badge badge-category">Urbanisme</span><span class="metadata-badge badge-type">Vectoriel</span><span class="metadata-badge badge-format">SHP</span><span class="metadata-badge badge-year">2024</span><span class="metadata-badge badge-access-premium">Sur demande</span></div><div class="dataset-footer"><span class="dataset-size">3,4 MB</span><a href="https://geoportail-jacqueville.github.io/formulaire/?dataset=Zones%20constructibles" class="dataset-link">Faire une demande →</a></div></div>
+        </div>
+      </div>
+
+      <div class="section" id="domaine-risques" style="padding-top: 0;">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <div class="section-title" style="font-size: 22px;">Risques & Aléas</div>
+        </div>
+        <div class="datasets-grid">
+          <div class="dataset-card"><div class="dataset-header"><div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M12 2L6 12a6 6 0 1 0 12 0z' /><path d='M12 10v4M12 17h.01' /></svg></div><div class="dataset-title">Aléa multi-risques</div></div><div class="dataset-desc">Inondation, submersion, érosion côtière.</div><div class="dataset-metadata"><span class="metadata-badge badge-category">Risques</span><span class="metadata-badge badge-type">Vectoriel</span><span class="metadata-badge badge-format">SHP</span><span class="metadata-badge badge-year">2024</span><span class="metadata-badge badge-access-premium">Sur demande</span></div><div class="dataset-footer"><span class="dataset-size">4,8 MB</span><a href="https://geoportail-jacqueville.github.io/formulaire/?dataset=Al%C3%A9a%20multi-risques" class="dataset-link">Faire une demande →</a></div></div>
+        </div>
+      </div>
+
+      <div class="section" id="domaine-tourisme" style="padding-top: 0;">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <div class="section-title" style="font-size: 22px;">Tourisme</div>
+        </div>
+        <div class="datasets-grid">
+          <div class="dataset-card"><div class="dataset-header"><div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M17 17c0 2.8-2.2 5-5 5s-5-2.2-5-5' /><path d='M12 22v-5M8 4C5.8 4 4 5.8 4 8c2.2 0 4-1.8 4-4zM16 4c2.2 0 4 1.8 4 4-2.2 0-4-1.8-4-4z' /><path d='M12 2c0 3.3-1.3 6-3 8h6c-1.7-2-3-4.7-3-8z' /></svg></div><div class="dataset-title">Sites touristiques</div></div><div class="dataset-desc">Plages, monuments, éco-lodges.</div><div class="dataset-metadata"><span class="metadata-badge badge-category">Tourisme</span><span class="metadata-badge badge-type">Vectoriel</span><span class="metadata-badge badge-format">SHP</span><span class="metadata-badge badge-year">2025</span><span class="metadata-badge badge-access-premium">Sur demande</span></div><div class="dataset-footer"><span class="dataset-size">567 Ko</span><a href="https://geoportail-jacqueville.github.io/formulaire/?dataset=Sites%20touristiques" class="dataset-link">Faire une demande →</a></div></div>
+        </div>
+      </div>
+
+      <div class="section" id="domaine-agriculture" style="padding-top: 0;">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <div class="section-title" style="font-size: 22px;">Agriculture</div>
+        </div>
+        <div class="datasets-grid">
+          <div class="dataset-card"><div class="dataset-header"><div class="dataset-icon"><svg viewBox='0 0 24 24'><path d='M12 22V12M12 12C12 7 7 3 2 3s2 9 10 9M12 12c0-5 5-9 10-9s-2 9-10 9' /></svg></div><div class="dataset-title">Zones agricoles détaillées</div></div><div class="dataset-desc">Qualité des sols, accès à l'eau, potentiel agronomique.</div><div class="dataset-metadata"><span class="metadata-badge badge-category">Agriculture</span><span class="metadata-badge badge-type">Vectoriel</span><span class="metadata-badge badge-format">SHP</span><span class="metadata-badge badge-year">2024</span><span class="metadata-badge badge-access-premium">Sur demande</span></div><div class="dataset-footer"><span class="dataset-size">5,2 MB</span><a href="https://geoportail-jacqueville.github.io/formulaire/?dataset=Zones%20agricoles%20d%C3%A9taill%C3%A9es" class="dataset-link">Faire une demande →</a></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- ========== SECTION CONTRIBUTION CITOYENNE (cb) ============== -->
+    <!-- ============================================================= -->
+
+    <div class="cb-spacer"></div>
+
+    <div id="contribution-citoyenne" class="cb">
+      <div class="cb-eyebrow">
+        <div class="cb-eyebrow-line"></div>
+        Contribution citoyenne
+      </div>
+
+      <div class="cb-layout">
+        <div class="cb-left">
+          <h2 class="cb-title">Partagez vos<br>connaissances du <span>territoire</span></h2>
+          <p class="cb-desc">Vous observez quelque chose d'utile sur le terrain ? Soumettez-le à l'Observatoire territorial de Jacqueville pour enrichir les données communes.</p>
+
+          <div class="cb-categories">
+            <div class="cb-cat">
+              <div class="cb-cat-icon">
+                <svg viewBox='0 0 24 24'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' /><polyline points='9 22 9 12 15 12 15 22' /></svg>
+              </div>
+              <span class="cb-cat-label">Équipement public</span>
+            </div>
+            <div class="cb-cat">
+              <div class="cb-cat-icon">
+                <svg viewBox='0 0 24 24'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5' /></svg>
+              </div>
+              <span class="cb-cat-label">Site patrimonial</span>
+            </div>
+            <div class="cb-cat">
+              <div class="cb-cat-icon">
+                <svg viewBox='0 0 24 24'><path d='M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z' /><path d='M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16' /></svg>
+              </div>
+              <span class="cb-cat-label">Activité économique</span>
+            </div>
+            <div class="cb-cat">
+              <div class="cb-cat-icon">
+                <svg viewBox='0 0 24 24'><circle cx='12' cy='12' r='3' /><path d='M12 2v3M12 19v3M2 12h3M19 12h3' /></svg>
+              </div>
+              <span class="cb-cat-label">Observation terrain</span>
+            </div>
+            <div class="cb-cat">
+              <div class="cb-cat-icon">
+                <svg viewBox='0 0 24 24'><path d='M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z' /><circle cx='12' cy='10' r='3' /></svg>
+              </div>
+              <span class="cb-cat-label">Point d'intérêt</span>
+            </div>
+            <div class="cb-cat">
+              <div class="cb-cat-icon">
+                <svg viewBox='0 0 24 24'><polygon points='3 11 22 2 13 21 11 13 3 11' /></svg>
+              </div>
+              <span class="cb-cat-label">Autre donnée géolocalisée</span>
+            </div>
+          </div>
+
+          <a href="https://geoportail-jacqueville.github.io/contribution/" class="cb-btn">
+            Soumettre une donnée
+            <svg viewBox='0 0 24 24'><path d='M5 12h14M12 5l7 7-7 7' /></svg>
+          </a>
+
+          <div class="cb-guarantees">
+            <div class="cb-guarantee"><div class="cb-guarantee-dot"></div>Géolocalisation automatique</div>
+            <div class="cb-guarantee"><div class="cb-guarantee-dot"></div>Validation Observatoire</div>
+            <div class="cb-guarantee"><div class="cb-guarantee-dot"></div>Données protégées</div>
+          </div>
+        </div>
+
+        <div class="cb-right">
+          <div class="cb-right-title">Comment ça fonctionne</div>
+
+          <div class="cb-process">
+            <div class="cb-step">
+              <div class="cb-step-left">
+                <div class="cb-step-num">01</div>
+                <div class="cb-step-line"></div>
+              </div>
+              <div class="cb-step-content">
+                <div class="cb-step-heading">Remplissez le formulaire</div>
+                <div class="cb-step-text">Décrivez l'information et sa localisation. Le formulaire est accessible depuis tout appareil.</div>
+              </div>
+            </div>
+            <div class="cb-step">
+              <div class="cb-step-left">
+                <div class="cb-step-num">02</div>
+                <div class="cb-step-line"></div>
+              </div>
+              <div class="cb-step-content">
+                <div class="cb-step-heading">Vérification par l'Observatoire</div>
+                <div class="cb-step-text">L'équipe examine la contribution, vérifie sa cohérence géographique et thématique.</div>
+              </div>
+            </div>
+            <div class="cb-step">
+              <div class="cb-step-left">
+                <div class="cb-step-num">03</div>
+                <div class="cb-step-line"></div>
+              </div>
+              <div class="cb-step-content">
+                <div class="cb-step-heading">Intégration au catalogue</div>
+                <div class="cb-step-text">La donnée validée rejoint le catalogue territorial, disponible pour tous les utilisateurs.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cb-divider-horiz"></div>
+
+          <div class="cb-why">
+            <div class="cb-why-item">
+              <div class="cb-why-check"><svg viewBox='0 0 24 24'><polyline points='20 6 9 17 4 12' /></svg></div>
+              Enrichir la connaissance locale
+            </div>
+            <div class="cb-why-item">
+              <div class="cb-why-check"><svg viewBox='0 0 24 24'><polyline points='20 6 9 17 4 12' /></svg></div>
+              Aider à la décision publique
+            </div>
+            <div class="cb-why-item">
+              <div class="cb-why-check"><svg viewBox='0 0 24 24'><polyline points='20 6 9 17 4 12' /></svg></div>
+              Recherche participative
+            </div>
+            <div class="cb-why-item">
+              <div class="cb-why-check"><svg viewBox='0 0 24 24'><polyline points='20 6 9 17 4 12' /></svg></div>
+              Valoriser les acteurs locaux
+            </div>
+            <div class="cb-why-item">
+              <div class="cb-why-check"><svg viewBox='0 0 24 24'><polyline points='20 6 9 17 4 12' /></svg></div>
+              Contribuer à l'Observatoire
+            </div>
+            <div class="cb-why-item">
+              <div class="cb-why-check"><svg viewBox='0 0 24 24'><polyline points='20 6 9 17 4 12' /></svg></div>
+              Données ouvertes à tous
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== LICENCE ========== -->
+    <div class="section">
+      <div class="licence-box">
+        <p>📋 <strong>Licence et conditions d'utilisation</strong> — Les données Open Data sont mises à disposition sous licence <strong>Creative Commons Attribution - Pas d'Utilisation Commerciale (CC BY-NC 4.0)</strong>. Pour tout usage commercial ou accès aux données "Sur demande", merci de <a href="https://geoportail-jacqueville.github.io/contact/" class="licence-link">nous contacter</a>.</p>
+        <p>🔐 <strong>Segmentation des accès</strong> : Open Data (téléchargement libre) · Sur demande (accès contrôlé après étude du projet et signature d'une convention d'utilisation)</p>
+        <p>🌍 <strong>Mise à jour</strong> : Données terrain 2024-2025 · Sources : MNT Alos Palsar (12.5m), Sentinel-2 (10m), inventaires terrain, données IRD, Openstreetmaps et partenaires institutionnels</p>
+        <p>📌 <strong>Métadonnées standardisées</strong> — Chaque jeu de données intègre : catégorie · type (vecteur/raster) · format · année · niveau d'accès</p>
+      </div>
+    </div>
+
+    <!-- ========== CTA ========== -->
+    <div class="cta-band">
+      <div class="cta-text">
+        <h2>💡 Vous avez besoin d'une analyse spécifique ?</h2>
+        <p>Nous accompagnons les investisseurs, ONG et collectivités dans l'analyse territoriale et la production de rapports personnalisés.</p>
+      </div>
+      <a class="btn-cta" href="https://geoportail-jacqueville.github.io/contact/">
+        <svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+          <circle cx='12' cy='12' r='10' /><path d='M12 2a15 15 0 0 1 0 20M2 12h20' />
+        </svg>
+        Demander une étude
+        <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M5 12h14M12 5l7 7-7 7' /></svg>
+      </a>
+    </div>
+  </div>
+</div>

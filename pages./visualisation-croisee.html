@@ -1,0 +1,780 @@
+<div style="display: block; margin: 0; padding: 0;">
+  <style>
+    /* IMPORTANT : Tous les styles sont strictement limités à .viz-module */
+    /* Aucun style global n'est appliqué en dehors de ce conteneur */
+
+    .viz-module {
+      display: block;
+      width: 100%;
+      background: #FFFFFF;
+      font-family: 'Inter', sans-serif;
+      isolation: isolate; /* Isole le module du reste de la page */
+      contain: content; /* Limite l'impact CSS */
+    }
+
+    /* Reset uniquement pour les éléments du module */
+    .viz-module div,
+    .viz-module section,
+    .viz-module article,
+    .viz-module header,
+    .viz-module footer,
+    .viz-module span,
+    .viz-module p,
+    .viz-module h1,
+    .viz-module h2,
+    .viz-module h3,
+    .viz-module h4,
+    .viz-module a {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: inherit;
+      line-height: normal;
+      text-decoration: none;
+    }
+
+    /* Import des polices UNIQUEMENT dans le module */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Mono:wght@400;700&display=swap');
+
+    /* ========== VERSION MOBILE ========== */
+    @media (max-width: 768px) {
+      .viz-module .hero {
+        grid-template-columns: 1fr !important;
+        padding: 32px 20px 0 !important;
+        gap: 32px !important;
+      }
+      .viz-module .hero h1 {
+        font-size: 32px !important;
+      }
+      .viz-module .hero-desc {
+        font-size: 14px !important;
+        max-width: 100% !important;
+      }
+      .viz-module .hero-actions {
+        flex-direction: column !important;
+        width: 100% !important;
+      }
+      .viz-module .btn-primary {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+      .viz-module .hero-meta {
+        flex-wrap: wrap !important;
+        gap: 16px !important;
+        justify-content: space-between !important;
+      }
+      .viz-module .meta-item {
+        flex: 1 !important;
+        min-width: 80px !important;
+        text-align: center !important;
+      }
+      .viz-module .layers-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+      }
+      .viz-module .section {
+        padding: 40px 20px !important;
+      }
+      .viz-module .section-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+      }
+      .viz-module .section-title {
+        font-size: 22px !important;
+      }
+      .viz-module .section-desc {
+        font-size: 13px !important;
+      }
+      .viz-module .features-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+      .viz-module .cta-band {
+        flex-direction: column !important;
+        text-align: center !important;
+        margin: 0 20px 40px !important;
+        padding: 32px 24px !important;
+      }
+      .viz-module .cta-text h2 {
+        font-size: 20px !important;
+      }
+      .viz-module .cta-text p {
+        font-size: 13px !important;
+        max-width: 100% !important;
+      }
+      .viz-module .btn-cta {
+        width: 100% !important;
+        justify-content: center !important;
+      }
+    }
+
+    /* ========== TABLETTE ========== */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .viz-module .hero {
+        padding: 48px 32px 0 !important;
+        gap: 40px !important;
+      }
+      .viz-module .hero h1 {
+        font-size: 36px !important;
+      }
+      .viz-module .layers-grid {
+        gap: 16px !important;
+      }
+      .viz-module .section {
+        padding: 48px 32px !important;
+      }
+      .viz-module .features-grid {
+        gap: 20px !important;
+      }
+      .viz-module .cta-band {
+        margin: 0 32px 48px !important;
+        padding: 36px 32px !important;
+      }
+    }
+
+    /* ========== STYLES DE BASE ========== */
+    .viz-module .hero {
+      padding: 64px 40px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .viz-module .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #70C7FD;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .viz-module .eyebrow-line {
+      width: 40px;
+      height: 2px;
+      background: #70C7FD;
+    }
+
+    .viz-module .hero h1 {
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #1A2C3E;
+      margin-bottom: 24px;
+    }
+
+    .viz-module .hero h1 span {
+      color: #70C7FD;
+      position: relative;
+      display: inline-block;
+    }
+
+    .viz-module .hero h1 span::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: rgba(112, 199, 253, 0.25);
+      border-radius: 4px;
+      z-index: -1;
+    }
+
+    .viz-module .hero-desc {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #4A627A;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .viz-module .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .viz-module .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #70C7FD;
+      color: #1A2C3E;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(112, 199, 253, 0.3);
+    }
+
+    .viz-module .btn-primary:hover {
+      background: #4BB3F0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(112, 199, 253, 0.4);
+    }
+
+    .viz-module .btn-primary svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .viz-module .hero-meta {
+      display: flex;
+      gap: 32px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(112, 199, 253, 0.2);
+    }
+
+    .viz-module .meta-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: #70C7FD;
+    }
+
+    .viz-module .meta-label {
+      font-size: 12px;
+      color: #64748B;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    .viz-module .hero-visual {
+      position: relative;
+    }
+
+    .viz-module .preview-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(112, 199, 253, 0.3);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    .viz-module .preview-header {
+      background: linear-gradient(135deg, #70C7FD, #4BB3F0);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .viz-module .preview-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #1A2C3E;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .viz-module .preview-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    }
+
+    .viz-module .preview-body {
+      padding: 20px;
+    }
+
+    .viz-module .layer-preview {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(112, 199, 253, 0.15);
+      transition: all 0.2s ease;
+    }
+
+    .viz-module .layer-preview:hover {
+      transform: translateX(5px);
+    }
+
+    .viz-module .layer-preview:last-child {
+      border-bottom: none;
+    }
+
+    .viz-module .layer-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(112, 199, 253, 0.08);
+    }
+
+    .viz-module .layer-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1A2C3E;
+    }
+
+    .viz-module .layer-count {
+      font-size: 11px;
+      color: #70C7FD;
+      margin-top: 3px;
+      font-weight: 500;
+    }
+
+    .viz-module .layer-badge {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 30px;
+      flex-shrink: 0;
+      background: rgba(112, 199, 253, 0.12);
+      color: #70C7FD;
+    }
+
+    .viz-module .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(112, 199, 253, 0.4), transparent);
+      margin: 48px auto 0;
+      max-width: 1100px;
+    }
+
+    .viz-module .section {
+      padding: 64px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .viz-module .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .viz-module .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1A2C3E;
+      letter-spacing: -0.01em;
+    }
+
+    .viz-module .section-title span {
+      color: #70C7FD;
+    }
+
+    .viz-module .section-desc {
+      font-size: 15px;
+      color: #4A627A;
+      margin-top: 8px;
+      max-width: 500px;
+    }
+
+    .viz-module .layers-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .viz-module .layer-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(112, 199, 253, 0.2);
+      border-radius: 20px;
+      padding: 24px 20px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .viz-module .layer-card:hover {
+      transform: translateY(-5px);
+      border-color: #70C7FD;
+      box-shadow: 0 15px 35px rgba(112, 199, 253, 0.12);
+    }
+
+    .viz-module .layer-accent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      border-radius: 0;
+      background: linear-gradient(90deg, #70C7FD, #4BB3F0);
+    }
+
+    .viz-module .layer-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(112, 199, 253, 0.08);
+    }
+
+    .viz-module .layer-card-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1A2C3E;
+      margin-bottom: 6px;
+    }
+
+    .viz-module .layer-card-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: #70C7FD;
+      margin-bottom: 6px;
+    }
+
+    .viz-module .layer-card-label {
+      font-size: 12px;
+      color: #64748B;
+    }
+
+    .viz-module .layer-card-bar {
+      height: 4px;
+      border-radius: 4px;
+      background: rgba(112, 199, 253, 0.12);
+      margin-top: 18px;
+      overflow: hidden;
+    }
+
+    .viz-module .layer-card-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #70C7FD, #4BB3F0);
+    }
+
+    .viz-module .features-section {
+      background: #FFFFFF;
+      border-radius: 32px;
+      margin-top: 0;
+    }
+
+    .viz-module .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .viz-module .feature-card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(112, 199, 253, 0.2);
+    }
+
+    .viz-module .feature-card:hover {
+      transform: translateX(8px);
+      border-color: #70C7FD;
+      box-shadow: 0 8px 20px rgba(112, 199, 253, 0.1);
+    }
+
+    .viz-module .feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      background: rgba(112, 199, 253, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .viz-module .feature-text h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1A2C3E;
+      margin-bottom: 6px;
+    }
+
+    .viz-module .feature-text p {
+      font-size: 13px;
+      color: #64748B;
+      line-height: 1.5;
+    }
+
+    .viz-module .cta-band {
+      margin: 0 40px 64px;
+      background: linear-gradient(135deg, #70C7FD, #4BB3F0);
+      border-radius: 28px;
+      padding: 48px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      max-width: 1120px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 20px 40px rgba(112, 199, 253, 0.2);
+    }
+
+    .viz-module .cta-text h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1A2C3E;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+
+    .viz-module .cta-text p {
+      font-size: 15px;
+      color: #1A2C3E;
+      opacity: 0.85;
+      line-height: 1.6;
+      max-width: 460px;
+    }
+
+    .viz-module .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #1A2C3E;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 16px 32px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .viz-module .btn-cta:hover {
+      transform: translateY(-2px);
+      background: #2D4055;
+      gap: 16px;
+    }
+  </style>
+
+  <div class="viz-module">
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-eyebrow">
+          <div class="eyebrow-line"></div>
+          EXPLORATION MULTI-COUCHES
+        </div>
+        <h1>Visualisation<br><span>croisée</span></h1>
+        <p class="hero-desc">
+          Analyser et croiser les données descriptives du territoire de Jacqueville.<br><br>
+          Ce module vous permet d'afficher en superposition les différents éléments que nous avons pu recenser et localiser au sein du territoire. Sélectionnez les ensembles de données que vous voulez voir sur la carte et visualisez-les d'un simple clic.
+        </p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/439f736688bb4e8caaf5240fa48b736c/explore">
+            <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+              <circle cx='12' cy='12' r='10' /><path d='M12 2a15 15 0 0 1 0 20M2 12h20' />
+            </svg>
+            Explorer la carte
+          </a>
+        </div>
+        <div class="hero-meta">
+          <div class="meta-item">
+            <div class="meta-value">31+</div>
+            <div class="meta-label">Couches<br>disponibles</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-value">∞</div>
+            <div class="meta-label">Combinaisons<br>possibles</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-value">2026</div>
+            <div class="meta-label">Données<br>actualisées</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="preview-card">
+          <div class="preview-header">
+            <div class="preview-title">📡 DONNÉES DISPONIBLES</div>
+            <div class="preview-dot"></div>
+          </div>
+          <div class="preview-body">
+            <div class="layer-preview">
+              <div class="layer-icon">
+                <svg width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='#70C7FD' stroke-width='1.8'><rect x='2' y='3' width='20' height='14' rx='2' /><line x1='8' y1='21' x2='16' y2='21' /><line x1='12' y1='17' x2='12' y2='21' /></svg>
+              </div>
+              <div>
+                <div class="layer-name">Infrastructures</div>
+                <div class="layer-count">Éducation · Transport · Santé · administration</div>
+              </div>
+              <div class="layer-badge">7 types</div>
+            </div>
+            <div class="layer-preview">
+              <div class="layer-icon">
+                <svg width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='#70C7FD' stroke-width='1.8'><path d='M2 12h20M12 2v20M5 5l14 14M19 5L5 19' /></svg>
+              </div>
+              <div>
+                <div class="layer-name">Réseaux</div>
+                <div class="layer-count">Routes bitumée· Routes non bitumée · Pistes</div>
+              </div>
+              <div class="layer-badge">3 types</div>
+            </div>
+            <div class="layer-preview">
+              <div class="layer-icon">
+                <svg width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='#70C7FD' stroke-width='1.8'><circle cx='12' cy='12' r='10' /><path d='M12 2v20M2 12h20' /></svg>
+              </div>
+              <div>
+                <div class="layer-name">Hydrographie</div>
+                <div class="layer-count">Cours d'eau · Lagune · Zones humides</div>
+              </div>
+              <div class="layer-badge">3 types</div>
+            </div>
+            <div class="layer-preview">
+              <div class="layer-icon">
+                <svg width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='#70C7FD' stroke-width='1.8'><polygon points='3 22 8 12 16 12 21 22' /><circle cx='12' cy='8' r='5' /></svg>
+              </div>
+              <div>
+                <div class="layer-name">Occupation du sol</div>
+                <div class="layer-count">Urbain · Végétation · Agricole</div>
+              </div>
+              <div class="layer-badge">8 couches</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Sélectionner <span>les couches</span> à superposer</div>
+          <div class="section-desc">Choisissez parmi 4 grandes thématiques. Chaque sélection s'affiche en superposition sur la carte.</div>
+        </div>
+      </div>
+      <div class="layers-grid">
+        <div class="layer-card">
+          <div class="layer-accent"></div>
+          <div class="layer-card-icon">
+            <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#70C7FD' stroke-width='1.8'><rect x='2' y='3' width='20' height='14' rx='2' /><line x1='8' y1='21' x2='16' y2='21' /><line x1='12' y1='17' x2='12' y2='21' /></svg>
+          </div>
+          <div class="layer-card-name">Infrastructures</div>
+          <div class="layer-card-count">7</div>
+          <div class="layer-card-label">types d'équipements</div>
+          <div class="layer-card-bar"><div class="layer-card-fill" style="width:100%"></div></div>
+        </div>
+        <div class="layer-card">
+          <div class="layer-accent"></div>
+          <div class="layer-card-icon">
+            <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#70C7FD' stroke-width='1.8'><path d='M2 12h20M12 2v20M5 5l14 14M19 5L5 19' /></svg>
+          </div>
+          <div class="layer-card-name">Réseaux</div>
+          <div class="layer-card-count">3</div>
+          <div class="layer-card-label">catégories de voies</div>
+          <div class="layer-card-bar"><div class="layer-card-fill" style="width:75%"></div></div>
+        </div>
+        <div class="layer-card">
+          <div class="layer-accent"></div>
+          <div class="layer-card-icon">
+            <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#70C7FD' stroke-width='1.8'><circle cx='12' cy='12' r='10' /><path d='M12 2v20M2 12h20' /></svg>
+          </div>
+          <div class="layer-card-name">Hydrographie</div>
+          <div class="layer-card-count">3</div>
+          <div class="layer-card-label">entités recensées</div>
+          <div class="layer-card-bar"><div class="layer-card-fill" style="width:75%"></div></div>
+        </div>
+        <div class="layer-card">
+          <div class="layer-accent"></div>
+          <div class="layer-card-icon">
+            <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#70C7FD' stroke-width='1.8'><polygon points='3 22 8 12 16 12 21 22' /><circle cx='12' cy='8' r='5' /></svg>
+          </div>
+          <div class="layer-card-name">Occupation du sol</div>
+          <div class="layer-card-count">3</div>
+          <div class="layer-card-label">types d'occupation</div>
+          <div class="layer-card-bar"><div class="layer-card-fill" style="width:75%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section features-section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Analyse spatiale par <span>croisement</span> de couches</div>
+          <div class="section-desc">Combinez différentes données géographiques pour produire des analyses territoriales et faciliter l’aide à la décision.</div>
+        </div>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#70C7FD' stroke-width='1.8'><rect x='2' y='3' width='20' height='14' rx='2' /><line x1='8' y1='21' x2='16' y2='21' /></svg>
+          </div>
+          <div class="feature-text">
+            <h4>🏫 Écoles + zones inondables</h4>
+            <p>Identifier les établissements scolaires situés en zone à risque pour prioriser les actions de protection.</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#70C7FD' stroke-width='1.8'><path d='M2 12h20M12 2v20' /></svg>
+          </div>
+          <div class="feature-text">
+            <h4>🛣️ Routes + zones humides</h4>
+            <p>Analyser la vulnérabilité du réseau routier face aux contraintes hydrologiques et prévoir les renforcements.</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#70C7FD' stroke-width='1.8'><polygon points='3 22 8 12 16 12 21 22' /><circle cx='12' cy='8' r='5' /></svg>
+          </div>
+          <div class="feature-text">
+            <h4>🏙️ Urbanisation + lagune</h4>
+            <p>Visualiser l'étalement urbain en bordure de lagune et anticiper les pressions environnementales.</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#70C7FD' stroke-width='1.8'><circle cx='12' cy='12' r='10' /><path d='M12 2v20M2 12h20' /></svg>
+          </div>
+          <div class="feature-text">
+            <h4>🏥 Équipements + zones protégées</h4>
+            <p>Localiser les services à proximité des zones écologiques sensibles pour une meilleure planification.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-band">
+      <div class="cta-text">
+        <h2>✨ Lancer une visualisation croisée</h2>
+        <p>Sélectionnez les ensembles de données que vous voulez voir sur la carte et visualisez-les d'un simple clic.</p>
+      </div>
+      <a class="btn-cta" href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/439f736688bb4e8caaf5240fa48b736c/explore">
+        <svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+          <circle cx='12' cy='12' r='10' /><path d='M12 2a15 15 0 0 1 0 20M2 12h20' />
+        </svg>
+        Accéder au visualiseur
+        <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M5 12h14M12 5l7 7-7 7' /></svg>
+      </a>
+    </div>
+  </div>
+</div>

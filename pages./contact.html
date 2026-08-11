@@ -1,0 +1,484 @@
+<!-- ========== SECTION CONTACT AVEC IFRAME ========== -->
+<div style="display: block; margin: 0; padding: 0;">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Mono:wght@400;700&display=swap');
+
+    .contact-page, .contact-page * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .contact-page {
+      font-family: 'Inter', sans-serif;
+      width: 100%;
+      background: #FFFFFF;
+    }
+
+    .contact-page .back-to-data {
+      max-width: 1200px;
+      margin: 20px auto 0;
+      padding: 0 40px;
+    }
+
+    .contact-page .back-to-data a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #70C7FD;
+      text-decoration: none;
+      font-weight: 500;
+      transition: gap 0.2s;
+    }
+
+    .contact-page .back-to-data a:hover {
+      gap: 12px;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .contact-page .hero { padding: 32px 20px 0 !important; }
+      .contact-page .hero h1 { font-size: 32px !important; }
+      .contact-page .hero-desc { font-size: 14px !important; }
+      .contact-page .section { padding: 40px 20px !important; }
+      .contact-page .section-title { font-size: 24px !important; }
+      .contact-page .contact-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+      .contact-page .info-cards { grid-template-columns: 1fr !important; }
+      .contact-page .intro-text { font-size: 15px !important; }
+      .contact-page .back-to-data { padding: 0 20px !important; }
+      .contact-page .iframe-container { padding: 20px 16px 30px !important; }
+      .contact-page .iframe-card { height: 400px !important; }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .contact-page .hero { padding: 48px 32px 0 !important; }
+      .contact-page .hero h1 { font-size: 36px !important; }
+      .contact-page .section { padding: 48px 32px !important; }
+      .contact-page .contact-grid { gap: 32px !important; }
+      .contact-page .iframe-card { height: 550px !important; }
+    }
+
+    .contact-page .hero {
+      padding: 64px 40px 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .contact-page .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #70C7FD;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .contact-page .eyebrow-line {
+      width: 40px;
+      height: 2px;
+      background: #70C7FD;
+    }
+
+    .contact-page .hero h1 {
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #1A2C3E;
+      margin-bottom: 24px;
+    }
+
+    .contact-page .hero h1 span { color: #70C7FD; }
+
+    .contact-page .hero-desc {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #4A627A;
+      max-width: 680px;
+      margin-bottom: 32px;
+    }
+
+    .contact-page .intro-section {
+      max-width: 900px;
+      margin: 0 auto 48px auto;
+      text-align: center;
+    }
+
+    .contact-page .intro-text {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #4A627A;
+      margin-bottom: 20px;
+    }
+
+    .contact-page .intro-highlight {
+      background: linear-gradient(135deg, #F8FCFF, #FFFFFF);
+      border-left: 4px solid #70C7FD;
+      padding: 20px 28px;
+      margin-top: 24px;
+      border-radius: 16px;
+      text-align: left;
+    }
+
+    .contact-page .intro-highlight p {
+      font-size: 15px;
+      color: #1A2C3E;
+      margin-bottom: 12px;
+    }
+
+    .contact-page .intro-highlight p:last-child { margin-bottom: 0; }
+    .contact-page .intro-highlight strong { color: #70C7FD; }
+
+    .contact-page .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(112, 199, 253, 0.4), transparent);
+      margin: 48px auto 0;
+      max-width: 1100px;
+    }
+
+    .contact-page .section {
+      padding: 64px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-page .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .contact-page .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1A2C3E;
+      letter-spacing: -0.01em;
+    }
+
+    .contact-page .section-title span { color: #70C7FD; }
+
+    .contact-page .section-desc {
+      font-size: 16px;
+      color: #4A627A;
+      margin-top: 12px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-page .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 32px;
+    }
+
+    .contact-page .info-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .contact-page .info-card {
+      background: #F8FAFC;
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid rgba(112, 199, 253, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .contact-page .info-card:hover {
+      transform: translateY(-4px);
+      border-color: #70C7FD;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-page .info-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(112, 199, 253, 0.12);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .contact-page .info-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: #70C7FD;
+    }
+
+    .contact-page .info-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1A2C3E;
+      margin-bottom: 12px;
+    }
+
+    .contact-page .info-card p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #4A627A;
+      margin-bottom: 16px;
+    }
+
+    .contact-page .info-card a {
+      color: #70C7FD;
+      text-decoration: none;
+      font-weight: 600;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .contact-page .info-card a:hover {
+      color: #4BB3F0;
+      text-decoration: underline;
+    }
+
+    .contact-page .contact-detail {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(112, 199, 253, 0.15);
+    }
+
+    .contact-page .contact-detail .label {
+      font-size: 12px;
+      color: #64748B;
+      margin-bottom: 4px;
+    }
+
+    .contact-page .contact-detail .value {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1A2C3E;
+    }
+
+    .contact-page .form-container {
+      background: #FFFFFF;
+      border: 1px solid rgba(112, 199, 253, 0.2);
+      border-radius: 24px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-page .form-container h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1A2C3E;
+      margin-bottom: 12px;
+    }
+
+    .contact-page .form-container p {
+      font-size: 14px;
+      color: #4A627A;
+      margin-bottom: 28px;
+    }
+
+    .contact-page .form-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #70C7FD;
+      color: #1A2C3E;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px 32px;
+      border-radius: 60px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-page .form-link:hover {
+      background: #4BB3F0;
+      transform: translateY(-2px);
+      gap: 16px;
+    }
+
+    .contact-page .form-note {
+      margin-top: 24px;
+      font-size: 12px;
+      color: #64748B;
+      background: #F8FAFC;
+      padding: 12px;
+      border-radius: 12px;
+    }
+
+    .contact-page .email-direct {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #64748B;
+    }
+
+    .contact-page .email-direct a {
+      color: #70C7FD;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ========== IFRAME CONTACT ========== */
+    .contact-page .iframe-container {
+      width: 100%;
+      background: #ffffff;
+      padding: 20px 40px 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .contact-page .iframe-card {
+      width: 100%;
+      max-width: 1200px;
+      height: 650px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      background: #e9edf2;
+      position: relative;
+    }
+
+    .contact-page .iframe-card iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+  </style>
+
+  <div class="contact-page">
+    <!-- Section Héro -->
+    <div class="hero">
+      <div class="hero-eyebrow">
+        <div class="eyebrow-line"></div>
+        NOUS CONTACTER
+      </div>
+      <h1>Contactez l'<span>Observatoire</span></h1>
+      <p class="hero-desc">
+        Une question sur nos données, une demande de partenariat ou une suggestion ? L'équipe de l'Observatoire Participatif de la Qualité de l'Environnement est à votre écoute.
+      </p>
+    </div>
+
+    <!-- Bloc de texte introductif -->
+    <div class="intro-section">
+      <div class="intro-text">
+        L'Observatoire territorial de Jacqueville est un programme de recherche participatif qui collecte, archive et analyse les données environnementales, urbaines et socio-économiques du territoire. Notre mission est de fournir une information fiable et accessible à tous les acteurs du développement.
+      </div>
+      <div class="intro-highlight">
+        <p>📢 <strong>Vous êtes concerné ?</strong></p>
+        <p>▪️ <strong>Élu ou service technique municipal</strong> — besoin de données pour l'aménagement ou la planification ?</p>
+        <p>▪️ <strong>Chercheur ou étudiant</strong> — accès aux données scientifiques et publications ?</p>
+        <p>▪️ <strong>Investisseur ou opérateur économique</strong> — analyse territoriale ou étude d'impact ?</p>
+        <p>▪️ <strong>ONG ou association</strong> — collaboration ou partage d'observations terrain ?</p>
+        <p>▪️ <strong>Citoyen ou habitant</strong> — signalement d'une zone inondable ou d'une problématique environnementale ?</p>
+        <p style="margin-top: 12px;">👉 <strong>N'hésitez pas à nous écrire</strong> en précisant l'objet de votre demande. Nous vous répondrons dans les meilleurs délais.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Section Contact principal -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Échangeons <span>ensemble</span></div>
+        <div class="section-desc">Vous êtes chercheur, élu, acteur économique, institution ou simple citoyen ? N'hésitez pas à nous solliciter.</div>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Colonne de gauche : Coordonnées -->
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="info-icon">
+              <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5'>
+                <path d='M12 2a7 7 0 0 0-7 7c0 3 2 5 7 9 5-4 7-6 7-9a7 7 0 0 0-7-7z' />
+                <circle cx='12' cy='9' r='3' />
+              </svg>
+            </div>
+            <h3>Nous trouver</h3>
+            <p>Institut Universitaire du Sud<br>Jacqueville, Région des Lagunes<br>Côte d'Ivoire</p>
+            <div class="contact-detail">
+              <div class="label">📍 Bâtiment de l'Observatoire</div>
+              <div class="value">Au sein de l'Institut Universitaire du Sud</div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">
+              <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5'>
+                <rect x='2' y='4' width='20' height='16' rx='2' />
+                <path d='m22 7-10 7L2 7' />
+              </svg>
+            </div>
+            <h3>Nous appeler</h3>
+            <a href="tel:+22527250000">+225 27 25 00 00</a>
+            <div class="contact-detail">
+              <div class="label">📞 Standard</div>
+              <div class="value">Du lundi au vendredi, 8h30-17h</div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">
+              <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5'>
+                <circle cx='12' cy='12' r='10' />
+                <polyline points='12 6 12 12 16 14' />
+              </svg>
+            </div>
+            <h3>Horaires d'ouverture</h3>
+            <p>Lundi - Vendredi : 8h30 - 17h00<br>Samedi : 9h00 - 13h00 (sur rendez-vous)<br>Dimanche et jours fériés : fermé</p>
+          </div>
+        </div>
+
+        <!-- Colonne de droite : Formulaire -->
+        <div class="form-container">
+          <h3>Envoyez-nous un message</h3>
+          <p>Pour toute demande, utilisez notre formulaire en ligne. Précisez votre profil et l'objet de votre demande.</p>
+          
+          <a href="https://geoportail-jacqueville.github.io/contact/" class="form-link">
+            📝 Accéder au formulaire
+            <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+              <path d='M5 12h14M12 5l7 7-7 7' />
+            </svg>
+          </a>
+          
+          <div class="form-note">
+            🔒 Vos informations sont confidentielles. Une réponse sous 48h ouvrées.
+          </div>
+          
+          <div class="email-direct">
+            ou écrivez-nous directement : <a href="mailto:observatoire@univ-sud.ci">observatoire@univ-sud.ci</a>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+	    <!-- Section : Plan d'accès -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-header">
+        <div class="section-title">Plan <span>d'accès</span></div>
+        <div class="section-desc">L'Observatoire est situé au sein de l'Institut Universitaire du Sud à Jacqueville</div>
+      </div>
+    </div>
+
+    <!-- ========== IFRAME AJOUTÉ ICI ========== -->
+    <div class="iframe-container">
+      <div class="iframe-card">
+        <iframe 
+          src="https://experience.arcgis.com/experience/d902ea66edc34427b4941fc6f8af84ba" 
+          allowfullscreen 
+          loading="lazy" 
+          title="Carte interactive Jacqueville">
+        </iframe>
+      </div>
+    </div>
+
+  </div>
+</div>
