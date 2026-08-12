@@ -12,7 +12,7 @@
 <nav class="gp-nav" role="navigation" aria-label="Navigation principale">
   <div class="gp-nav-inner">
     <a href="index.html" class="gp-nav-logo" aria-label="Accueil">
-      <img src="https://github.com/Geoportail-Jacqueville/open-data/blob/main/Logo/Logo%20Geoportail.jpg?raw=true" alt="Logo" loading="lazy">
+      <img src="logo/Logo%20Geoportail.jpg?raw=true" alt="Logo" loading="lazy">
     </a>
     <ul class="gp-nav-links">
       <li><a href="index.html" data-page="accueil">Accueil</a></li>
