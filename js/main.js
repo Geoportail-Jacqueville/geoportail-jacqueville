@@ -75,7 +75,7 @@
         <ul>
           <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/6fc97807bfba4a8082eeb779e2557431">Occupation du sol</a></li>
           <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/7db3c65fdc804d8e8adcaf0acb798aa0">Relief et topographie</a></li>
-          <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/pages/cartographie-thematique">Cartes thématiques</a></li>
+          <li><a href="cartes-thematiques.html">Cartes thématiques</a></li>
           <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/c6bccab68f044bb2b01c3fe08fbd4017">Patrimoine & découverte</a></li>
         </ul>
       </div>
