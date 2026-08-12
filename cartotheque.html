@@ -13,221 +13,443 @@
         body {
             padding-top: 64px;
             margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fa;
+            color: #1A2C3E;
+            line-height: 1.5;
+        }
+
+        /* Styles de la modale (communs avec l'index) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.15s ease, visibility 0.15s ease;
+            padding: 20px;
+            will-change: opacity;
+            -webkit-backdrop-filter: blur(2px);
+            backdrop-filter: blur(2px);
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            position: relative;
+            max-width: 95vw;
+            max-height: 90vh;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            animation: modalIn 0.15s ease-out;
+            will-change: transform;
+            transform: translateZ(0);
+        }
+        @keyframes modalIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            flex-shrink: 0;
+        }
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1A2C3E;
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #64748B;
+            line-height: 1;
+            padding: 0 4px;
+            transition: color 0.2s;
+            border-radius: 4px;
+        }
+        .modal-close:hover {
+            color: #1A2C3E;
+            background: #e2e8f0;
+        }
+        .modal-image-wrapper {
+            flex: 1;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+            padding: 20px;
+            min-height: 300px;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
+        .modal-image-wrapper img {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+            border-radius: 4px;
+            display: block;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .modal-image-wrapper img.loaded {
+            opacity: 1;
+        }
+
+        /* Conteneur principal */
+        .cartotheque-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* En-tête */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .page-header .emoji {
+            font-size: 48px;
+        }
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1A2C3E;
+            margin: 0;
+        }
+        .page-header h1 span {
+            color: #70C7FD;
+        }
+        .page-header p {
+            color: #4A627A;
+            margin-top: 12px;
+        }
+        .page-header .divider {
+            width: 60px;
+            height: 3px;
+            background: #70C7FD;
+            margin: 20px auto 0;
+        }
+
+        /* Grille des cartes */
+        .cartes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .carte-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.15s ease-out;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        .carte-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            border-color: #70C7FD;
+        }
+        .carte-card:active {
+            transform: scale(0.98);
+        }
+        .carte-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            flex-shrink: 0;
+            background-color: #e2e8f0;
+        }
+        .carte-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            z-index: 0;
+        }
+        .carte-image[style*="background-image"]::before {
+            display: none;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .carte-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            z-index: 1;
+        }
+        .carte-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .carte-body h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1A2C3E;
+        }
+        .carte-body p {
+            color: #64748B;
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 0 0 16px 0;
+            flex: 1;
+        }
+        .carte-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #94A3B8;
+        }
+        .carte-footer .voir {
+            color: #70C7FD;
+            font-weight: 500;
+        }
+
+        /* Bouton retour */
+        .back-link {
+            text-align: center;
+            margin-top: 48px;
+        }
+        .back-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: #70C7FD;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            border: 1px solid #70C7FD;
+            transition: all 0.3s ease;
+        }
+        .back-link a:hover {
+            background: #70C7FD;
+            color: #1A2C3E;
+        }
+
+        @media (max-width: 600px) {
+            .cartes-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- PLACEHOLDER NAVBAR -->
     <div id="navbar-placeholder"></div>
 
-    <!-- CONTENU DE LA PAGE -->
-    <div style="font-family: 'Inter', Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px;">
-        
-        <!-- En-tête -->
-        <div style="text-align: center; margin-bottom: 40px;">
-            <div style="font-size: 48px;">️</div>
-            <h1 style="font-size: 32px; font-weight: 700; color: #1A2C3E; margin: 0;">Cartothèques <span style="color: #70C7FD;">complètes</span></h1>
-            <p style="color: #4A627A; margin-top: 12px;">Découvrez l'intégralité des cartes thématiques disponibles sur le géoportail de Jacqueville.</p>
-            <div style="width: 60px; height: 3px; background: #70C7FD; margin: 20px auto 0;"></div>
+    <main class="cartotheque-page">
+        <div class="page-header">
+            <div class="emoji">🗺️</div>
+            <h1>Cartothèques <span>complètes</span></h1>
+            <p>Découvrez l'intégralité des cartes thématiques disponibles sur le géoportail de Jacqueville.</p>
+            <div class="divider"></div>
         </div>
 
-        <!-- Grille des cartes (12 cartes) -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px;">
-            
-            <!-- 1. Zones humides -->
-            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; transition: transform 0.2s; background: white;">
-                <div style="height: 180px; background-image: url('https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Cartes%20des%20zones%20humides.png?raw=true'); background-size: cover; background-position: center; position: relative;">
-                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌿 ENVIRONNEMENT</span>
-                </div>
-                <div style="padding: 20px;">
-                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Zones humides</h3>
-                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie des zones humides d'intérêt écologique et hydrologique.</p>
-                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
-                        <span style="font-size: 11px; color: #94A3B8;">2026</span>
-                        <a href="https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Cartes%20des%20zones%20humides.png?raw=true" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. Risque inondation -->
-            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
-                <div style="height: 180px; background-image: url('https://placehold.co/600x300/70C7FD/white?text=Risque+inondation'); background-size: cover; background-position: center; position: relative;">
-                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌊 RISQUES</span>
-                </div>
-                <div style="padding: 20px;">
-                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Risque d'inondation</h3>
-                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie des zones inondables selon les hauteurs d'eau simulées (0 à 5 m).</p>
-                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
-                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
-                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. Submersion marine -->
-            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
-                <div style="height: 180px; background-image: url('https://placehold.co/600x300/70C7FD/white?text=Submersion+marine'); background-size: cover; background-position: center; position: relative;">
-                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌊 RISQUES</span>
-                </div>
-                <div style="padding: 20px;">
-                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Submersion marine</h3>
-                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Analyse de la vulnérabilité du littoral face à la montée des eaux et aux tempêtes.</p>
-                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
-                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
-                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. Contributions au stock de CO₂ -->
-            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
-                <div style="height: 180px; background-image: url('https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Carte%20des%20contributions%20au%20stock%20CO%E2%82%82.png?raw=true'); background-size: cover; background-position: center; position: relative;">
-                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌿 ENVIRONNEMENT</span>
-                </div>
-                <div style="padding: 20px;">
-                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Contributions au stock total de CO₂</h3>
-                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie des zones contribuant le plus au stockage et à la séquestration du CO₂ (forêts, sols, zones humides, tourbières, etc.).</p>
-                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
-                        <span style="font-size: 11px; color: #94A3B8;">2026</span>
-                        <a href="https://github.com/Geoportail-Jacqueville/open-data/blob/main/cartes/Carte%20des%20contributions%20au%20stock%20CO%E2%82%82.png?raw=true" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5. NDVI -->
-            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
-                <div style="height: 180px; background-image: url('https://github.com/Jeant-Tim/Maps/blob/main/NDVI%20Jacqueville.png?raw=true'); background-size: cover; background-position: center; position: relative;">
-                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌿 ENVIRONNEMENT</span>
-                </div>
-                <div style="padding: 20px;">
-                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Indice NDVI</h3>
-                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie de l'Indice de Végétation par Différence Normalisée (NDVI).</p>
-                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
-                        <span style="font-size: 11px; color: #94A3B8;">2025</span>
-                        <a href="https://github.com/Jeant-Tim/Maps/blob/main/NDVI%20Jacqueville.png?raw=true" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 6. NDRE -->
-            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
-                <div style="height: 180px; background-image: url('https://github.com/Jeant-Tim/Maps/blob/main/NDRE%20Jacqueville.png?raw=true'); background-size: cover; background-position: center; position: relative;">
-                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌿 ENVIRONNEMENT</span>
-                </div>
-                <div style="padding: 20px;">
-                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Indice NDRE</h3>
-                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie de l'Indice de Végétation par Réflexion dans le Proche Infrarouge.</p>
-                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
-                        <span style="font-size: 11px; color: #94A3B8;">2025</span>
-                        <a href="https://github.com/Jeant-Tim/Maps/blob/main/NDRE%20Jacqueville.png?raw=true" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 7. Infrastructures -->
-            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
-                <div style="height: 180px; background-image: url('https://placehold.co/600x300/70C7FD/white?text=Infrastructures'); background-size: cover; background-position: center; position: relative;">
-                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🏗️ INFRASTRUCTURES</span>
-                </div>
-                <div style="padding: 20px;">
-                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Infrastructures et équipements</h3>
-                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Localisation des écoles, centres de santé, marchés, mairies et équipements publics.</p>
-                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
-                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
-                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 8. Réseau hydrographique -->
-            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
-                <div style="height: 180px; background-image: url('https://placehold.co/600x300/4BB3F0/white?text=Réseau+hydrographique'); background-size: cover; background-position: center; position: relative;">
-                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">💧 HYDROGRAPHIE</span>
-                </div>
-                <div style="padding: 20px;">
-                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Réseau hydrographique</h3>
-                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie des cours d'eau, lagunes, zones humides et forêts marécageuses.</p>
-                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
-                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
-                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 9. Zones constructibles -->
-            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
-                <div style="height: 180px; background-image: url('https://placehold.co/600x300/70C7FD/white?text=Zones+constructibles'); background-size: cover; background-position: center; position: relative;">
-                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🏙️ URBANISME</span>
-                </div>
-                <div style="padding: 20px;">
-                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Zones constructibles</h3>
-                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Identification des zones favorables à l'urbanisation, hors contraintes environnementales.</p>
-                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
-                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
-                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 10. Zones agricoles -->
-            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
-                <div style="height: 180px; background-image: url('https://placehold.co/600x300/70C7FD/white?text=Zones+agricoles'); background-size: cover; background-position: center; position: relative;">
-                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌾 AGRICULTURE</span>
-                </div>
-                <div style="padding: 20px;">
-                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Zones agricoles favorables</h3>
-                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie des zones propices à l'agriculture selon la qualité des sols et l'accès à l'eau.</p>
-                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
-                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
-                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 11. Risque hydrologique -->
-            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
-                <div style="height: 180px; background-image: url('https://placehold.co/600x300/70C7FD/white?text=Risque+hydrologique'); background-size: cover; background-position: center; position: relative;">
-                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">💧 RISQUES</span>
-                </div>
-                <div style="padding: 20px;">
-                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Risque hydrologique</h3>
-                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Cartographie des contraintes liées aux nappes phréatiques et à la saturation des sols.</p>
-                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
-                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
-                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 12. Zone tampon riveraine -->
-            <div style="border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; background: white;">
-                <div style="height: 180px; background-image: url('https://placehold.co/600x300/4BB3F0/white?text=Zone+tampon'); background-size: cover; background-position: center; position: relative;">
-                    <span style="position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;">🌿 ENVIRONNEMENT</span>
-                </div>
-                <div style="padding: 20px;">
-                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">Zone tampon riveraine</h3>
-                    <p style="color: #64748B; font-size: 13px; line-height: 1.5;">Identification des zones tampon (0-108 m) autour des cours d'eau et espaces protégés.</p>
-                    <div style="display: flex; justify-content: space-between; margin-top: 16px;">
-                        <span style="font-size: 11px; color: #94A3B8;">2024</span>
-                        <a href="#" style="color: #70C7FD; text-decoration: none;">Voir la carte →</a>
-                    </div>
-                </div>
-            </div>
-
+        <div class="cartes-grid" id="cartesGrid">
+            <!-- Généré par JavaScript -->
         </div>
 
-        <!-- Bouton retour -->
-        <div style="text-align: center; margin-top: 48px;">
-            <a href="index.html" style="display: inline-flex; align-items: center; gap: 10px; background: transparent; color: #70C7FD; font-family: 'Inter', Arial, sans-serif; font-size: 14px; font-weight: 600; padding: 12px 24px; border-radius: 50px; text-decoration: none; border: 1px solid #70C7FD; transition: all 0.3s ease;">
-                ← Retour à la cartothèque principale
-            </a>
+        <div class="back-link">
+            <a href="index.html">← Retour à la cartothèque principale</a>
+        </div>
+    </main>
+
+    <!-- Modale -->
+    <div class="modal-overlay" id="mapModal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-header">
+                <h3 id="modalTitle">Carte</h3>
+                <button class="modal-close" id="modalClose" aria-label="Fermer">&times;</button>
+            </div>
+            <div class="modal-image-wrapper">
+                <img src="" alt="" id="modalImage" loading="lazy">
+            </div>
+            <!-- Pas de modal-footer -->
         </div>
     </div>
 
-    <!-- PLACEHOLDER FOOTER -->
     <div id="footer-placeholder"></div>
 
-    <!-- Script principal (navbar + footer) -->
+    <script>
+        (function() {
+            // Tableau des cartes avec images (certaines réelles, d'autres placeholders)
+            const cartes = [
+                { titre: 'Zones humides', description: 'Cartographie des zones humides d\'intérêt écologique et hydrologique.', badge: '🌿 ENVIRONNEMENT', image: '/cartes/Cartes%20des%20zones%20humides.png', date: '2026' },
+                { titre: 'Risque d\'inondation', description: 'Cartographie des zones inondables selon les hauteurs d\'eau simulées (0 à 5 m).', badge: '🌊 RISQUES', image: 'https://placehold.co/600x300/70C7FD/white?text=Risque+inondation', date: '2024' },
+                { titre: 'Submersion marine', description: 'Analyse de la vulnérabilité du littoral face à la montée des eaux et aux tempêtes.', badge: '🌊 RISQUES', image: 'https://placehold.co/600x300/70C7FD/white?text=Submersion+marine', date: '2024' },
+                { titre: 'Contributions au stock total de CO₂', description: 'Cartographie des zones contribuant le plus au stockage et à la séquestration du CO₂.', badge: '🌿 ENVIRONNEMENT', image: '/cartes/Carte%20des%20contributions%20au%20stock%20CO%E2%82%82.png', date: '2026' },
+                { titre: 'Indice NDVI', description: 'Cartographie de l\'Indice de Végétation par Différence Normalisée (NDVI).', badge: '🌿 ENVIRONNEMENT', image: '/cartes/NDVI%20Jacqueville.png', date: '2025' },
+                { titre: 'Indice NDRE', description: 'Cartographie de l\'Indice de Végétation par Réflexion dans le Proche Infrarouge.', badge: '🌿 ENVIRONNEMENT', image: '/cartes/NDRE%20Jacqueville.png', date: '2025' },
+                { titre: 'Infrastructures et équipements', description: 'Localisation des écoles, centres de santé, marchés, mairies et équipements publics.', badge: '🏗️ INFRASTRUCTURES', image: 'https://placehold.co/600x300/70C7FD/white?text=Infrastructures', date: '2024' },
+                { titre: 'Réseau hydrographique', description: 'Cartographie des cours d\'eau, lagunes, zones humides et forêts marécageuses.', badge: '💧 HYDROGRAPHIE', image: 'https://placehold.co/600x300/4BB3F0/white?text=Réseau+hydrographique', date: '2024' },
+                { titre: 'Zones constructibles', description: 'Identification des zones favorables à l\'urbanisation, hors contraintes environnementales.', badge: '🏙️ URBANISME', image: 'https://placehold.co/600x300/70C7FD/white?text=Zones+constructibles', date: '2024' },
+                { titre: 'Zones agricoles favorables', description: 'Cartographie des zones propices à l\'agriculture selon la qualité des sols et l\'accès à l\'eau.', badge: '🌾 AGRICULTURE', image: 'https://placehold.co/600x300/70C7FD/white?text=Zones+agricoles', date: '2024' },
+                { titre: 'Risque hydrologique', description: 'Cartographie des contraintes liées aux nappes phréatiques et à la saturation des sols.', badge: '💧 RISQUES', image: 'https://placehold.co/600x300/70C7FD/white?text=Risque+hydrologique', date: '2024' },
+                { titre: 'Zone tampon riveraine', description: 'Identification des zones tampon (0-108 m) autour des cours d\'eau et espaces protégés.', badge: '🌿 ENVIRONNEMENT', image: 'https://placehold.co/600x300/4BB3F0/white?text=Zone+tampon', date: '2024' }
+            ];
+
+            const grid = document.getElementById('cartesGrid');
+            const modal = document.getElementById('mapModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalClose = document.getElementById('modalClose');
+
+            const imageCache = new Map();
+
+            function preloadImage(url) {
+                if (imageCache.has(url)) return Promise.resolve(imageCache.get(url));
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = () => { imageCache.set(url, img); resolve(img); };
+                    img.onerror = () => resolve(null);
+                    img.src = url;
+                });
+            }
+
+            const fragment = document.createDocumentFragment();
+
+            cartes.forEach((carte) => {
+                const card = document.createElement('div');
+                card.className = 'carte-card';
+                card.setAttribute('role', 'button');
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('aria-label', 'Agrandir : ' + carte.titre);
+
+                card.innerHTML = `
+                    <div class="carte-image" data-src="${carte.image}">
+                        <span class="carte-badge">${carte.badge}</span>
+                    </div>
+                    <div class="carte-body">
+                        <h3>${carte.titre}</h3>
+                        <p>${carte.description}</p>
+                        <div class="carte-footer">
+                            <span>Mise à jour : ${carte.date}</span>
+                            <span class="voir">Voir la carte →</span>
+                        </div>
+                    </div>
+                `;
+
+                const imageDiv = card.querySelector('.carte-image');
+                imageDiv.style.backgroundColor = '#e2e8f0';
+
+                const tempImg = new Image();
+                tempImg.onload = function() {
+                    imageDiv.style.backgroundImage = `url('${carte.image}')`;
+                    imageDiv.style.backgroundColor = 'transparent';
+                };
+                tempImg.onerror = function() {
+                    console.warn('Image non chargée :', carte.image);
+                };
+                tempImg.src = carte.image;
+
+                card.addEventListener('click', () => {
+                    preloadImage(carte.image).then(() => {
+                        modalImage.src = carte.image;
+                        modalImage.alt = carte.titre;
+                        modalTitle.textContent = carte.titre;
+                        modal.offsetHeight;
+                        modal.classList.add('active');
+                        modal.setAttribute('aria-hidden', 'false');
+                        document.body.style.overflow = 'hidden';
+                        modalImage.classList.remove('loaded');
+                        requestAnimationFrame(() => {
+                            modalImage.classList.add('loaded');
+                        });
+                        modalClose.focus();
+                    });
+                });
+
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        card.click();
+                    }
+                });
+
+                fragment.appendChild(card);
+            });
+
+            grid.appendChild(fragment);
+
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => {
+                    cartes.forEach(carte => preloadImage(carte.image));
+                });
+            } else {
+                setTimeout(() => {
+                    cartes.forEach(carte => preloadImage(carte.image));
+                }, 1000);
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    if (!modal.classList.contains('active')) {
+                        modalImage.src = '';
+                        modalImage.classList.remove('loaded');
+                    }
+                }, 200);
+            }
+
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+        })();
+    </script>
+
     <script src="js/main.js"></script>
 </body>
 </html>
