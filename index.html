@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/jpeg" sizes="32x32" href="https://github.com/Geoportail-Jacqueville/geoportail-jacqueville/blob/main/logo/logo-favicon.jpeg?raw=true">
-<link rel="apple-touch-icon" href="https://github.com/Geoportail-Jacqueville/geoportail-jacqueville/blob/main/logo/logo-favicon.jpeg?raw=true">
+    <link rel="apple-touch-icon" href="https://github.com/Geoportail-Jacqueville/geoportail-jacqueville/blob/main/logo/logo-favicon.jpeg?raw=true">
     <style>
         :root {
             --primary: #0f4c81;
@@ -46,12 +46,10 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Compensation de la navbar fixe */
         body {
             padding-top: 64px;
         }
 
-        /* ========== SKIP LINK ========== */
         .skip-link {
             position: absolute;
             top: -100px;
@@ -69,7 +67,7 @@
             top: 10px;
         }
 
-        /* ========== HERO ========== */
+        /* HERO */
         .hero-geo {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
                 url('https://github.com/Jeant-Tim/Geoportail/blob/main/Jacqueville.png?raw=true') no-repeat center center;
@@ -144,7 +142,7 @@
             box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
         }
 
-        /* ========== INTRO ========== */
+        /* INTRO */
         .intro-text-wrapper {
             width: 100%;
             background: #ffffff;
@@ -165,7 +163,7 @@
             color: var(--primary);
         }
 
-        /* ========== FONCTIONNALITÉS ========== */
+        /* FONCTIONNALITÉS */
         .jacqueville-home {
             font-family: "Segoe UI", Roboto, Arial, sans-serif;
             color: var(--text-dark);
@@ -208,7 +206,7 @@
             font-weight: 600;
         }
 
-        /* ========== MOUVEMENT BAR ========== */
+        /* MOUVEMENT BAR */
         .movement-bar {
             width: 100%;
             background: url('https://t3.ftcdn.net/jpg/09/33/02/06/240_F_933020660_ecBtX8sTiP3mAAuHFRGCkKbY8HGjBrQu.jpg') no-repeat center center;
@@ -245,7 +243,7 @@
             letter-spacing: 1px;
         }
 
-        /* ========== DESCRIPTION ========== */
+        /* DESCRIPTION */
         .description-wrapper {
             width: 100%;
             background: #f0f2f5;
@@ -264,7 +262,7 @@
             font-weight: 700;
         }
 
-        /* ========== IFRAME ========== */
+        /* IFRAME */
         .iframe-container {
             width: 100%;
             background: #ffffff;
@@ -292,7 +290,7 @@
             display: block;
         }
 
-        /* ========== FEATURED DATA ========== */
+        /* FEATURED DATA */
         .featured-data {
             font-family: 'Inter', sans-serif;
             width: 100%;
@@ -457,13 +455,12 @@
             stroke-width: 2;
             animation: pulse 2s infinite;
         }
-
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
 
-        /* ========== CARTOTHÈQUE ========== */
+        /* CARTOTHÈQUE */
         .cartotheque-section {
             font-family: 'Inter', Arial, sans-serif;
             max-width: 1200px;
@@ -493,6 +490,7 @@
             width: 60px;
             height: 3px;
             margin: 20px auto 0;
+            background: var(--accent);
         }
         .cartotheque-grid {
             display: grid;
@@ -600,7 +598,7 @@
             transform: translateX(4px);
         }
 
-        /* ========== MODALE ========== */
+        /* MODALE */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -696,24 +694,8 @@
         .modal-image-wrapper img.loaded {
             opacity: 1;
         }
-        .modal-footer {
-            padding: 12px 24px;
-            background: #f8fafc;
-            border-top: 1px solid #e2e8f0;
-            text-align: right;
-            flex-shrink: 0;
-        }
-        .modal-footer a {
-            color: var(--accent);
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .modal-footer a:hover {
-            text-decoration: underline;
-        }
 
-        /* ========== RESPONSIVE ========== */
+        /* RESPONSIVE */
         @media (max-width: 900px) {
             .featured-data { padding: 48px 0; }
             .cartotheque-grid {
@@ -725,7 +707,6 @@
                 max-height: 95vh;
             }
         }
-
         @media (max-width: 550px) {
             .featured-data { padding: 32px 0; }
             .featured-data .featured-card {
@@ -765,9 +746,6 @@
     </style>
 </head>
 <body>
-    <!-- ============================================ -->
-    <!-- PLACEHOLDER NAVBAR                           -->
-    <!-- ============================================ -->
     <div id="navbar-placeholder"></div>
 
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
@@ -783,10 +761,10 @@
                     développement durable de la commune de Jacqueville.
                 </p>
                 <div class="hero-geo-actions">
-                    <a href="cartes-thematiques.html" class="hero-btn hero-btn-primary">
+                    <a href="/cartes-thematiques.html" class="hero-btn hero-btn-primary">
                         Explorer les données
                     </a>
-                    <a href="visualisation-croisee.html" class="hero-btn hero-btn-secondary">
+                    <a href="/visualisation-croisee.html" class="hero-btn hero-btn-secondary">
                         Visualisation croisée
                     </a>
                 </div>
@@ -880,10 +858,10 @@
                     <!-- Généré par JavaScript -->
                 </div>
                 <div class="cartotheque-cta">
-                    <a href="cartotheque">Voir toutes les cartes <span>→</span></a>
+                    <a href="/cartotheque/">Voir toutes les cartes <span>→</span></a>
                 </div>
             </section>
-         </div>
+        </div>
 
         <!-- MODALE -->
         <div class="modal-overlay" id="mapModal" aria-hidden="true">
@@ -895,35 +873,28 @@
                 <div class="modal-image-wrapper">
                     <img src="" alt="" id="modalImage" loading="lazy">
                 </div>
-                <div class="modal-footer">
-                    <a href="#" id="modalDownloadLink" target="_blank" rel="noopener">Télécharger l'image originale ↗</a>
-                </div>
+                <!-- Plus de modal-footer -->
             </div>
         </div>
     </main>
 
-    <!-- ============================================ -->
-    <!-- PLACEHOLDER FOOTER                           -->
-    <!-- ============================================ -->
     <div id="footer-placeholder"></div>
 
-    <!-- Script spécifique à la page (cartothèque) -->
     <script>
         (function() {
             const cartes = [
-                { titre: 'Relief et plan d\'eau', image: '/cartes/Carte%20de%20relief%20de%20Jacqueville.png', ... },
-                { titre: 'Occupation du sol', image: '/cartes/Occupation%20du%20sol%20Jacqueville.jpg', ... },
-                { titre: 'Zones agricoles', image: '/cartes/Agriculture.png', ... },
-                { titre: 'Indice NDVI', image: '/cartes/NDVI%20Jacqueville.png', ... },
-                { titre: 'Carte de la ville de Jacqueville', image: '/cartes/Carte%20de%20Jacqueville.jpg', ... },
-                { titre: 'Indice NDRE', image: '/cartes/NDRE%20Jacqueville.png', ... }
+                { titre: 'Relief et plan d\'eau', description: 'Cartographie des reliefs et plan d\'eau à Jacqueville.', badge: 'TOPOGRAPHIE', image: '/cartes/Carte%20de%20relief%20de%20Jacqueville.png', date: '2026' },
+                { titre: 'Occupation du sol', description: 'Classe d\'occupation du sol 2023.', badge: 'ENVIRONNEMENT', image: '/cartes/Occupation%20du%20sol%20Jacqueville.jpg', date: '2023' },
+                { titre: 'Zones agricoles', description: 'Cartographie des zones agricoles.', badge: 'AGRICULTURE', image: '/cartes/Agriculture.png', date: '2024' },
+                { titre: 'Indice NDVI', description: 'Analyse spatiale de la couverture végétale.', badge: 'ENVIRONNEMENT', image: '/cartes/NDVI%20Jacqueville.png', date: '2025' },
+                { titre: 'Carte de la ville de Jacqueville', description: 'Représentation cartographique complète.', badge: 'URBANISME', image: '/cartes/Carte%20de%20Jacqueville.jpg', date: '2025' },
+                { titre: 'Indice NDRE', description: 'Cartographie de l\'Indice NDRE.', badge: 'ENVIRONNEMENT', image: '/cartes/NDRE%20Jacqueville.png', date: '2026' }
             ];
 
             const grid = document.getElementById('cartothequeGrid');
             const modal = document.getElementById('mapModal');
             const modalImage = document.getElementById('modalImage');
             const modalTitle = document.getElementById('modalTitle');
-            const modalDownloadLink = document.getElementById('modalDownloadLink');
             const modalClose = document.getElementById('modalClose');
 
             const imageCache = new Map();
@@ -982,7 +953,6 @@
                         modalImage.src = carte.image;
                         modalImage.alt = carte.titre;
                         modalTitle.textContent = carte.titre;
-                        modalDownloadLink.href = carte.image;
                         modal.offsetHeight;
                         modal.classList.add('active');
                         modal.setAttribute('aria-hidden', 'false');
@@ -1041,9 +1011,6 @@
         })();
     </script>
 
-    <!-- ============================================ -->
-    <!-- SCRIPT PRINCIPAL (charge navbar + footer)   -->
-    <!-- ============================================ -->
     <script src="js/main.js"></script>
 </body>
 </html>
