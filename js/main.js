@@ -1,27 +1,27 @@
 /**
  * Géoportail de Jacqueville – Injection directe navbar + footer
- * Chemins absolus + CSS stabilisé pour éviter tout décalage.
+ * Aucun fetch, fonctionne sur toutes les pages.
  */
 (function () {
   'use strict';
 
   console.log('🟢 main.js – injection directe');
 
-  // ===== HTML DE LA NAVBAR (chemins absolus + CSS stabilisé) =====
+  // ===== HTML DE LA NAVBAR =====
   const navbarHTML = `
 <nav class="gp-nav" role="navigation" aria-label="Navigation principale">
   <div class="gp-nav-inner">
-    <a href="/index.html" class="gp-nav-logo" aria-label="Accueil">
-      <img src="/logo/Logo%20Geoportail.jpg?raw=true" alt="Logo Géoportail de Jacqueville" loading="lazy">
+    <a href="index.html" class="gp-nav-logo" aria-label="Accueil">
+      <img src="logo/Logo%20Geoportail.jpg?raw=true" alt="Logo" loading="lazy">
     </a>
     <ul class="gp-nav-links">
-      <li><a href="/index.html" data-page="accueil">Accueil</a></li>
-      <li><a href="/cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
-      <li><a href="/visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
-      <li><a href="/alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
-      <li><a href="/donnees.html" data-page="donnees">Données</a></li>
-      <li><a href="/observatoire.html" data-page="observatoire">Observatoire</a></li>
-      <li><a href="/patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
+      <li><a href="index.html" data-page="accueil">Accueil</a></li>
+      <li><a href="cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
+      <li><a href="visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
+      <li><a href="alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
+      <li><a href="donnees.html" data-page="donnees">Données</a></li>
+      <li><a href="observatoire.html" data-page="observatoire">Observatoire</a></li>
+      <li><a href="patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
     </ul>
     <button class="gp-nav-burger" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -29,25 +29,25 @@
   </div>
   <div class="gp-nav-mobile" aria-hidden="true">
     <ul>
-      <li><a href="/index.html" data-page="accueil">Accueil</a></li>
-      <li><a href="/cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
-      <li><a href="/visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
-      <li><a href="/alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
-      <li><a href="/donnees.html" data-page="donnees">Données</a></li>
-      <li><a href="/observatoire.html" data-page="observatoire">Observatoire</a></li>
-      <li><a href="/patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
+      <li><a href="index.html" data-page="accueil">Accueil</a></li>
+      <li><a href="cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
+      <li><a href="visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
+      <li><a href="alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
+      <li><a href="donnees.html" data-page="donnees">Données</a></li>
+      <li><a href="observatoire.html" data-page="observatoire">Observatoire</a></li>
+      <li><a href="patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
     </ul>
   </div>
 </nav>
 <style>
 .gp-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#70C7FD;box-shadow:0 2px 12px rgba(26,44,62,0.15);font-family:'Inter',sans-serif;}
-.gp-nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:24px;}
-.gp-nav-logo{display:flex;align-items:center;flex-shrink:0;margin-right:auto;text-decoration:none;}
-.gp-nav-logo img{height:44px;width:44px;object-fit:contain;border-radius:6px;background:rgba(255,255,255,0.2);}
-.gp-nav-links{display:flex;align-items:center;gap:2px;list-style:none;margin:0;padding:0;flex-wrap:nowrap;}
+.gp-nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.gp-nav-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
+.gp-nav-logo img{height:44px;width:auto;object-fit:contain;border-radius:6px;}
+.gp-nav-links{display:flex;align-items:center;gap:2px;list-style:none;margin:0;flex-wrap:nowrap;}
 .gp-nav-links>li>a{display:inline-flex;align-items:center;padding:8px 14px;border-radius:8px;font-size:15px;font-weight:500;color:#fff;text-decoration:none;transition:background 0.18s;white-space:nowrap;cursor:pointer;background:transparent;position:relative;}
 .gp-nav-links>li>a:hover{background:rgba(255,255,255,0.2);}
-.gp-nav-links>li>a.active{font-weight:500;}
+.gp-nav-links>li>a.active{font-weight:600;}
 .gp-nav-links>li>a.active::after{content:'';position:absolute;bottom:4px;left:14px;right:14px;height:2px;background:#fff;border-radius:2px;}
 .gp-nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:1010;}
 .gp-nav-burger span{display:block;width:26px;height:3px;background:#fff;border-radius:3px;transition:0.3s;pointer-events:none;}
@@ -57,15 +57,15 @@
 .gp-nav-mobile{display:none;background:#70C7FD;border-top:1px solid rgba(255,255,255,0.3);padding:12px 16px 20px;max-height:calc(100vh - 64px);overflow-y:auto;}
 .gp-nav-mobile.open{display:block;}
 .gp-nav-mobile ul{list-style:none;padding:0;margin:0;}
-.gp-nav-mobile li a{display:block;padding:12px 16px;font-size:15px;font-weight:500;color:#fff;text-decoration:none;border-radius:8px;transition:background 0.15s;position:relative;}
+.gp-nav-mobile li a{display:block;padding:12px 16px;font-size:15px;font-weight:500;color:#fff;text-decoration:none;border-radius:8px;transition:background 0.15s;}
 .gp-nav-mobile li a:hover{background:rgba(255,255,255,0.2);}
-.gp-nav-mobile li a.active{font-weight:500;background:rgba(255,255,255,0.15);}
+.gp-nav-mobile li a.active{font-weight:600;background:rgba(255,255,255,0.15);}
 .gp-nav-mobile li a.active::after{content:'';position:absolute;bottom:6px;left:16px;right:16px;height:2px;background:#fff;border-radius:2px;}
 @media(max-width:1100px){.gp-nav-links>li>a{padding:7px 10px;font-size:14px;}.gp-nav-inner{gap:16px;}}
 @media(max-width:900px){.gp-nav-links{display:none;}.gp-nav-burger{display:flex;}.gp-nav-inner{gap:12px;}}
 </style>`;
 
-  // ===== HTML DU FOOTER (chemins absolus pour les liens internes) =====
+  // ===== HTML DU FOOTER =====
   const footerHTML = `
 <footer class="footer-module" role="contentinfo">
   <div class="footer-container">
@@ -75,27 +75,27 @@
         <ul>
           <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/6fc97807bfba4a8082eeb779e2557431">Occupation du sol</a></li>
           <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/7db3c65fdc804d8e8adcaf0acb798aa0">Relief et topographie</a></li>
-          <li><a href="/cartes-thematiques.html">Cartes thématiques</a></li>
+          <li><a href="cartes-thematiques.html">Cartes thématiques</a></li>
           <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/c6bccab68f044bb2b01c3fe08fbd4017">Patrimoine & découverte</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h5>Outils & analyses</h5>
         <ul>
-          <li><a href="/visualisation-croisee.html">Visualisation croisée</a></li>
+          <li><a href="visualisation-croisee.html">Visualisation croisée</a></li>
           <li><a href="https://www.arcgis.com/apps/dashboards/a310e03a6ae74279bbf89ea7332e7f6e">Tableau de bord</a></li>
-          <li><a href="/alertes-risques.html">Alerte & risques</a></li>
-          <li><a href="/donnees.html">Données territoriales</a></li>
+          <li><a href="alertes-risques.html">Alerte & risques</a></li>
+          <li><a href="donnees.html">Données territoriales</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h5>Projet & ressources</h5>
         <ul>
-          <li><a href="/observatoire.html">Observatoire</a></li>
-          <li><a href="/actualites.html">Actualité</a></li>
-          <li><a href="/methodologie.html">Méthodologie & sources</a></li>
-          <li><a href="/politique-de-confidentialite.html">Politique de confidentialité</a></li>
-          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="observatoire.html">Observatoire</a></li>
+          <li><a href="actualites.html">Actualité</a></li>
+          <li><a href="methodologie.html">Méthodologie & sources</a></li>
+          <li><a href="Politique-de-confidentialite.html">Politique de confidentialité</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -158,7 +158,7 @@
       console.error('❌ #footer-placeholder manquant');
     }
 
-    // Initialisation du burger et lien actif
+    // Initialisation immédiate du burger et lien actif
     setTimeout(() => {
       const burger = document.querySelector('.gp-nav-burger');
       const mobileMenu = document.querySelector('.gp-nav-mobile');
