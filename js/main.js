@@ -1,27 +1,27 @@
 /**
  * Géoportail de Jacqueville – Injection directe navbar + footer
- * Chemins absolus pour fonctionner depuis n'importe quel sous-dossier.
+ * Aucun fetch, fonctionne sur toutes les pages.
  */
 (function () {
   'use strict';
 
   console.log('🟢 main.js – injection directe');
 
-  // ===== HTML DE LA NAVBAR (chemins absolus) =====
+  // ===== HTML DE LA NAVBAR =====
   const navbarHTML = `
 <nav class="gp-nav" role="navigation" aria-label="Navigation principale">
   <div class="gp-nav-inner">
-    <a href="/index.html" class="gp-nav-logo" aria-label="Accueil">
-      <img src="/logo/Logo%20Geoportail.jpg?raw=true" alt="Logo Géoportail de Jacqueville" loading="lazy">
+    <a href="index.html" class="gp-nav-logo" aria-label="Accueil">
+      <img src="logo/Logo%20Geoportail.jpg?raw=true" alt="Logo" loading="lazy">
     </a>
     <ul class="gp-nav-links">
-      <li><a href="/index.html" data-page="accueil">Accueil</a></li>
-      <li><a href="/cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
-      <li><a href="/visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
-      <li><a href="/alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
-      <li><a href="/donnees.html" data-page="donnees">Données</a></li>
-      <li><a href="/observatoire.html" data-page="observatoire">Observatoire</a></li>
-      <li><a href="/patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
+      <li><a href="index.html" data-page="accueil">Accueil</a></li>
+      <li><a href="cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
+      <li><a href="visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
+      <li><a href="alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
+      <li><a href="donnees.html" data-page="donnees">Données</a></li>
+      <li><a href="observatoire.html" data-page="observatoire">Observatoire</a></li>
+      <li><a href="patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
     </ul>
     <button class="gp-nav-burger" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -29,13 +29,13 @@
   </div>
   <div class="gp-nav-mobile" aria-hidden="true">
     <ul>
-      <li><a href="/index.html" data-page="accueil">Accueil</a></li>
-      <li><a href="/cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
-      <li><a href="/visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
-      <li><a href="/alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
-      <li><a href="/donnees.html" data-page="donnees">Données</a></li>
-      <li><a href="/observatoire.html" data-page="observatoire">Observatoire</a></li>
-      <li><a href="/patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
+      <li><a href="index.html" data-page="accueil">Accueil</a></li>
+      <li><a href="cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
+      <li><a href="visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
+      <li><a href="alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
+      <li><a href="donnees.html" data-page="donnees">Données</a></li>
+      <li><a href="observatoire.html" data-page="observatoire">Observatoire</a></li>
+      <li><a href="patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
     </ul>
   </div>
 </nav>
@@ -65,7 +65,7 @@
 @media(max-width:900px){.gp-nav-links{display:none;}.gp-nav-burger{display:flex;}.gp-nav-inner{gap:12px;}}
 </style>`;
 
-  // ===== HTML DU FOOTER (chemins absolus pour les liens internes) =====
+  // ===== HTML DU FOOTER =====
   const footerHTML = `
 <footer class="footer-module" role="contentinfo">
   <div class="footer-container">
@@ -75,27 +75,27 @@
         <ul>
           <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/6fc97807bfba4a8082eeb779e2557431">Occupation du sol</a></li>
           <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/7db3c65fdc804d8e8adcaf0acb798aa0">Relief et topographie</a></li>
-          <li><a href="/cartes-thematiques.html">Cartes thématiques</a></li>
+          <li><a href="cartes-thematiques.html">Cartes thématiques</a></li>
           <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/c6bccab68f044bb2b01c3fe08fbd4017">Patrimoine & découverte</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h5>Outils & analyses</h5>
         <ul>
-          <li><a href="/visualisation-croisee.html">Visualisation croisée</a></li>
+          <li><a href="visualisation-croisee.html">Visualisation croisée</a></li>
           <li><a href="https://www.arcgis.com/apps/dashboards/a310e03a6ae74279bbf89ea7332e7f6e">Tableau de bord</a></li>
-          <li><a href="/alertes-risques.html">Alerte & risques</a></li>
-          <li><a href="/donnees.html">Données territoriales</a></li>
+          <li><a href="alertes-risques.html">Alerte & risques</a></li>
+          <li><a href="donnees.html">Données territoriales</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h5>Projet & ressources</h5>
         <ul>
-          <li><a href="/observatoire.html">Observatoire</a></li>
-          <li><a href="/actualites.html">Actualité</a></li>
-          <li><a href="/methodologie.html">Méthodologie & sources</a></li>
-          <li><a href="/politique-de-confidentialite.html">Politique de confidentialité</a></li>
-          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="observatoire.html">Observatoire</a></li>
+          <li><a href="actualites.html">Actualité</a></li>
+          <li><a href="methodologie.html">Méthodologie & sources</a></li>
+          <li><a href="Politique-de-confidentialite.html">Politique de confidentialité</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -158,6 +158,7 @@
       console.error('❌ #footer-placeholder manquant');
     }
 
+    // Initialisation immédiate du burger et lien actif
     setTimeout(() => {
       const burger = document.querySelector('.gp-nav-burger');
       const mobileMenu = document.querySelector('.gp-nav-mobile');
@@ -206,6 +207,7 @@
     }, 10);
   }
 
+  // Lancement au chargement du DOM
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', inject);
   } else {
