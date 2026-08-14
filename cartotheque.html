@@ -10,6 +10,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* ===== CORRECTIONS POUR MOBILE ===== */
+        html, body {
+            overflow-x: hidden;
+        }
+
         body {
             padding-top: 64px;
             margin: 0;
@@ -19,13 +24,10 @@
             line-height: 1.5;
         }
 
-        /* Styles de la modale (communs avec l'index) */
+        /* Styles de la modale */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: rgba(0, 0, 0, 0.85);
             z-index: 9999;
             display: flex;
@@ -102,6 +104,7 @@
             min-height: 300px;
             -webkit-overflow-scrolling: touch;
             overscroll-behavior: contain;
+            touch-action: pan-x pan-y;
         }
         .modal-image-wrapper img {
             max-width: 100%;
@@ -114,6 +117,26 @@
         }
         .modal-image-wrapper img.loaded {
             opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .modal-overlay {
+                padding: 10px;
+                align-items: flex-start;
+                overflow-y: auto;
+            }
+            .modal-content {
+                max-width: 100%;
+                width: 100%;
+                margin: 0 auto;
+                border-radius: 12px;
+            }
+            .modal-image-wrapper {
+                padding: 10px;
+            }
+            .modal-image-wrapper img {
+                max-height: 70vh;
+            }
         }
 
         /* Conteneur principal */
@@ -151,6 +174,39 @@
             margin: 20px auto 0;
         }
 
+        /* Barre de filtres */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 32px;
+        }
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
+            background: transparent;
+            border: 1px solid rgba(112, 199, 253, 0.3);
+            color: #4A627A;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        .filter-btn:hover {
+            border-color: #70C7FD;
+            color: #70C7FD;
+            background: rgba(112, 199, 253, 0.05);
+        }
+        .filter-btn.active {
+            background: #70C7FD;
+            color: #1A2C3E;
+            border-color: #70C7FD;
+            font-weight: 600;
+        }
+
         /* Grille des cartes */
         .cartes-grid {
             display: grid;
@@ -177,6 +233,9 @@
         }
         .carte-card:active {
             transform: scale(0.98);
+        }
+        .carte-card.hidden {
+            display: none;
         }
         .carte-image {
             height: 180px;
@@ -276,6 +335,10 @@
             .cartes-grid {
                 grid-template-columns: 1fr;
             }
+            .filter-btn {
+                padding: 6px 14px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -284,10 +347,20 @@
 
     <main class="cartotheque-page">
         <div class="page-header">
-            <div class="emoji">🗺️</div>
             <h1>Cartothèques <span>complètes</span></h1>
             <p>Découvrez l'intégralité des cartes thématiques disponibles sur le géoportail de Jacqueville.</p>
             <div class="divider"></div>
+        </div>
+
+        <!-- Barre de filtres par thème -->
+        <div class="filter-bar" id="filterBar">
+            <button class="filter-btn active" data-filter="all">Toutes</button>
+            <button class="filter-btn" data-filter="environnement">Environnement</button>
+            <button class="filter-btn" data-filter="risques">Risques</button>
+            <button class="filter-btn" data-filter="infrastructures">Infrastructures</button>
+            <button class="filter-btn" data-filter="hydrographie">Hydrographie</button>
+            <button class="filter-btn" data-filter="urbanisme">Urbanisme</button>
+            <button class="filter-btn" data-filter="agriculture">Agriculture</button>
         </div>
 
         <div class="cartes-grid" id="cartesGrid">
@@ -309,7 +382,6 @@
             <div class="modal-image-wrapper">
                 <img src="" alt="" id="modalImage" loading="lazy">
             </div>
-            <!-- Pas de modal-footer -->
         </div>
     </div>
 
@@ -317,20 +389,20 @@
 
     <script>
         (function() {
-            // Tableau des cartes avec images (certaines réelles, d'autres placeholders)
+            // Tableau des cartes avec thème spécifique pour le filtrage
             const cartes = [
-                { titre: 'Zones humides', description: 'Cartographie des zones humides d\'intérêt écologique et hydrologique.', badge: '🌿 ENVIRONNEMENT', image: '/cartes/Cartes%20des%20zones%20humides.png', date: '2026' },
-                { titre: 'Risque d\'inondation', description: 'Cartographie des zones inondables selon les hauteurs d\'eau simulées (0 à 5 m).', badge: '🌊 RISQUES', image: 'https://placehold.co/600x300/70C7FD/white?text=Risque+inondation', date: '2024' },
-                { titre: 'Submersion marine', description: 'Analyse de la vulnérabilité du littoral face à la montée des eaux et aux tempêtes.', badge: '🌊 RISQUES', image: 'https://placehold.co/600x300/70C7FD/white?text=Submersion+marine', date: '2024' },
-                { titre: 'Contributions au stock total de CO₂', description: 'Cartographie des zones contribuant le plus au stockage et à la séquestration du CO₂.', badge: '🌿 ENVIRONNEMENT', image: '/cartes/Carte%20des%20contributions%20au%20stock%20CO%E2%82%82.png', date: '2026' },
-                { titre: 'Indice NDVI', description: 'Cartographie de l\'Indice de Végétation par Différence Normalisée (NDVI).', badge: '🌿 ENVIRONNEMENT', image: '/cartes/NDVI%20Jacqueville.png', date: '2025' },
-                { titre: 'Indice NDRE', description: 'Cartographie de l\'Indice de Végétation par Réflexion dans le Proche Infrarouge.', badge: '🌿 ENVIRONNEMENT', image: '/cartes/NDRE%20Jacqueville.png', date: '2025' },
-                { titre: 'Infrastructures et équipements', description: 'Localisation des écoles, centres de santé, marchés, mairies et équipements publics.', badge: '🏗️ INFRASTRUCTURES', image: 'https://placehold.co/600x300/70C7FD/white?text=Infrastructures', date: '2024' },
-                { titre: 'Réseau hydrographique', description: 'Cartographie des cours d\'eau, lagunes, zones humides et forêts marécageuses.', badge: '💧 HYDROGRAPHIE', image: 'https://placehold.co/600x300/4BB3F0/white?text=Réseau+hydrographique', date: '2024' },
-                { titre: 'Zones constructibles', description: 'Identification des zones favorables à l\'urbanisation, hors contraintes environnementales.', badge: '🏙️ URBANISME', image: 'https://placehold.co/600x300/70C7FD/white?text=Zones+constructibles', date: '2024' },
-                { titre: 'Zones agricoles favorables', description: 'Cartographie des zones propices à l\'agriculture selon la qualité des sols et l\'accès à l\'eau.', badge: '🌾 AGRICULTURE', image: 'https://placehold.co/600x300/70C7FD/white?text=Zones+agricoles', date: '2024' },
-                { titre: 'Risque hydrologique', description: 'Cartographie des contraintes liées aux nappes phréatiques et à la saturation des sols.', badge: '💧 RISQUES', image: 'https://placehold.co/600x300/70C7FD/white?text=Risque+hydrologique', date: '2024' },
-                { titre: 'Zone tampon riveraine', description: 'Identification des zones tampon (0-108 m) autour des cours d\'eau et espaces protégés.', badge: '🌿 ENVIRONNEMENT', image: 'https://placehold.co/600x300/4BB3F0/white?text=Zone+tampon', date: '2024' }
+                { titre: 'Zones humides', description: 'Cartographie des zones humides d\'intérêt écologique et hydrologique.', badge: '🌿 ENVIRONNEMENT', theme: 'environnement', image: '/cartes/Cartes%20des%20zones%20humides.png', date: '2026' },
+                { titre: 'Risque d\'inondation', description: 'Cartographie des zones inondables selon les hauteurs d\'eau simulées (0 à 5 m).', badge: '🌊 RISQUES', theme: 'risques', image: 'https://placehold.co/600x300/70C7FD/white?text=Risque+inondation', date: '2024' },
+                { titre: 'Submersion marine', description: 'Analyse de la vulnérabilité du littoral face à la montée des eaux et aux tempêtes.', badge: '🌊 RISQUES', theme: 'risques', image: 'https://placehold.co/600x300/70C7FD/white?text=Submersion+marine', date: '2024' },
+                { titre: 'Contributions au stock total de CO₂', description: 'Cartographie des zones contribuant le plus au stockage et à la séquestration du CO₂.', badge: '🌿 ENVIRONNEMENT', theme: 'environnement', image: '/cartes/Carte%20des%20contributions%20au%20stock%20CO%E2%82%82.png', date: '2026' },
+                { titre: 'Indice NDVI', description: 'Cartographie de l\'Indice de Végétation par Différence Normalisée (NDVI).', badge: '🌿 ENVIRONNEMENT', theme: 'environnement', image: '/cartes/NDVI%20Jacqueville.png', date: '2025' },
+                { titre: 'Indice NDRE', description: 'Cartographie de l\'Indice de Végétation par Réflexion dans le Proche Infrarouge.', badge: '🌿 ENVIRONNEMENT', theme: 'environnement', image: '/cartes/NDRE%20Jacqueville.png', date: '2025' },
+                { titre: 'Infrastructures et équipements', description: 'Localisation des écoles, centres de santé, marchés, mairies et équipements publics.', badge: '🏗️ INFRASTRUCTURES', theme: 'infrastructures', image: 'https://placehold.co/600x300/70C7FD/white?text=Infrastructures', date: '2024' },
+                { titre: 'Réseau hydrographique', description: 'Cartographie des cours d\'eau, lagunes, zones humides et forêts marécageuses.', badge: '💧 HYDROGRAPHIE', theme: 'hydrographie', image: 'https://placehold.co/600x300/4BB3F0/white?text=Réseau+hydrographique', date: '2024' },
+                { titre: 'Zones constructibles', description: 'Identification des zones favorables à l\'urbanisation, hors contraintes environnementales.', badge: '🏙️ URBANISME', theme: 'urbanisme', image: 'https://placehold.co/600x300/70C7FD/white?text=Zones+constructibles', date: '2024' },
+                { titre: 'Zones agricoles favorables', description: 'Cartographie des zones propices à l\'agriculture selon la qualité des sols et l\'accès à l\'eau.', badge: '🌾 AGRICULTURE', theme: 'agriculture', image: 'https://placehold.co/600x300/70C7FD/white?text=Zones+agricoles', date: '2024' },
+                { titre: 'Risque hydrologique', description: 'Cartographie des contraintes liées aux nappes phréatiques et à la saturation des sols.', badge: '💧 RISQUES', theme: 'risques', image: 'https://placehold.co/600x300/70C7FD/white?text=Risque+hydrologique', date: '2024' },
+                { titre: 'Zone tampon riveraine', description: 'Identification des zones tampon (0-108 m) autour des cours d\'eau et espaces protégés.', badge: '🌿 ENVIRONNEMENT', theme: 'environnement', image: 'https://placehold.co/600x300/4BB3F0/white?text=Zone+tampon', date: '2024' }
             ];
 
             const grid = document.getElementById('cartesGrid');
@@ -338,6 +410,7 @@
             const modalImage = document.getElementById('modalImage');
             const modalTitle = document.getElementById('modalTitle');
             const modalClose = document.getElementById('modalClose');
+            const filterButtons = document.querySelectorAll('.filter-btn');
 
             const imageCache = new Map();
 
@@ -351,71 +424,91 @@
                 });
             }
 
-            const fragment = document.createDocumentFragment();
+            function renderCards(filter = 'all') {
+                grid.innerHTML = ''; // On vide la grille
+                const fragment = document.createDocumentFragment();
 
-            cartes.forEach((carte) => {
-                const card = document.createElement('div');
-                card.className = 'carte-card';
-                card.setAttribute('role', 'button');
-                card.setAttribute('tabindex', '0');
-                card.setAttribute('aria-label', 'Agrandir : ' + carte.titre);
+                cartes.forEach((carte) => {
+                    if (filter !== 'all' && carte.theme !== filter) return;
 
-                card.innerHTML = `
-                    <div class="carte-image" data-src="${carte.image}">
-                        <span class="carte-badge">${carte.badge}</span>
-                    </div>
-                    <div class="carte-body">
-                        <h3>${carte.titre}</h3>
-                        <p>${carte.description}</p>
-                        <div class="carte-footer">
-                            <span>Mise à jour : ${carte.date}</span>
-                            <span class="voir">Voir la carte →</span>
+                    const card = document.createElement('div');
+                    card.className = 'carte-card';
+                    card.setAttribute('role', 'button');
+                    card.setAttribute('tabindex', '0');
+                    card.setAttribute('aria-label', 'Agrandir : ' + carte.titre);
+                    card.dataset.theme = carte.theme; // Stocke le thème pour plus tard
+
+                    card.innerHTML = `
+                        <div class="carte-image" data-src="${carte.image}">
+                            <span class="carte-badge">${carte.badge}</span>
                         </div>
-                    </div>
-                `;
+                        <div class="carte-body">
+                            <h3>${carte.titre}</h3>
+                            <p>${carte.description}</p>
+                            <div class="carte-footer">
+                                <span>Mise à jour : ${carte.date}</span>
+                                <span class="voir">Voir la carte →</span>
+                            </div>
+                        </div>
+                    `;
 
-                const imageDiv = card.querySelector('.carte-image');
-                imageDiv.style.backgroundColor = '#e2e8f0';
+                    const imageDiv = card.querySelector('.carte-image');
+                    imageDiv.style.backgroundColor = '#e2e8f0';
 
-                const tempImg = new Image();
-                tempImg.onload = function() {
-                    imageDiv.style.backgroundImage = `url('${carte.image}')`;
-                    imageDiv.style.backgroundColor = 'transparent';
-                };
-                tempImg.onerror = function() {
-                    console.warn('Image non chargée :', carte.image);
-                };
-                tempImg.src = carte.image;
+                    const tempImg = new Image();
+                    tempImg.onload = function() {
+                        imageDiv.style.backgroundImage = `url('${carte.image}')`;
+                        imageDiv.style.backgroundColor = 'transparent';
+                    };
+                    tempImg.onerror = function() {
+                        console.warn('Image non chargée :', carte.image);
+                    };
+                    tempImg.src = carte.image;
 
-                card.addEventListener('click', () => {
-                    preloadImage(carte.image).then(() => {
-                        modalImage.src = carte.image;
-                        modalImage.alt = carte.titre;
-                        modalTitle.textContent = carte.titre;
-                        modal.offsetHeight;
-                        modal.classList.add('active');
-                        modal.setAttribute('aria-hidden', 'false');
-                        document.body.style.overflow = 'hidden';
-                        modalImage.classList.remove('loaded');
-                        requestAnimationFrame(() => {
-                            modalImage.classList.add('loaded');
+                    card.addEventListener('click', () => {
+                        preloadImage(carte.image).then(() => {
+                            modalImage.src = carte.image;
+                            modalImage.alt = carte.titre;
+                            modalTitle.textContent = carte.titre;
+                            modal.offsetHeight;
+                            modal.classList.add('active');
+                            modal.setAttribute('aria-hidden', 'false');
+                            document.body.style.overflow = 'hidden';
+                            modalImage.classList.remove('loaded');
+                            requestAnimationFrame(() => {
+                                modalImage.classList.add('loaded');
+                            });
+                            modalClose.focus();
                         });
-                        modalClose.focus();
                     });
+
+                    card.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            card.click();
+                        }
+                    });
+
+                    fragment.appendChild(card);
                 });
 
-                card.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        card.click();
-                    }
-                });
+                grid.appendChild(fragment);
+            }
 
-                fragment.appendChild(card);
+            // Gestion du filtre
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const filter = this.dataset.filter;
+                    renderCards(filter);
+                });
             });
 
-            grid.appendChild(fragment);
+            // Rendu initial
+            renderCards('all');
 
+            // Préchargement en arrière-plan (optionnel)
             if ('requestIdleCallback' in window) {
                 requestIdleCallback(() => {
                     cartes.forEach(carte => preloadImage(carte.image));
@@ -426,6 +519,7 @@
                 }, 1000);
             }
 
+            // Fermeture de la modale
             function closeModal() {
                 modal.classList.remove('active');
                 modal.setAttribute('aria-hidden', 'true');
