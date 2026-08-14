@@ -14,9 +14,7 @@
     </style>
 </head>
 <body>
-    <!-- ============================================ -->
-    <!-- PLACEHOLDER NAVBAR                           -->
-    <!-- ============================================ -->
+    <!-- PLACEHOLDER NAVBAR -->
     <div id="navbar-placeholder"></div>
 
     <!-- ========== CONTENU DE LA PAGE CARTES ========== -->
@@ -117,7 +115,7 @@
                 margin-top: 5px;
             }
 
-            /* ========== FILTRES (NAVIGATION PAR ANCRES) ========== */
+            /* ========== FILTRES ========== */
             .cartes-module .filters {
                 display: flex;
                 flex-wrap: wrap;
@@ -152,10 +150,22 @@
                 background: rgba(112, 199, 253, 0.05);
             }
 
+            .cartes-module .filter-link.active {
+                background: #70C7FD;
+                color: #1A2C3E;
+                border-color: #70C7FD;
+                font-weight: 600;
+            }
+
             /* ========== SECTION THÉMATIQUE ========== */
             .cartes-module .thematique-section {
                 margin-bottom: 60px;
                 scroll-margin-top: 80px;
+                transition: opacity 0.3s ease;
+            }
+
+            .cartes-module .thematique-section.hidden-section {
+                display: none;
             }
 
             .cartes-module .section-header {
@@ -183,7 +193,7 @@
                 color: #64748B;
             }
 
-            /* ========== GRILLE DES CARTES (4 par ligne) ========== */
+            /* ========== GRILLE DES CARTES ========== */
             .cartes-module .cartes-grid {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
@@ -204,13 +214,39 @@
                 flex-direction: column;
                 box-shadow: 0 2px 16px rgba(26, 58, 92, 0.06);
                 transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.25s, box-shadow 0.35s;
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            /* Classe ajoutée par l'Intersection Observer */
+            .cartes-module .carte-card.visible {
+                opacity: 1;
+                transform: translateY(0);
             }
 
             .cartes-module .carte-card:hover {
-                transform: translateY(-6px) scale(1.01);
+                transform: translateY(-10px) scale(1.02);
                 border-color: #70C7FD;
                 background: #FFFFFF;
-                box-shadow: 0 16px 40px rgba(112, 199, 253, 0.14);
+                box-shadow: 0 25px 50px rgba(112, 199, 253, 0.25);
+            }
+
+            /* Effet de brillance au survol */
+            .cartes-module .carte-card::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 50%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+                transition: left 0.6s ease;
+                pointer-events: none;
+                z-index: 3;
+            }
+
+            .cartes-module .carte-card:hover::after {
+                left: 100%;
             }
 
             .cartes-module .carte-card::before {
@@ -221,6 +257,7 @@
                 opacity: 0;
                 transition: opacity 0.35s;
                 pointer-events: none;
+                z-index: 1;
             }
 
             .cartes-module .carte-card:hover::before {
@@ -231,6 +268,7 @@
                 height: 4px;
                 background: var(--card-color, #70C7FD);
                 opacity: 0.9;
+                z-index: 2;
             }
 
             .cartes-module .carte-visual {
@@ -238,6 +276,7 @@
                 display: flex;
                 align-items: flex-start;
                 justify-content: space-between;
+                z-index: 2;
             }
 
             .cartes-module .carte-icon-wrap {
@@ -301,6 +340,7 @@
                 flex: 1;
                 display: flex;
                 flex-direction: column;
+                z-index: 2;
             }
 
             .cartes-module .carte-category {
@@ -420,65 +460,27 @@
             }
 
             @media (max-width: 800px) {
-                .cartes-module .hero h1 {
-                    font-size: 32px;
-                }
-                .cartes-module .hero-desc {
-                    font-size: 16px;
-                }
-                .cartes-module .cartes-grid {
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 20px;
-                }
-                .cartes-module .metrics {
-                    gap: 24px;
-                }
-                .cartes-module .metric-value {
-                    font-size: 28px;
-                }
+                .cartes-module .hero h1 { font-size: 32px; }
+                .cartes-module .hero-desc { font-size: 16px; }
+                .cartes-module .cartes-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+                .cartes-module .metrics { gap: 24px; }
+                .cartes-module .metric-value { font-size: 28px; }
             }
 
             @media (max-width: 550px) {
-                .cartes-module .hero {
-                    padding: 32px 16px 24px;
-                }
-                .cartes-module .hero h1 {
-                    font-size: 28px;
-                }
-                .cartes-module .hero-desc {
-                    font-size: 14px;
-                }
-                .cartes-module .cartes-grid {
-                    grid-template-columns: 1fr;
-                    gap: 20px;
-                }
-                .cartes-module .metrics {
-                    gap: 16px;
-                }
-                .cartes-module .metric-value {
-                    font-size: 22px;
-                }
-                .cartes-module .cta-band {
-                    flex-direction: column;
-                    text-align: center;
-                    padding: 32px 24px;
-                    margin: 0 20px 40px;
-                }
-                .cartes-module .btn-cta {
-                    width: 100%;
-                    justify-content: center;
-                }
-                .cartes-module .filters {
-                    gap: 8px;
-                    position: static;
-                }
-                .cartes-module .filter-link {
-                    padding: 6px 14px;
-                    font-size: 11px;
-                }
-                .cartes-module .section-title {
-                    font-size: 20px;
-                }
+                .cartes-module .hero { padding: 32px 16px 24px; }
+                .cartes-module .hero h1 { font-size: 28px; }
+                .cartes-module .hero-desc { font-size: 14px; }
+                .cartes-module .cartes-grid { grid-template-columns: 1fr; gap: 20px; }
+                .cartes-module .metrics { gap: 16px; }
+                .cartes-module .metric-value { font-size: 22px; }
+                .cartes-module .cta-band { flex-direction: column; text-align: center; padding: 32px 24px; margin: 0 20px 40px; }
+                .cartes-module .btn-cta { width: 100%; justify-content: center; }
+                .cartes-module .filters { gap: 8px; position: static; }
+                .cartes-module .filter-link { padding: 6px 14px; font-size: 11px; }
+                .cartes-module .section-title { font-size: 20px; }
+                .cartes-module .carte-card { opacity: 1; transform: none; } /* pas d'animation sur mobile pour fluidité */
+                .cartes-module .carte-card.visible { opacity: 1; transform: none; }
             }
         </style>
 
@@ -496,42 +498,33 @@
 
                 <!-- MÉTRIQUES -->
                 <div class="metrics">
-                    <div class="metric">
-                        <div class="metric-value">16</div>
-                        <div class="metric-label">Cartes disponibles</div>
-                    </div>
-                    <div class="metric">
-                        <div class="metric-value">6</div>
-                        <div class="metric-label">Thématiques</div>
-                    </div>
-                    <div class="metric">
-                        <div class="metric-value">2026</div>
-                        <div class="metric-label">Données actualisées</div>
-                    </div>
+                    <div class="metric"><div class="metric-value">16</div><div class="metric-label">Cartes disponibles</div></div>
+                    <div class="metric"><div class="metric-value">6</div><div class="metric-label">Thématiques</div></div>
+                    <div class="metric"><div class="metric-value">2026</div><div class="metric-label">Données actualisées</div></div>
                 </div>
             </div>
 
             <!-- CONTENEUR PRINCIPAL -->
             <div class="container">
 
-                <!-- FILTRES (NAVIGATION PAR ANCRES) -->
-                <div class="filters">
-                    <a href="#agriculture" class="filter-link">Agriculture</a>
-                    <a href="#environnement" class="filter-link">Environnement</a>
-                    <a href="#urbanisme" class="filter-link">Urbanisme</a>
-                    <a href="#risques" class="filter-link">Risques</a>
-                    <a href="#infrastructures" class="filter-link">Infrastructures</a>
-                    <a href="#topographie" class="filter-link">Topographie</a>
+                <!-- FILTRES DYNAMIQUES -->
+                <div class="filters" id="filterBar">
+                    <a href="#all" class="filter-link active" data-filter="all">Toutes</a>
+                    <a href="#agriculture" class="filter-link" data-filter="agriculture">Agriculture</a>
+                    <a href="#environnement" class="filter-link" data-filter="environnement">Environnement</a>
+                    <a href="#urbanisme" class="filter-link" data-filter="urbanisme">Urbanisme</a>
+                    <a href="#risques" class="filter-link" data-filter="risques">Risques</a>
+                    <a href="#infrastructures" class="filter-link" data-filter="infrastructures">Infrastructures</a>
+                    <a href="#topographie" class="filter-link" data-filter="topographie">Topographie</a>
                 </div>
 
                 <!-- ==================== SECTION AGRICULTURE ==================== -->
-                <div id="agriculture" class="thematique-section">
+                <div id="agriculture" class="thematique-section" data-category="agriculture">
                     <div class="section-header">
                         <h2 class="section-title"><span></span> Agriculture</h2>
                         <div class="section-count">1 carte</div>
                     </div>
                     <div class="cartes-grid">
-                        <!-- Agriculture et occupation du sol -->
                         <div class="carte-card" data-category="agriculture">
                             <div class="carte-stripe" style="--card-color:#3A9E2B"></div>
                             <div class="carte-visual" data-color="agriculture" style="--card-color:#3A9E2B">
@@ -554,13 +547,12 @@
                 </div>
 
                 <!-- ==================== SECTION ENVIRONNEMENT ==================== -->
-                <div id="environnement" class="thematique-section">
+                <div id="environnement" class="thematique-section" data-category="environnement">
                     <div class="section-header">
                         <h2 class="section-title"><span></span> Environnement</h2>
                         <div class="section-count">3 cartes</div>
                     </div>
                     <div class="cartes-grid">
-                        <!-- Analyse carbone -->
                         <div class="carte-card" data-category="environnement">
                             <div class="carte-stripe" style="--card-color:#1A9E7A"></div>
                             <div class="carte-visual" data-color="environnement" style="--card-color:#1A9E7A">
@@ -580,7 +572,6 @@
                             </div>
                         </div>
 
-                        <!-- NDVI / NDRE -->
                         <div class="carte-card" data-category="environnement">
                             <div class="carte-stripe" style="--card-color:#1A9E7A"></div>
                             <div class="carte-visual" data-color="environnement" style="--card-color:#1A9E7A">
@@ -600,7 +591,6 @@
                             </div>
                         </div>
 
-                        <!-- Occupation du sol -->
                         <div class="carte-card" data-category="environnement">
                             <div class="carte-stripe" style="--card-color:#1A9E7A"></div>
                             <div class="carte-visual" data-color="environnement" style="--card-color:#1A9E7A">
@@ -623,13 +613,12 @@
                 </div>
 
                 <!-- ==================== SECTION URBANISME ==================== -->
-                <div id="urbanisme" class="thematique-section">
+                <div id="urbanisme" class="thematique-section" data-category="urbanisme">
                     <div class="section-header">
                         <h2 class="section-title"><span>️</span> Urbanisme</h2>
                         <div class="section-count">2 cartes</div>
                     </div>
                     <div class="cartes-grid">
-                        <!-- Localités -->
                         <div class="carte-card" data-category="urbanisme">
                             <div class="carte-stripe" style="--card-color:#2563A8"></div>
                             <div class="carte-visual" data-color="urbanisme" style="--card-color:#2563A8">
@@ -649,7 +638,6 @@
                             </div>
                         </div>
 
-                        <!-- Urbanisme et lotissement -->
                         <div class="carte-card" data-category="urbanisme">
                             <div class="carte-stripe" style="--card-color:#2563A8"></div>
                             <div class="carte-visual" data-color="urbanisme" style="--card-color:#2563A8">
@@ -672,13 +660,12 @@
                 </div>
 
                 <!-- ==================== SECTION RISQUES ==================== -->
-                <div id="risques" class="thematique-section">
+                <div id="risques" class="thematique-section" data-category="risques">
                     <div class="section-header">
                         <h2 class="section-title"><span></span> Risques</h2>
                         <div class="section-count">2 cartes</div>
                     </div>
                     <div class="cartes-grid">
-                        <!-- Submersion -->
                         <div class="carte-card" data-category="risques">
                             <div class="carte-stripe" style="--card-color:#D95F2A"></div>
                             <div class="carte-visual" data-color="risques" style="--card-color:#D95F2A">
@@ -698,7 +685,6 @@
                             </div>
                         </div>
 
-                        <!-- Contrainte hydrologique -->
                         <div class="carte-card" data-category="risques">
                             <div class="carte-stripe" style="--card-color:#F0A56B"></div>
                             <div class="carte-visual" data-color="risques" style="--card-color:#F0A56B">
@@ -721,13 +707,12 @@
                 </div>
 
                 <!-- ==================== SECTION INFRASTRUCTURES ==================== -->
-                <div id="infrastructures" class="thematique-section">
+                <div id="infrastructures" class="thematique-section" data-category="infrastructures">
                     <div class="section-header">
                         <h2 class="section-title"><span>️</span> Infrastructures</h2>
                         <div class="section-count">6 cartes</div>
                     </div>
                     <div class="cartes-grid">
-                        <!-- Éducation -->
                         <div class="carte-card" data-category="infrastructures">
                             <div class="carte-stripe" style="--card-color:#7C3DBF"></div>
                             <div class="carte-visual" data-color="infrastructures" style="--card-color:#7C3DBF">
@@ -747,7 +732,6 @@
                             </div>
                         </div>
 
-                        <!-- Énergie -->
                         <div class="carte-card" data-category="infrastructures">
                             <div class="carte-stripe" style="--card-color:#B09010"></div>
                             <div class="carte-visual" data-color="infrastructures" style="--card-color:#B09010">
@@ -767,7 +751,6 @@
                             </div>
                         </div>
 
-                        <!-- Sites touristiques -->
                         <div class="carte-card" data-category="infrastructures">
                             <div class="carte-stripe" style="--card-color:#B07A10"></div>
                             <div class="carte-visual" data-color="infrastructures" style="--card-color:#B07A10">
@@ -787,7 +770,6 @@
                             </div>
                         </div>
 
-                        <!-- Lieux de culte -->
                         <div class="carte-card" data-category="infrastructures">
                             <div class="carte-stripe" style="--card-color:#8B5CF6"></div>
                             <div class="carte-visual" data-color="infrastructures" style="--card-color:#8B5CF6">
@@ -807,7 +789,6 @@
                             </div>
                         </div>
 
-                        <!-- Santé -->
                         <div class="carte-card" data-category="infrastructures">
                             <div class="carte-stripe" style="--card-color:#C0302A"></div>
                             <div class="carte-visual" data-color="infrastructures" style="--card-color:#C0302A">
@@ -827,7 +808,6 @@
                             </div>
                         </div>
 
-                        <!-- Services -->
                         <div class="carte-card" data-category="infrastructures">
                             <div class="carte-stripe" style="--card-color:#6BCFB5"></div>
                             <div class="carte-visual" data-color="infrastructures" style="--card-color:#6BCFB5">
@@ -850,13 +830,12 @@
                 </div>
 
                 <!-- ==================== SECTION TOPOGRAPHIE ==================== -->
-                <div id="topographie" class="thematique-section">
+                <div id="topographie" class="thematique-section" data-category="topographie">
                     <div class="section-header">
                         <h2 class="section-title"><span>️</span> Topographie</h2>
                         <div class="section-count">2 cartes</div>
                     </div>
                     <div class="cartes-grid">
-                        <!-- Relief -->
                         <div class="carte-card" data-category="topographie">
                             <div class="carte-stripe" style="--card-color:#A0612A"></div>
                             <div class="carte-visual" data-color="topographie" style="--card-color:#A0612A">
@@ -876,7 +855,6 @@
                             </div>
                         </div>
 
-                        <!-- Pente -->
                         <div class="carte-card" data-category="topographie">
                             <div class="carte-stripe" style="--card-color:#D97706"></div>
                             <div class="carte-visual" data-color="topographie" style="--card-color:#D97706">
@@ -906,5 +884,69 @@
     <div id="footer-placeholder"></div>
 
     <script src="js/main.js"></script>
+
+    <!-- ========== SCRIPT PERSONNALISÉ POUR CETTE PAGE ========== -->
+    <script>
+        (function() {
+            // ----- 1. Rendre chaque carte entièrement cliquable -----
+            document.querySelectorAll('.carte-card').forEach(card => {
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('role', 'link');
+                card.addEventListener('click', function(e) {
+                    // Éviter le double déclenchement si on clique directement sur le lien
+                    if (e.target.closest('a')) return;
+                    const link = this.querySelector('a');
+                    if (link) window.location.href = link.href;
+                });
+                card.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const link = this.querySelector('a');
+                        if (link) window.location.href = link.href;
+                    }
+                });
+            });
+
+            // ----- 2. Animation d'apparition au scroll -----
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.carte-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // ----- 3. Filtrage dynamique -----
+            const filterLinks = document.querySelectorAll('.filter-link');
+            const sections = document.querySelectorAll('.thematique-section');
+
+            filterLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const filter = this.dataset.filter;
+                    
+                    // Mettre à jour la classe active
+                    filterLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Afficher/masquer les sections
+                    sections.forEach(section => {
+                        if (filter === 'all' || section.dataset.category === filter) {
+                            section.classList.remove('hidden-section');
+                        } else {
+                            section.classList.add('hidden-section');
+                        }
+                    });
+
+                    // Optionnel : scroller légèrement vers le haut des cartes
+                    document.querySelector('.cartes-module').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+        })();
+    </script>
 </body>
 </html>
