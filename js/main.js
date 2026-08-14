@@ -73,17 +73,17 @@
       <div class="footer-col">
         <h5>Explorer le territoire</h5>
         <ul>
-          <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/6fc97807bfba4a8082eeb779e2557431">Occupation du sol</a></li>
-          <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/7db3c65fdc804d8e8adcaf0acb798aa0">Relief et topographie</a></li>
+          <li><a href="/maps/occupation-du-sol.html">Occupation du sol</a></li>
+          <li><a href="/maps/sites-touristiques.html">Sites touristiques</a></li>
           <li><a href="cartes-thematiques.html">Cartes thématiques</a></li>
-          <li><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com/apps/c6bccab68f044bb2b01c3fe08fbd4017">Patrimoine & découverte</a></li>
+          <li><a href="/maps/storymaps.html">Patrimoine & découverte</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h5>Outils & analyses</h5>
         <ul>
           <li><a href="visualisation-croisee.html">Visualisation croisée</a></li>
-          <li><a href="https://www.arcgis.com/apps/dashboards/a310e03a6ae74279bbf89ea7332e7f6e">Tableau de bord</a></li>
+          <li><a href="/maps/tableau-de-bord">Tableau de bord</a></li>
           <li><a href="alertes-risques.html">Alerte & risques</a></li>
           <li><a href="donnees.html">Données territoriales</a></li>
         </ul>
