@@ -11,11 +11,11 @@
   const navbarHTML = `
 <nav class="gp-nav" role="navigation" aria-label="Navigation principale">
   <div class="gp-nav-inner">
-    <a href="index.html" class="gp-nav-logo" aria-label="Accueil">
+    <a href="/" class="gp-nav-logo" aria-label="Accueil">
       <img src="logo/Logo%20Geoportail.jpg?raw=true" alt="Logo" loading="lazy">
     </a>
     <ul class="gp-nav-links">
-      <li><a href="index.html" data-page="accueil">Accueil</a></li>
+      <li><a href="/" data-page="accueil">Accueil</a></li>
       <li><a href="cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
       <li><a href="visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
       <li><a href="alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
@@ -29,7 +29,7 @@
   </div>
   <div class="gp-nav-mobile" aria-hidden="true">
     <ul>
-      <li><a href="index.html" data-page="accueil">Accueil</a></li>
+      <li><a href="/" data-page="accueil">Accueil</a></li>
       <li><a href="cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
       <li><a href="visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
       <li><a href="alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
