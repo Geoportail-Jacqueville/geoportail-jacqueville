@@ -514,6 +514,7 @@
                     <a href="#environnement" class="filter-link" data-filter="environnement">Environnement</a>
                     <a href="#urbanisme" class="filter-link" data-filter="urbanisme">Urbanisme</a>
                     <a href="#risques" class="filter-link" data-filter="risques">Risques</a>
+                    <a href="#hydrographie" class="filter-link" data-filter="hydrographie">Hydrographie</a>
                     <a href="#infrastructures" class="filter-link" data-filter="infrastructures">Infrastructures</a>
                     <a href="#topographie" class="filter-link" data-filter="topographie">Topographie</a>
                 </div>
@@ -684,17 +685,45 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="carte-card" data-category="risques">
+                <!-- ==================== SECTION HYDROGRAPHIE ==================== -->
+                <div id="hydrographie" class="thematique-section" data-category="hydrographie">
+                    <div class="section-header">
+                        <h2 class="section-title"><span>️</span> Hydrographie</h2>
+                        <div class="section-count">2 cartes</div>
+                    </div>
+                    <div class="cartes-grid">
+                        <div class="carte-card" data-category="hydrographie">
+                            <div class="carte-stripe" style="--card-color:#A0612A"></div>
+                            <div class="carte-visual" data-color="topographie" style="--card-color:#A0612A">
+                                <div class="carte-icon-wrap">
+                                    <svg viewBox='0 0 24 24'><path d='M3 20l5-10 4 6 3-4 6 8H3z' /><path d='M17 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z' /></svg>
+                                </div>
+                                <div class="carte-arrow"><svg viewBox='0 0 12 12'><path d='M2 10L10 2M10 2H4M10 2v6' /></svg></div>
+                            </div>
+                            <div class="carte-body">
+                                <div class="carte-category" style="color:#A0612A">Hydrographie</div>
+                                <div class="carte-title">Hydrographie et drainage</div>
+                                <div class="carte-desc">bas-fonds, réseau hydrographique et plan d'eau du département.</div>
+                                <div class="carte-footer">
+                                    <span class="carte-date">Mise à jour · 2026</span>
+                                    <a href="/maps/relief-et-zone-d-accumulation.html" class="carte-link" style="color:#A0612A">Voir →</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carte-card" data-category="hydrographie">
                             <div class="carte-stripe" style="--card-color:#F0A56B"></div>
-                            <div class="carte-visual" data-color="risques" style="--card-color:#F0A56B">
+                            <div class="carte-visual" data-color="topographie" style="--card-color:#F0A56B">
                                 <div class="carte-icon-wrap">
                                     <svg viewBox='0 0 24 24'><path d='M12 2L6 12a6 6 0 1 0 12 0z' /><path d='M12 10v4M12 17h.01' /></svg>
                                 </div>
                                 <div class="carte-arrow"><svg viewBox='0 0 12 12'><path d='M2 10L10 2M10 2H4M10 2v6' /></svg></div>
                             </div>
                             <div class="carte-body">
-                                <div class="carte-category" style="color:#F0A56B">Risques</div>
+                                <div class="carte-category" style="color:#F0A56B">Hydrographie</div>
                                 <div class="carte-title">Contrainte hydrologique</div>
                                 <div class="carte-desc">Cartographie des contraintes hydrologiques : inondation, proximité des plans d'eau, zones tampon riveraines.</div>
                                 <div class="carte-footer">
@@ -703,8 +732,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
                 <!-- ==================== SECTION INFRASTRUCTURES ==================== -->
                 <div id="infrastructures" class="thematique-section" data-category="infrastructures">
@@ -846,7 +873,7 @@
                             </div>
                             <div class="carte-body">
                                 <div class="carte-category" style="color:#A0612A">Topographie</div>
-                                <div class="carte-title">Relief et topographie</div>
+                                <div class="carte-title">Hydrographie et drainage</div>
                                 <div class="carte-desc">Modèle numérique de terrain, courbes de niveau, réseau hydrographique et plan d'eau du département.</div>
                                 <div class="carte-footer">
                                     <span class="carte-date">Mise à jour · 2026</span>
@@ -875,9 +902,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 
