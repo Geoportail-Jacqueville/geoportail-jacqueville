@@ -1,6 +1,17 @@
+// ===== Google Analytics 4 =====
+const gaScript = document.createElement('script');
+gaScript.async = true;
+gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-DLW5KT6SKF';
+document.head.appendChild(gaScript);
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-DLW5KT6SKF');
+
 /**
  * Géoportail de Jacqueville – Injection directe navbar + footer
- * Aucun fetch, fonctionne sur toutes les pages.
+ * Chemins absolus pour fonctionner depuis n'importe quelle page.
  */
 (function () {
   'use strict';
@@ -12,16 +23,16 @@
 <nav class="gp-nav" role="navigation" aria-label="Navigation principale">
   <div class="gp-nav-inner">
     <a href="/" class="gp-nav-logo" aria-label="Accueil">
-      <img src="logo/Logo%20Geoportail.jpg?raw=true" alt="Logo" loading="lazy">
+      <img src="/logo/Logo%20Geoportail.jpg?raw=true" alt="Logo Géoportail de Jacqueville" loading="lazy">
     </a>
     <ul class="gp-nav-links">
       <li><a href="/" data-page="accueil">Accueil</a></li>
-      <li><a href="cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
-      <li><a href="visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
-      <li><a href="alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
-      <li><a href="donnees.html" data-page="donnees">Données</a></li>
-      <li><a href="observatoire.html" data-page="observatoire">Observatoire</a></li>
-      <li><a href="patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
+      <li><a href="/cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
+      <li><a href="/visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
+      <li><a href="/alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
+      <li><a href="/donnees.html" data-page="donnees">Données</a></li>
+      <li><a href="/observatoire.html" data-page="observatoire">Observatoire</a></li>
+      <li><a href="/patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
     </ul>
     <button class="gp-nav-burger" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -30,12 +41,12 @@
   <div class="gp-nav-mobile" aria-hidden="true">
     <ul>
       <li><a href="/" data-page="accueil">Accueil</a></li>
-      <li><a href="cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
-      <li><a href="visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
-      <li><a href="alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
-      <li><a href="donnees.html" data-page="donnees">Données</a></li>
-      <li><a href="observatoire.html" data-page="observatoire">Observatoire</a></li>
-      <li><a href="patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
+      <li><a href="/cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
+      <li><a href="/visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
+      <li><a href="/alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
+      <li><a href="/donnees.html" data-page="donnees">Données</a></li>
+      <li><a href="/observatoire.html" data-page="observatoire">Observatoire</a></li>
+      <li><a href="/patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
     </ul>
   </div>
 </nav>
@@ -57,7 +68,7 @@
 .gp-nav-mobile{display:none;background:#70C7FD;border-top:1px solid rgba(255,255,255,0.3);padding:12px 16px 20px;max-height:calc(100vh - 64px);overflow-y:auto;}
 .gp-nav-mobile.open{display:block;}
 .gp-nav-mobile ul{list-style:none;padding:0;margin:0;}
-.gp-nav-mobile li a{display:block;padding:12px 16px;font-size:15px;font-weight:500;color:#fff;text-decoration:none;border-radius:8px;transition:background 0.15s;}
+.gp-nav-mobile li a{display:block;padding:12px 16px;font-size:15px;font-weight:500;color:#fff;text-decoration:none;border-radius:8px;transition:background 0.15s;position:relative;}
 .gp-nav-mobile li a:hover{background:rgba(255,255,255,0.2);}
 .gp-nav-mobile li a.active{font-weight:600;background:rgba(255,255,255,0.15);}
 .gp-nav-mobile li a.active::after{content:'';position:absolute;bottom:6px;left:16px;right:16px;height:2px;background:#fff;border-radius:2px;}
@@ -75,27 +86,27 @@
         <ul>
           <li><a href="/maps/occupation-du-sol.html">Occupation du sol</a></li>
           <li><a href="/maps/sites-touristiques.html">Sites touristiques</a></li>
-          <li><a href="cartes-thematiques.html">Cartes thématiques</a></li>
+          <li><a href="/cartes-thematiques.html">Cartes thématiques</a></li>
           <li><a href="/maps/storymaps.html">Patrimoine & découverte</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h5>Outils & analyses</h5>
         <ul>
-          <li><a href="visualisation-croisee.html">Visualisation croisée</a></li>
-          <li><a href="/maps/tableau-de-bord">Tableau de bord</a></li>
-          <li><a href="alertes-risques.html">Alerte & risques</a></li>
-          <li><a href="donnees.html">Données territoriales</a></li>
+          <li><a href="/visualisation-croisee.html">Visualisation croisée</a></li>
+          <li><a href="/maps/tableau-de-bord.html">Tableau de bord</a></li>
+          <li><a href="/alertes-risques.html">Alerte & risques</a></li>
+          <li><a href="/donnees.html">Données territoriales</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h5>Projet & ressources</h5>
         <ul>
-          <li><a href="observatoire.html">Observatoire</a></li>
-          <li><a href="actualites.html">Actualité</a></li>
-          <li><a href="methodologie.html">Méthodologie & sources</a></li>
-          <li><a href="Politique-de-confidentialite.html">Politique de confidentialité</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="/observatoire.html">Observatoire</a></li>
+          <li><a href="/actualites.html">Actualité</a></li>
+          <li><a href="/methodologie.html">Méthodologie & sources</a></li>
+          <li><a href="/politique-de-confidentialite.html">Politique de confidentialité</a></li>
+          <li><a href="/contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -158,7 +169,6 @@
       console.error('❌ #footer-placeholder manquant');
     }
 
-    // Initialisation immédiate du burger et lien actif
     setTimeout(() => {
       const burger = document.querySelector('.gp-nav-burger');
       const mobileMenu = document.querySelector('.gp-nav-mobile');
@@ -207,7 +217,6 @@
     }, 10);
   }
 
-  // Lancement au chargement du DOM
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', inject);
   } else {
