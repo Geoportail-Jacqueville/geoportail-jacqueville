@@ -361,6 +361,8 @@
             <button class="filter-btn" data-filter="hydrographie">Hydrographie</button>
             <button class="filter-btn" data-filter="urbanisme">Urbanisme</button>
             <button class="filter-btn" data-filter="agriculture">Agriculture</button>
+            <!-- Nouveau filtre topographie -->
+            <button class="filter-btn" data-filter="topographie">Topographie</button>
         </div>
 
         <div class="cartes-grid" id="cartesGrid">
@@ -389,20 +391,28 @@
 
     <script>
         (function() {
-            // Tableau des cartes avec thème spécifique pour le filtrage
+            // Tableau des cartes mis à jour avec les 5 nouvelles cartes réelles
             const cartes = [
+                // Cartes réelles existantes
                 { titre: 'Zones humides', description: 'Cartographie des zones humides d\'intérêt écologique et hydrologique.', badge: '🌿 ENVIRONNEMENT', theme: 'environnement', image: '/cartes/Cartes%20des%20zones%20humides.png', date: '2026' },
-                { titre: 'Risque d\'inondation', description: 'Cartographie des zones inondables selon les hauteurs d\'eau simulées (0 à 5 m).', badge: '🌊 RISQUES', theme: 'risques', image: 'https://placehold.co/600x300/70C7FD/white?text=Risque+inondation', date: '2024' },
-                { titre: 'Submersion marine', description: 'Analyse de la vulnérabilité du littoral face à la montée des eaux et aux tempêtes.', badge: '🌊 RISQUES', theme: 'risques', image: 'https://placehold.co/600x300/70C7FD/white?text=Submersion+marine', date: '2024' },
                 { titre: 'Contributions au stock total de CO₂', description: 'Cartographie des zones contribuant le plus au stockage et à la séquestration du CO₂.', badge: '🌿 ENVIRONNEMENT', theme: 'environnement', image: '/cartes/Carte%20des%20contributions%20au%20stock%20CO%E2%82%82.png', date: '2026' },
                 { titre: 'Indice NDVI', description: 'Cartographie de l\'Indice de Végétation par Différence Normalisée (NDVI).', badge: '🌿 ENVIRONNEMENT', theme: 'environnement', image: '/cartes/NDVI%20Jacqueville.png', date: '2025' },
                 { titre: 'Indice NDRE', description: 'Cartographie de l\'Indice de Végétation par Réflexion dans le Proche Infrarouge.', badge: '🌿 ENVIRONNEMENT', theme: 'environnement', image: '/cartes/NDRE%20Jacqueville.png', date: '2025' },
-                { titre: 'Infrastructures et équipements', description: 'Localisation des écoles, centres de santé, marchés, mairies et équipements publics.', badge: '🏗️ INFRASTRUCTURES', theme: 'infrastructures', image: 'https://placehold.co/600x300/70C7FD/white?text=Infrastructures', date: '2024' },
+
+                // Nouvelles cartes réelles ajoutées
+                { titre: 'Carte de la couverture végétale de Jacqueville', description: 'Représentation spatiale de la couverture végétale et des types de végétation.', badge: '🌿 ENVIRONNEMENT', theme: 'environnement', image: '/cartes/Carte%20de%20la%20couverture%20v%C3%A9g%C3%A9tale%20de%20Jacqueville.png', date: '2026' },
+                { titre: 'Occupation du sol 2017', description: 'Classes d\'occupation du sol pour l\'année 2017, première année de la série chronologique.', badge: '🌿 ENVIRONNEMENT', theme: 'environnement', image: '/cartes/Occupation%20du%20sol%202017.png', date: '2017' },
+                { titre: 'Établissements scolaires de Jacqueville', description: 'Localisation des établissements scolaires (écoles, collèges, lycées).', badge: '🏗️ INFRASTRUCTURES', theme: 'infrastructures', image: '/cartes/Etablissements%20scolaires%20Jacqueville.png', date: '2026' },
+                { titre: 'Carte des localités de Jacqueville', description: 'Cartographie des localités du département avec limites administratives.', badge: '🏙️ URBANISME', theme: 'urbanisme', image: '/cartes/Carte%20des%20localit%C3%A9s%20de%20Jacqueville.png', date: '2026' },
+                { titre: 'Courbe de niveau', description: 'Courbes de niveau dérivées du modèle numérique de terrain (MNT).', badge: '🔺 TOPOGRAPHIE', theme: 'topographie', image: '/cartes/Courbe%20de%20niveau.png', date: '2026' },
+
+                // Placeholders conservés (cartes pas encore faites)
+                { titre: 'Risque d\'inondation', description: 'Cartographie des zones inondables selon les hauteurs d\'eau simulées (0 à 5 m).', badge: '🌊 RISQUES', theme: 'risques', image: 'https://placehold.co/600x300/70C7FD/white?text=Risque+inondation', date: '2024' },
+                { titre: 'Submersion marine', description: 'Analyse de la vulnérabilité du littoral face à la montée des eaux et aux tempêtes.', badge: '🌊 RISQUES', theme: 'risques', image: 'https://placehold.co/600x300/70C7FD/white?text=Submersion+marine', date: '2024' },
                 { titre: 'Réseau hydrographique', description: 'Cartographie des cours d\'eau, lagunes, zones humides et forêts marécageuses.', badge: '💧 HYDROGRAPHIE', theme: 'hydrographie', image: 'https://placehold.co/600x300/4BB3F0/white?text=Réseau+hydrographique', date: '2024' },
-                { titre: 'Zones constructibles', description: 'Identification des zones favorables à l\'urbanisation, hors contraintes environnementales.', badge: '🏙️ URBANISME', theme: 'urbanisme', image: 'https://placehold.co/600x300/70C7FD/white?text=Zones+constructibles', date: '2024' },
                 { titre: 'Zones agricoles favorables', description: 'Cartographie des zones propices à l\'agriculture selon la qualité des sols et l\'accès à l\'eau.', badge: '🌾 AGRICULTURE', theme: 'agriculture', image: 'https://placehold.co/600x300/70C7FD/white?text=Zones+agricoles', date: '2024' },
                 { titre: 'Risque hydrologique', description: 'Cartographie des contraintes liées aux nappes phréatiques et à la saturation des sols.', badge: '💧 RISQUES', theme: 'risques', image: 'https://placehold.co/600x300/70C7FD/white?text=Risque+hydrologique', date: '2024' },
-                { titre: 'Zone tampon riveraine', description: 'Identification des zones tampon (0-108 m) autour des cours d\'eau et espaces protégés.', badge: '🌿 ENVIRONNEMENT', theme: 'environnement', image: 'https://placehold.co/600x300/4BB3F0/white?text=Zone+tampon', date: '2024' }
+                { titre: 'Zone tampon riveraine', description: 'Identification des zones tampon (0-108 m) autour des cours d\'eau et espaces protégés.', badge: '🌿 ENVIRONNEMENT', theme: 'environnement', image: 'https://placehold.co/600x300/4BB3F0/white?text=Zone+tampon', date: '2024' },
             ];
 
             const grid = document.getElementById('cartesGrid');
@@ -425,7 +435,7 @@
             }
 
             function renderCards(filter = 'all') {
-                grid.innerHTML = ''; // On vide la grille
+                grid.innerHTML = '';
                 const fragment = document.createDocumentFragment();
 
                 cartes.forEach((carte) => {
@@ -436,7 +446,7 @@
                     card.setAttribute('role', 'button');
                     card.setAttribute('tabindex', '0');
                     card.setAttribute('aria-label', 'Agrandir : ' + carte.titre);
-                    card.dataset.theme = carte.theme; // Stocke le thème pour plus tard
+                    card.dataset.theme = carte.theme;
 
                     card.innerHTML = `
                         <div class="carte-image" data-src="${carte.image}">
@@ -495,7 +505,6 @@
                 grid.appendChild(fragment);
             }
 
-            // Gestion du filtre
             filterButtons.forEach(btn => {
                 btn.addEventListener('click', function() {
                     filterButtons.forEach(b => b.classList.remove('active'));
@@ -505,10 +514,8 @@
                 });
             });
 
-            // Rendu initial
             renderCards('all');
 
-            // Préchargement en arrière-plan (optionnel)
             if ('requestIdleCallback' in window) {
                 requestIdleCallback(() => {
                     cartes.forEach(carte => preloadImage(carte.image));
@@ -519,7 +526,6 @@
                 }, 1000);
             }
 
-            // Fermeture de la modale
             function closeModal() {
                 modal.classList.remove('active');
                 modal.setAttribute('aria-hidden', 'true');
