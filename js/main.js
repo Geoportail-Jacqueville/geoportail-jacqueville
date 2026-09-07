@@ -105,7 +105,7 @@ gtag('config', 'G-DLW5KT6SKF');
           <li><a href="/observatoire.html">Observatoire</a></li>
           <li><a href="/actualites.html">Actualité</a></li>
           <li><a href="/methodologie.html">Méthodologie & sources</a></li>
-          <li><a href="/politique-de-confidentialite.html">Politique de confidentialité</a></li>
+          <li><a href="/Politique-de-confidentialite.html">Politique de confidentialité</a></li>
           <li><a href="/contact.html">Contact</a></li>
         </ul>
       </div>
