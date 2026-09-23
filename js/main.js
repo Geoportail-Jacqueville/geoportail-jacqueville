@@ -117,11 +117,6 @@ gtag('config', 'G-DLW5KT6SKF');
       </div>
     </div>
     <hr class="footer-divider">
-    <div class="footer-social">
-      <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-      <a href="#" aria-label="Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
-      <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-    </div>
 
     <!-- PARTENAIRES INSTITUTIONNELS -->
     <div class="footer-partners">
@@ -159,7 +154,7 @@ gtag('config', 'G-DLW5KT6SKF');
 .footer-divider{border:none;height:1px;background:linear-gradient(90deg,transparent,rgba(112,199,253,0.3),transparent);margin:32px 0 24px;}
 
 /* ========== PARTENAIRES INSTITUTIONNELS ========== */
-.footer-partners{display:flex;flex-direction:column;align-items:center;gap:16px;padding:28px 0 24px;border-top:1px solid rgba(112,199,253,0.15);}
+.footer-partners{display:flex;flex-direction:column;align-items:center;gap:16px;padding:8px 0 24px;}
 .footer-partners-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:#94A3B8;}
 .footer-partners-logos{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;}
 .footer-partners-logos a{display:inline-flex;align-items:center;text-decoration:none;line-height:0;}
@@ -171,7 +166,7 @@ gtag('config', 'G-DLW5KT6SKF');
 .gp-back-to-top{position:fixed;bottom:30px;right:30px;width:44px;height:44px;background:#70C7FD;color:#1A2C3E;border:none;border-radius:50%;font-size:20px;font-weight:700;cursor:pointer;opacity:0;visibility:hidden;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(0,0,0,0.2);z-index:999;display:flex;align-items:center;justify-content:center;}
 .gp-back-to-top.visible{opacity:1;visibility:visible;}
 .gp-back-to-top:hover{background:#4BB3F0;transform:translateY(-3px);}
-@media(max-width:768px){.footer-container{padding:32px 20px 24px;}.footer-grid{flex-direction:column;gap:28px;}.footer-col{text-align:center;}.footer-col p{justify-content:center;}.footer-col a:hover{transform:none;}.gp-back-to-top{bottom:20px;right:20px;width:40px;height:40px;}.footer-partners{padding:24px 0 20px;}.footer-partners-logos{gap:18px;flex-direction:column;}.footer-partners-sep{display:none;}.footer-partners-logos img{height:44px;max-width:200px;}}
+@media(max-width:768px){.footer-container{padding:32px 20px 24px;}.footer-grid{flex-direction:column;gap:28px;}.footer-col{text-align:center;}.footer-col p{justify-content:center;}.footer-col a:hover{transform:none;}.gp-back-to-top{bottom:20px;right:20px;width:40px;height:40px;}.footer-partners{padding:8px 0 20px;}.footer-partners-logos{gap:18px;flex-direction:column;}.footer-partners-sep{display:none;}.footer-partners-logos img{height:44px;max-width:200px;}}
 </style>`;
 
   // ===== INJECTION IMMÉDIATE =====
