@@ -157,9 +157,6 @@ gtag('config', 'G-DLW5KT6SKF');
 .footer-col p a{color:#4A627A;}
 .footer-col p a:hover{color:#70C7FD;transform:none;}
 .footer-divider{border:none;height:1px;background:linear-gradient(90deg,transparent,rgba(112,199,253,0.3),transparent);margin:32px 0 24px;}
-.footer-social{display:flex;justify-content:center;gap:24px;margin-bottom:24px;}
-.footer-social a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:rgba(112,199,253,0.1);color:#70C7FD;transition:all 0.2s ease;}
-.footer-social a:hover{background:#70C7FD;color:#FFF;transform:translateY(-3px);}
 
 /* ========== PARTENAIRES INSTITUTIONNELS ========== */
 .footer-partners{display:flex;flex-direction:column;align-items:center;gap:16px;padding:28px 0 24px;border-top:1px solid rgba(112,199,253,0.15);}
