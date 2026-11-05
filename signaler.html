@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Signalement participatif — Géoportail Territorial de Jacqueville</title>
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="https://github.com/Geoportail-Jacqueville/geoportail-jacqueville/blob/main/logo/logo-favicon.jpeg?raw=true">
+    <link rel="apple-touch-icon" href="https://github.com/Geoportail-Jacqueville/geoportail-jacqueville/blob/main/logo/logo-favicon.jpeg?raw=true">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Compensation de la navbar fixe */
+        body {
+            padding-top: 64px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================ -->
+    <!-- SPRITE D'ICÔNES (remplace les émoticônes)    -->
+    <!-- ============================================ -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+        <symbol id="i-trash" viewBox="0 0 24 24">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            <path d="M10 11v6M14 11v6"/>
+            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+        </symbol>
+        <symbol id="i-waves" viewBox="0 0 24 24">
+            <path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+            <path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+            <path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+        </symbol>
+        <symbol id="i-road" viewBox="0 0 24 24">
+            <path d="M4 20L8 4M20 20L16 4"/>
+            <path d="M12 5v2M12 11v2M12 17v2"/>
+        </symbol>
+        <symbol id="i-trend-down" viewBox="0 0 24 24">
+            <polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/>
+            <polyline points="16 17 22 17 22 11"/>
+        </symbol>
+        <symbol id="i-bulb" viewBox="0 0 24 24">
+            <path d="M9 18h6M10 22h4"/>
+            <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2V18h6v-1.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z"/>
+        </symbol>
+        <symbol id="i-drop" viewBox="0 0 24 24">
+            <path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.4 0z"/>
+        </symbol>
+        <symbol id="i-calendar" viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <path d="M16 2v4M8 2v4M3 10h18"/>
+        </symbol>
+        <symbol id="i-check-circle" viewBox="0 0 24 24">
+            <path d="M22 11.1V12a10 10 0 1 1-5.9-9.1"/>
+            <polyline points="22 4 12 14 9 11"/>
+        </symbol>
+        <symbol id="i-refresh" viewBox="0 0 24 24">
+            <path d="M21 12a9 9 0 1 1-3-6.7"/>
+            <polyline points="21 3 21 9 15 9"/>
+        </symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+        </symbol>
+        <symbol id="i-globe" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </symbol>
+        <symbol id="i-bulb-idea" viewBox="0 0 24 24">
+            <path d="M9 18h6M10 22h4"/>
+            <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2V18h6v-1.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z"/>
+        </symbol>
+    </svg>
+
+    <!-- ============================================ -->
+    <!-- PLACEHOLDER NAVBAR                           -->
+    <!-- ============================================ -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- ========== CONTENU DE LA PAGE SIGNALEMENT PARTICIPATIF ========== -->
+    <div style="display: block; margin: 0; padding: 0;">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Mono:wght@400;700&display=swap');
+
+            *{box-sizing:border-box;margin:0;padding:0;}
+
+            .participation-module, .participation-module * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .participation-module {
+                font-family: 'Inter', sans-serif;
+                width: 100%;
+                background: #FFFFFF;
+            }
+
+            /* ========== ICÔNES (sprite SVG) ========== */
+            .ic {
+                width: 1em;
+                height: 1em;
+                fill: none;
+                stroke: currentColor;
+                stroke-width: 1.8;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                flex-shrink: 0;
+            }
+
+            /* ========== VERSION MOBILE ========== */
+            @media (max-width: 768px) {
+                .participation-module .hero {
+                    grid-template-columns: 1fr !important;
+                    padding: 32px 20px 0 !important;
+                    gap: 32px !important;
+                }
+                .participation-module .hero h1 {
+                    font-size: 32px !important;
+                }
+                .participation-module .hero-desc {
+                    font-size: 14px !important;
+                    max-width: 100% !important;
+                }
+                .participation-module .hero-actions {
+                    flex-direction: column !important;
+                    width: 100% !important;
+                }
+                .participation-module .btn-primary {
+                    width: 100% !important;
+                    justify-content: center !important;
+                }
+                .participation-module .hero-meta {
+                    flex-wrap: wrap !important;
+                    gap: 16px !important;
+                    justify-content: space-between !important;
+                }
+                .participation-module .meta-item {
+                    flex: 1 !important;
+                    min-width: 80px !important;
+                    text-align: center !important;
+                }
+                .participation-module .section {
+                    padding: 40px 20px !important;
+                }
+                .participation-module .section-header {
+                    flex-direction: column !important;
+                    align-items: flex-start !important;
+                    gap: 12px !important;
+                }
+                .participation-module .section-title {
+                    font-size: 22px !important;
+                }
+                .participation-module .section-desc {
+                    font-size: 13px !important;
+                }
+                .participation-module .signal-types {
+                    grid-template-columns: 1fr !important;
+                    gap: 16px !important;
+                }
+                .participation-module .cta-band {
+                    flex-direction: column !important;
+                    text-align: center !important;
+                    margin: 0 20px 40px !important;
+                    padding: 32px 24px !important;
+                }
+                .participation-module .cta-text h2 {
+                    font-size: 20px !important;
+                    justify-content: center !important;
+                }
+                .participation-module .cta-text p {
+                    font-size: 13px !important;
+                    max-width: 100% !important;
+                }
+                .participation-module .btn-cta {
+                    width: 100% !important;
+                    justify-content: center !important;
+                }
+                /* Signalement responsive */
+                #signalement-citoyen {
+                    padding: 32px 16px !important;
+                }
+                #signalement-citoyen .signalement-layout {
+                    grid-template-columns: 1fr !important;
+                    border-radius: 16px !important;
+                    min-height: auto !important;
+                }
+                #signalement-citoyen .signalement-left {
+                    padding: 28px 20px !important;
+                    border-right: none !important;
+                    border-bottom: 1px solid rgba(112,199,253,0.18) !important;
+                }
+                #signalement-citoyen .signalement-right {
+                    padding: 28px 20px !important;
+                }
+                #signalement-citoyen .signalement-title {
+                    font-size: 24px !important;
+                }
+                #signalement-citoyen .signalement-desc {
+                    font-size: 13px !important;
+                }
+                #signalement-citoyen .incident-grid {
+                    grid-template-columns: 1fr !important;
+                    gap: 10px !important;
+                }
+                #signalement-citoyen .why-grid {
+                    grid-template-columns: 1fr !important;
+                }
+                #signalement-citoyen .guarantees {
+                    flex-wrap: wrap !important;
+                    gap: 12px !important;
+                }
+                #signalement-citoyen .btn-signalement {
+                    width: 100% !important;
+                    justify-content: center !important;
+                }
+                .participation-module .roadmap {
+                    margin: 0 20px 40px !important;
+                    padding: 24px 20px !important;
+                }
+                .participation-module .roadmap-steps {
+                    grid-template-columns: 1fr !important;
+                }
+            }
+
+            /* ========== TABLETTE ========== */
+            @media (min-width: 769px) and (max-width: 1024px) {
+                .participation-module .hero {
+                    padding: 48px 32px 0 !important;
+                    gap: 40px !important;
+                }
+                .participation-module .hero h1 {
+                    font-size: 36px !important;
+                }
+                .participation-module .section {
+                    padding: 48px 32px !important;
+                }
+                .participation-module .signal-types {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                }
+                .participation-module .cta-band {
+                    margin: 0 32px 48px !important;
+                    padding: 36px 32px !important;
+                }
+                #signalement-citoyen {
+                    padding: 40px 24px !important;
+                }
+                #signalement-citoyen .signalement-left {
+                    padding: 32px 28px !important;
+                }
+                #signalement-citoyen .signalement-right {
+                    padding: 32px 28px !important;
+                }
+                #signalement-citoyen .incident-grid {
+                    grid-template-columns: 1fr 1fr !important;
+                }
+                .participation-module .roadmap-steps {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                }
+            }
+
+            /* ========== STYLES DE BASE ========== */
+            .participation-module .hero {
+                padding: 64px 40px 0;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 60px;
+                align-items: center;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .participation-module .hero-eyebrow {
+                font-family: 'Space Mono', monospace;
+                font-size: 11px;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                color: #70C7FD;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .participation-module .eyebrow-line {
+                width: 40px;
+                height: 2px;
+                background: #70C7FD;
+            }
+
+            .participation-module .hero h1 {
+                font-size: 44px;
+                font-weight: 700;
+                line-height: 1.2;
+                letter-spacing: -0.02em;
+                color: #1A2C3E;
+                margin-bottom: 24px;
+            }
+
+            .participation-module .hero h1 span {
+                color: #70C7FD;
+                position: relative;
+                display: inline-block;
+            }
+
+            .participation-module .hero h1 span::after {
+                content: '';
+                position: absolute;
+                bottom: 8px;
+                left: 0;
+                right: 0;
+                height: 8px;
+                background: rgba(112, 199, 253, 0.25);
+                border-radius: 4px;
+                z-index: -1;
+            }
+
+            .participation-module .hero-desc {
+                font-size: 16px;
+                line-height: 1.7;
+                color: #4A627A;
+                margin-bottom: 32px;
+                max-width: 480px;
+            }
+
+            .participation-module .hero-actions {
+                display: flex;
+                gap: 16px;
+                align-items: center;
+                flex-wrap: wrap;
+                margin-bottom: 40px;
+            }
+
+            .participation-module .btn-primary {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                background: #70C7FD;
+                color: #1A2C3E;
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                font-weight: 600;
+                padding: 14px 28px;
+                border-radius: 50px;
+                border: none;
+                cursor: pointer;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 12px rgba(112, 199, 253, 0.3);
+            }
+
+            .participation-module .btn-primary:hover {
+                background: #4BB3F0;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(112, 199, 253, 0.4);
+            }
+
+            .participation-module .btn-primary svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .participation-module .hero-meta {
+                display: flex;
+                gap: 32px;
+                padding-top: 32px;
+                border-top: 1px solid rgba(112, 199, 253, 0.2);
+            }
+
+            .participation-module .meta-value {
+                font-family: 'Space Mono', monospace;
+                font-size: 28px;
+                font-weight: 700;
+                color: #70C7FD;
+            }
+
+            .participation-module .meta-label {
+                font-size: 12px;
+                color: #64748B;
+                margin-top: 6px;
+                line-height: 1.4;
+            }
+
+            .participation-module .hero-visual {
+                position: relative;
+            }
+
+            /* ========== CARTE "POURQUOI PARTICIPER" ========== */
+            .participation-module .why-card {
+                background: #FFFFFF;
+                border: 1px solid rgba(112, 199, 253, 0.3);
+                border-radius: 28px;
+                overflow: hidden;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            }
+
+            .participation-module .why-card-header {
+                background: linear-gradient(135deg, #70C7FD, #4BB3F0);
+                padding: 18px 24px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .participation-module .why-card-title {
+                font-size: 12px;
+                font-weight: 600;
+                color: #FFFFFF;
+                font-family: 'Space Mono', monospace;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .participation-module .why-card-title .ic {
+                width: 16px;
+                height: 16px;
+            }
+
+            .participation-module .why-card-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #FFFFFF;
+                box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+            }
+
+            .participation-module .why-card-body {
+                padding: 24px;
+            }
+
+            .participation-module .why-list-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+                padding: 14px 0;
+                border-bottom: 1px solid rgba(112, 199, 253, 0.15);
+            }
+
+            .participation-module .why-list-item:last-child {
+                border-bottom: none;
+            }
+
+            .participation-module .why-list-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                background: rgba(112, 199, 253, 0.1);
+            }
+
+            .participation-module .why-list-icon svg {
+                width: 18px;
+                height: 18px;
+                stroke: #70C7FD;
+                stroke-width: 2;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            .participation-module .why-list-text strong {
+                font-size: 14px;
+                font-weight: 600;
+                color: #1A2C3E;
+                display: block;
+                margin-bottom: 3px;
+            }
+
+            .participation-module .why-list-text span {
+                font-size: 12px;
+                color: #64748B;
+                line-height: 1.5;
+            }
+
+            .participation-module .divider {
+                height: 1px;
+                background: linear-gradient(90deg, transparent, rgba(112, 199, 253, 0.4), transparent);
+                margin: 48px auto 0;
+                max-width: 1100px;
+            }
+
+            .participation-module .section {
+                padding: 64px 40px;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .participation-module .section-header {
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+                margin-bottom: 40px;
+            }
+
+            .participation-module .section-title {
+                font-size: 28px;
+                font-weight: 700;
+                color: #1A2C3E;
+                letter-spacing: -0.01em;
+            }
+
+            .participation-module .section-title span {
+                color: #70C7FD;
+            }
+
+            .participation-module .section-desc {
+                font-size: 15px;
+                color: #4A627A;
+                margin-top: 8px;
+                max-width: 600px;
+            }
+
+            /* ========== SECTION SIGNALEMENT ========== */
+            #signalement-citoyen {
+                font-family: 'Inter', sans-serif;
+                background: #F8FBFF;
+                padding: 72px 48px;
+                max-width: 1200px;
+                margin: 0 auto;
+                border-radius: 28px;
+                scroll-margin-top: 80px;
+            }
+
+            #signalement-citoyen .signalement-layout {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0;
+                border: 1px solid rgba(112,199,253,0.22);
+                border-radius: 20px;
+                overflow: hidden;
+                min-height: 520px;
+                background: #FFFFFF;
+            }
+
+            #signalement-citoyen .signalement-left {
+                padding: 56px 48px;
+                border-right: 1px solid rgba(112,199,253,0.18);
+            }
+
+            #signalement-citoyen .signalement-title {
+                font-size: 30px;
+                font-weight: 700;
+                color: #1A2C3E;
+                letter-spacing: -0.02em;
+                line-height: 1.2;
+                margin-bottom: 14px;
+            }
+
+            #signalement-citoyen .signalement-title span {
+                color: #70C7FD;
+            }
+
+            #signalement-citoyen .signalement-desc {
+                font-size: 14px;
+                line-height: 1.75;
+                color: #4A627A;
+                margin-bottom: 32px;
+                max-width: 380px;
+            }
+
+            #signalement-citoyen .incident-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 14px;
+                margin-bottom: 40px;
+            }
+
+            #signalement-citoyen .incident-item {
+                display: flex;
+                align-items: center;
+                gap: 11px;
+                padding: 11px 14px;
+                border: 1px solid rgba(112,199,253,0.18);
+                border-radius: 10px;
+                background: #FAFCFF;
+                transition: border-color 0.2s, background 0.2s;
+                cursor: default;
+            }
+
+            #signalement-citoyen .incident-item:hover {
+                border-color: rgba(112,199,253,0.5);
+                background: #F0F9FF;
+            }
+
+            #signalement-citoyen .incident-icon {
+                width: 32px;
+                height: 32px;
+                background: rgba(112,199,253,0.12);
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            #signalement-citoyen .incident-icon svg {
+                width: 16px;
+                height: 16px;
+                stroke: #70C7FD;
+                stroke-width: 1.7;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            #signalement-citoyen .incident-label {
+                font-size: 13px;
+                font-weight: 500;
+                color: #1A2C3E;
+                line-height: 1.3;
+            }
+
+            #signalement-citoyen .btn-signalement {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                background: #70C7FD;
+                color: #1A2C3E;
+                font-family: 'Inter', sans-serif;
+                font-size: 13px;
+                font-weight: 600;
+                padding: 13px 26px;
+                border-radius: 50px;
+                text-decoration: none;
+                transition: background 0.2s, gap 0.2s;
+                letter-spacing: 0.01em;
+            }
+
+            #signalement-citoyen .btn-signalement:hover {
+                background: #4BB3F0;
+                gap: 14px;
+            }
+
+            #signalement-citoyen .btn-signalement svg {
+                width: 15px;
+                height: 15px;
+                stroke: #1A2C3E;
+                stroke-width: 2;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            #signalement-citoyen .guarantees {
+                display: flex;
+                gap: 24px;
+                margin-top: 20px;
+                flex-wrap: wrap;
+            }
+
+            #signalement-citoyen .guarantee {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                font-size: 11px;
+                color: #64748B;
+                font-family: 'Space Mono', monospace;
+            }
+
+            #signalement-citoyen .guarantee-dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #70C7FD;
+                flex-shrink: 0;
+            }
+
+            #signalement-citoyen .signalement-right {
+                padding: 56px 48px;
+                background: #F8FBFF;
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+            }
+
+            #signalement-citoyen .right-title {
+                font-size: 15px;
+                font-weight: 600;
+                color: #1A2C3E;
+                margin-bottom: 28px;
+                letter-spacing: -0.01em;
+            }
+
+            #signalement-citoyen .process {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                flex: 1;
+            }
+
+            #signalement-citoyen .step {
+                display: flex;
+                gap: 16px;
+                position: relative;
+            }
+
+            #signalement-citoyen .step:not(:last-child) {
+                padding-bottom: 28px;
+            }
+
+            #signalement-citoyen .step-left {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                flex-shrink: 0;
+            }
+
+            #signalement-citoyen .step-num {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background: #70C7FD;
+                color: #fff;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Space Mono', monospace;
+                font-size: 11px;
+                font-weight: 700;
+                flex-shrink: 0;
+            }
+
+            #signalement-citoyen .step-line {
+                width: 1px;
+                flex: 1;
+                background: rgba(112,199,253,0.2);
+                margin-top: 6px;
+            }
+
+            #signalement-citoyen .step:last-child .step-line {
+                display: none;
+            }
+
+            #signalement-citoyen .step-content {
+                padding-top: 4px;
+            }
+
+            #signalement-citoyen .step-heading {
+                font-size: 13px;
+                font-weight: 600;
+                color: #1A2C3E;
+                margin-bottom: 4px;
+            }
+
+            #signalement-citoyen .step-text {
+                font-size: 12px;
+                color: #64748B;
+                line-height: 1.6;
+            }
+
+            #signalement-citoyen .divider-horiz {
+                height: 1px;
+                background: rgba(112,199,253,0.15);
+                margin: 28px 0;
+            }
+
+            #signalement-citoyen .why-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            #signalement-citoyen .why-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 9px;
+                font-size: 12px;
+                color: #4A627A;
+                line-height: 1.5;
+            }
+
+            #signalement-citoyen .why-check {
+                width: 16px;
+                height: 16px;
+                background: rgba(112,199,253,0.14);
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                margin-top: 1px;
+            }
+
+            #signalement-citoyen .why-check svg {
+                width: 9px;
+                height: 9px;
+                stroke: #70C7FD;
+                stroke-width: 2.5;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            /* ========== LES 6 TYPES DE SIGNALEMENTS ========== */
+            .participation-module .signal-types {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+                margin-top: 32px;
+            }
+
+            .participation-module .signal-type-card {
+                background: #FFFFFF;
+                border: 1px solid rgba(112, 199, 253, 0.2);
+                border-radius: 20px;
+                padding: 24px;
+                transition: all 0.3s ease;
+            }
+
+            .participation-module .signal-type-card:hover {
+                transform: translateY(-5px);
+                border-color: #70C7FD;
+                box-shadow: 0 15px 35px rgba(112, 199, 253, 0.1);
+            }
+
+            .participation-module .signal-type-icon {
+                width: 52px;
+                height: 52px;
+                background: rgba(112, 199, 253, 0.1);
+                border-radius: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 16px;
+                color: #70C7FD;
+            }
+
+            .participation-module .signal-type-icon .ic {
+                width: 26px;
+                height: 26px;
+            }
+
+            .participation-module .signal-type-title {
+                font-size: 16px;
+                font-weight: 700;
+                color: #1A2C3E;
+                margin-bottom: 8px;
+            }
+
+            .participation-module .signal-type-desc {
+                font-size: 13px;
+                color: #64748B;
+                line-height: 1.6;
+            }
+
+            /* ========== ROADMAP ========== */
+            .participation-module .roadmap {
+                background: #FFFFFF;
+                border: 1px solid rgba(112, 199, 253, 0.2);
+                border-radius: 24px;
+                padding: 32px;
+                margin: 0 40px 64px;
+                max-width: 1120px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .participation-module .roadmap-title {
+                font-size: 22px;
+                font-weight: 700;
+                color: #1A2C3E;
+                margin-bottom: 24px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .participation-module .roadmap-title .ic {
+                width: 24px;
+                height: 24px;
+                color: #70C7FD;
+            }
+
+            .participation-module .roadmap-title span {
+                color: #70C7FD;
+            }
+
+            .participation-module .roadmap-steps {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .participation-module .roadmap-step {
+                padding: 20px;
+                background: #F8FAFC;
+                border-radius: 16px;
+                border-left: 4px solid #E2E8F0;
+            }
+
+            .participation-module .roadmap-step.done {
+                border-left-color: #1D9E75;
+                background: #F0FDF7;
+            }
+
+            .participation-module .roadmap-step.current {
+                border-left-color: #70C7FD;
+                background: #F0F9FF;
+            }
+
+            .participation-module .roadmap-step.future {
+                border-left-color: #CBD5E1;
+                opacity: 0.85;
+            }
+
+            .participation-module .roadmap-step-label {
+                font-family: 'Space Mono', monospace;
+                font-size: 10px;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: #64748B;
+                margin-bottom: 8px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .participation-module .roadmap-step-label .ic {
+                width: 13px;
+                height: 13px;
+            }
+
+            .participation-module .roadmap-step.done .roadmap-step-label {
+                color: #1D9E75;
+            }
+
+            .participation-module .roadmap-step.current .roadmap-step-label {
+                color: #70C7FD;
+            }
+
+            .participation-module .roadmap-step-title {
+                font-size: 14px;
+                font-weight: 700;
+                color: #1A2C3E;
+                margin-bottom: 6px;
+            }
+
+            .participation-module .roadmap-step-desc {
+                font-size: 12px;
+                color: #64748B;
+                line-height: 1.5;
+            }
+
+            /* ========== CTA FINAL ========== */
+            .participation-module .cta-band {
+                margin: 0 40px 64px;
+                background: linear-gradient(135deg, #70C7FD, #4BB3F0);
+                border-radius: 28px;
+                padding: 48px 48px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 32px;
+                max-width: 1120px;
+                margin-left: auto;
+                margin-right: auto;
+                box-shadow: 0 20px 40px rgba(112, 199, 253, 0.2);
+            }
+
+            .participation-module .cta-text h2 {
+                font-size: 26px;
+                font-weight: 700;
+                color: #1A2C3E;
+                letter-spacing: -0.01em;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .participation-module .cta-text h2 .ic {
+                width: 28px;
+                height: 28px;
+            }
+
+            .participation-module .cta-text p {
+                font-size: 15px;
+                color: #1A2C3E;
+                opacity: 0.85;
+                line-height: 1.6;
+                max-width: 460px;
+            }
+
+            .participation-module .btn-cta {
+                display: inline-flex;
+                align-items: center;
+                gap: 12px;
+                background: #FFFFFF;
+                color: #70C7FD;
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                font-weight: 600;
+                padding: 16px 32px;
+                border-radius: 50px;
+                border: none;
+                cursor: pointer;
+                text-decoration: none;
+                white-space: nowrap;
+                flex-shrink: 0;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .participation-module .btn-cta:hover {
+                transform: translateY(-2px);
+                gap: 16px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+        </style>
+
+        <div class="participation-module">
+            <!-- ========== HERO ========== -->
+            <div class="hero">
+                <div class="hero-left">
+                    <div class="hero-eyebrow">
+                        <div class="eyebrow-line"></div>
+                        SIGNALEMENT PARTICIPATIF
+                    </div>
+                    <h1>Signalez, participez,<br>transformez <span>Jacqueville</span></h1>
+                    <p class="hero-desc">
+                        Votre regard sur le territoire est précieux. Signalez les incidents que vous observez — dépôts sauvages, inondations, voiries dégradées — et contribuez directement à l'amélioration du cadre de vie à Jacqueville.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn-primary" href="/signalement/">
+                            <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+                                <path d='M12 2v20M2 12h20' />
+                            </svg>
+                            Faire un signalement
+                        </a>
+                    </div>
+                    <div class="hero-meta">
+                        <div class="meta-item">
+                            <div class="meta-value">42</div>
+                            <div class="meta-label">Localités<br>couvertes</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-value">6</div>
+                            <div class="meta-label">Types<br>de signalement</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-value">48h</div>
+                            <div class="meta-label">Délai de<br>traitement</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-value">100%</div>
+                            <div class="meta-label">Gratuit<br></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="why-card">
+                        <div class="why-card-header">
+                            <div class="why-card-title">
+                                <svg class="ic" aria-hidden="true"><use href="#i-bulb-idea"/></svg>
+                                POURQUOI PARTICIPER
+                            </div>
+                            <div class="why-card-dot"></div>
+                        </div>
+                        <div class="why-card-body">
+                            <div class="why-list-item">
+                                <div class="why-list-icon">
+                                    <svg viewBox='0 0 24 24'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' /><polyline points='9 22 9 12 15 12 15 22' /></svg>
+                                </div>
+                                <div class="why-list-text">
+                                    <strong>Améliorer votre cadre de vie</strong>
+                                    <span>Chaque signalement aide les services techniques à intervenir plus vite.</span>
+                                </div>
+                            </div>
+                            <div class="why-list-item">
+                                <div class="why-list-icon">
+                                    <svg viewBox='0 0 24 24'><path d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2' /><circle cx='9' cy='7' r='4' /><path d='M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75' /></svg>
+                                </div>
+                                <div class="why-list-text">
+                                    <strong>Participer à la vie locale</strong>
+                                    <span>Vous devenez acteur du territoire, pas seulement observateur.</span>
+                                </div>
+                            </div>
+                            <div class="why-list-item">
+                                <div class="why-list-icon">
+                                    <svg viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' /><path d='M12 2a15 15 0 0 1 0 20M2 12h20' /></svg>
+                                </div>
+                                <div class="why-list-text">
+                                    <strong>Alimenter l'Observatoire</strong>
+                                    <span>Vos observations enrichissent la base de données territoriale.</span>
+                                </div>
+                            </div>
+                            <div class="why-list-item">
+                                <div class="why-list-icon">
+                                    <svg viewBox='0 0 24 24'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5' /></svg>
+                                </div>
+                                <div class="why-list-text">
+                                    <strong>Préparer la carte de risque</strong>
+                                    <span>Vos signalements serviront à construire la future cartographie des risques.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- ========== SECTION SIGNALEMENT PARTICIPATIF (PRIORITAIRE) ========== -->
+            <div id="signalement-citoyen">
+
+                <!-- Eyebrow -->
+                <div style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #70C7FD; display: flex; align-items: center; gap: 12px; margin-bottom: 18px;">
+                    <div style="width: 36px; height: 2px; background: #70C7FD; flex-shrink: 0;"></div>
+                    FORMULAIRE DE SIGNALEMENT PARTICIPATIF
+                </div>
+
+                <!-- Layout 2 colonnes -->
+                <div class="signalement-layout">
+
+                    <!-- ========== COLONNE GAUCHE ========== -->
+                    <div class="signalement-left">
+
+                        <h2 class="signalement-title">Signaler un <span>incident</span></h2>
+
+                        <p class="signalement-desc">Vous constatez une situation à risque sur le territoire ? Contribuez à l'amélioration de Jacqueville.</p>
+
+                        <!-- Grille des types d'incidents -->
+                        <div class="incident-grid">
+
+                            <div class="incident-item">
+                                <div class="incident-icon">
+                                    <svg aria-hidden="true"><use href="#i-trash"/></svg>
+                                </div>
+                                <span class="incident-label">Dépôts d'ordures</span>
+                            </div>
+
+                            <div class="incident-item">
+                                <div class="incident-icon">
+                                    <svg aria-hidden="true"><use href="#i-waves"/></svg>
+                                </div>
+                                <span class="incident-label">Inondations</span>
+                            </div>
+
+                            <div class="incident-item">
+                                <div class="incident-icon">
+                                    <svg aria-hidden="true"><use href="#i-road"/></svg>
+                                </div>
+                                <span class="incident-label">Dégradations de voirie</span>
+                            </div>
+
+                            <div class="incident-item">
+                                <div class="incident-icon">
+                                    <svg aria-hidden="true"><use href="#i-trend-down"/></svg>
+                                </div>
+                                <span class="incident-label">Érosion côtière</span>
+                            </div>
+
+                            <div class="incident-item">
+                                <div class="incident-icon">
+                                    <svg aria-hidden="true"><use href="#i-bulb"/></svg>
+                                </div>
+                                <span class="incident-label">Éclairage défectueux</span>
+                            </div>
+
+                            <div class="incident-item">
+                                <div class="incident-icon">
+                                    <svg aria-hidden="true"><use href="#i-drop"/></svg>
+                                </div>
+                                <span class="incident-label">Assainissement</span>
+                            </div>
+
+                        </div>
+
+                        <!-- Bouton -->
+                        <a href="/signalement/" class="btn-signalement">
+                            Faire un signalement
+                            <svg viewBox='0 0 24 24'><path d='M5 12h14M12 5l7 7-7 7' /></svg>
+                        </a>
+
+                        <!-- Garanties -->
+                        <div class="guarantees">
+                            <div class="guarantee"><div class="guarantee-dot"></div>Géolocalisation automatique</div>
+                            <div class="guarantee"><div class="guarantee-dot"></div>Confirmation par email ou SMS</div>
+                            <div class="guarantee"><div class="guarantee-dot"></div>Réponse sous 48h</div>
+                        </div>
+					<p style="font-size: 11px; color: #64748B; line-height: 1.6; margin-top: 16px; max-width: 380px;">
+                            Votre email ou téléphone n’est utilisé que pour le suivi de votre signalement.
+                            Il n’est jamais affiché publiquement sur le géoportail.
+                        </p>	
+                    </div>
+
+                    <!-- ========== COLONNE DROITE ========== -->
+                    <div class="signalement-right">
+
+                        <div class="right-title">Comment ça fonctionne</div>
+
+                        <!-- Processus en 3 étapes -->
+                        <div class="process">
+
+                            <div class="step">
+                                <div class="step-left">
+                                    <div class="step-num">01</div>
+                                    <div class="step-line"></div>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-heading">Soumettez votre signalement</div>
+                                    <div class="step-text">Décrivez l'incident et géolocalisez-le. Le formulaire est simple et rapide.</div>
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <div class="step-left">
+                                    <div class="step-num">02</div>
+                                    <div class="step-line"></div>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-heading">Validation par l'Observatoire</div>
+                                    <div class="step-text">L'équipe examine le signalement, vérifie sa localisation et sa pertinence.</div>
+                                </div>
+                            </div>
+
+                            <div class="step">
+                                <div class="step-left">
+                                    <div class="step-num">03</div>
+                                    <div class="step-line"></div>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-heading">Suivi et traitement</div>
+                                    <div class="step-text">Les services techniques sont alertés. Vous êtes informé de l'avancement.</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Séparateur -->
+                        <div class="divider-horiz"></div>
+
+                        <!-- Pourquoi signaler -->
+                        <div class="why-grid">
+                            <div class="why-item">
+                                <div class="why-check"><svg viewBox='0 0 24 24'><polyline points='20 6 9 17 4 12' /></svg></div>
+                                Améliorer le cadre de vie
+                            </div>
+                            <div class="why-item">
+                                <div class="why-check"><svg viewBox='0 0 24 24'><polyline points='20 6 9 17 4 12' /></svg></div>
+                                Participer à la vie locale
+                            </div>
+                            <div class="why-item">
+                                <div class="why-check"><svg viewBox='0 0 24 24'><polyline points='20 6 9 17 4 12' /></svg></div>
+                                Alerter les services techniques
+                            </div>
+                            <div class="why-item">
+                                <div class="why-check"><svg viewBox='0 0 24 24'><polyline points='20 6 9 17 4 12' /></svg></div>
+                                Contribuer à l'Observatoire
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="divider" style="margin-top: 64px;"></div>
+
+            <!-- ========== TYPES DE SIGNALEMENTS ========== -->
+            <div class="section">
+                <div class="section-header">
+                    <div>
+                        <div class="section-title">Que pouvez-vous <span>signaler</span> ?</div>
+                        <div class="section-desc">Six catégories de signalements sont actuellement prises en charge par l'Observatoire.</div>
+                    </div>
+                </div>
+
+                <div class="signal-types">
+                    <div class="signal-type-card">
+                        <div class="signal-type-icon"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></div>
+                        <div class="signal-type-title">Dépôts d'ordures</div>
+                        <div class="signal-type-desc">Dépôts sauvages, décharges non autorisées, déchets en bord de route ou sur les plages.</div>
+                    </div>
+                    <div class="signal-type-card">
+                        <div class="signal-type-icon"><svg class="ic" aria-hidden="true"><use href="#i-waves"/></svg></div>
+                        <div class="signal-type-title">Inondations</div>
+                        <div class="signal-type-desc">Zones régulièrement inondées, obstructions de drainage, stagnation d'eau après pluie.</div>
+                    </div>
+                    <div class="signal-type-card">
+                        <div class="signal-type-icon"><svg class="ic" aria-hidden="true"><use href="#i-road"/></svg></div>
+                        <div class="signal-type-title">Voiries dégradées</div>
+                        <div class="signal-type-desc">Nids-de-poule, routes érodées, pistes impraticables, absence de signalisation.</div>
+                    </div>
+                    <div class="signal-type-card">
+                        <div class="signal-type-icon"><svg class="ic" aria-hidden="true"><use href="#i-trend-down"/></svg></div>
+                        <div class="signal-type-title">Érosion côtière</div>
+                        <div class="signal-type-desc">Recul du trait de côte, effondrement de dunes, dégradation des protections naturelles.</div>
+                    </div>
+                    <div class="signal-type-card">
+                        <div class="signal-type-icon"><svg class="ic" aria-hidden="true"><use href="#i-bulb"/></svg></div>
+                        <div class="signal-type-title">Éclairage défectueux</div>
+                        <div class="signal-type-desc">Lampadaires hors service, zones non éclairées, câbles apparents ou dangereux.</div>
+                    </div>
+                    <div class="signal-type-card">
+                        <div class="signal-type-icon"><svg class="ic" aria-hidden="true"><use href="#i-drop"/></svg></div>
+                        <div class="signal-type-title">Assainissement</div>
+                        <div class="signal-type-desc">Caniveaux bouchés, absence de drainage, rejets d'eaux usées, odeurs nauséabondes.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- ========== ROADMAP ========== -->
+            <div class="roadmap">
+                <div class="roadmap-title">
+                    <svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg>
+                    <div><span>Feuille de route</span> du signalement participatif</div>
+                </div>
+                <div class="roadmap-steps">
+                    <div class="roadmap-step done">
+                        <div class="roadmap-step-label"><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg>Terminé</div>
+                        <div class="roadmap-step-title">Formulaire de signalement</div>
+                        <div class="roadmap-step-desc">Le système de collecte citoyenne est opérationnel et ouvert à tous.</div>
+                    </div>
+                    <div class="roadmap-step current">
+                        <div class="roadmap-step-label"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg>En cours</div>
+                        <div class="roadmap-step-title">Collecte et traitement</div>
+                        <div class="roadmap-step-desc">Les signalements reçus sont analysés et intégrés à la base de données territoriale.</div>
+                    </div>
+                    <div class="roadmap-step future">
+                        <div class="roadmap-step-label"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>2026</div>
+                        <div class="roadmap-step-title">Carte de risque participative</div>
+                        <div class="roadmap-step-desc">Vos contributions serviront à construire la future carte de risque du territoire.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== CTA FINAL ========== -->
+            <div class="cta-band">
+                <div class="cta-text">
+                    <h2><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg>Votre signalement compte</h2>
+                    <p>Chaque contribution aide à construire une meilleure connaissance du territoire et à améliorer le quotidien de tous les habitants de Jacqueville.</p>
+                </div>
+                <a class="btn-cta" href="/signalement/">
+                    <svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+                        <path d='M12 2v20M2 12h20' />
+                    </svg>
+                    Faire un signalement
+                    <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M5 12h14M12 5l7 7-7 7' /></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
