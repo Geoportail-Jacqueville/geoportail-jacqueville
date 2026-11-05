@@ -29,7 +29,7 @@ gtag('config', 'G-DLW5KT6SKF');
       <li><a href="/" data-page="accueil">Accueil</a></li>
       <li><a href="/cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
       <li><a href="/visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
-      <li><a href="/alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
+      <li><a href="/signaler.html" data-page="signaler">Signaler</a></li>
       <li><a href="/donnees.html" data-page="donnees">Données</a></li>
       <li><a href="/observatoire.html" data-page="observatoire">Observatoire</a></li>
       <li><a href="/patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
@@ -43,7 +43,7 @@ gtag('config', 'G-DLW5KT6SKF');
       <li><a href="/" data-page="accueil">Accueil</a></li>
       <li><a href="/cartes-thematiques.html" data-page="cartes-thematiques">Cartes thématiques</a></li>
       <li><a href="/visualisation-croisee.html" data-page="visualisation-croisee">Visualisation croisée</a></li>
-      <li><a href="/alertes-risques.html" data-page="alertes-risques">Alerte & Risques</a></li>
+      <li><a href="/signaler.html" data-page="signaler">Signaler</a></li>
       <li><a href="/donnees.html" data-page="donnees">Données</a></li>
       <li><a href="/observatoire.html" data-page="observatoire">Observatoire</a></li>
       <li><a href="/patrimoine.html" data-page="patrimoine">Patrimoine</a></li>
@@ -95,7 +95,7 @@ gtag('config', 'G-DLW5KT6SKF');
         <ul>
           <li><a href="/visualisation-croisee.html">Visualisation croisée</a></li>
           <li><a href="/maps/tableau-de-bord.html">Tableau de bord</a></li>
-          <li><a href="/alertes-risques.html">Alerte & risques</a></li>
+          <li><a href="/signaler.html">Signaler</a></li>
           <li><a href="/donnees.html">Données territoriales</a></li>
         </ul>
       </div>
