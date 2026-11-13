@@ -479,7 +479,7 @@
                 .cartes-module .filters { gap: 8px; position: static; }
                 .cartes-module .filter-link { padding: 6px 14px; font-size: 11px; }
                 .cartes-module .section-title { font-size: 20px; }
-                .cartes-module .carte-card { opacity: 1; transform: none; } /* pas d'animation sur mobile pour fluidité */
+                .cartes-module .carte-card { opacity: 1; transform: none; }
                 .cartes-module .carte-card.visible { opacity: 1; transform: none; }
             }
         </style>
@@ -498,7 +498,7 @@
 
                 <!-- MÉTRIQUES -->
                 <div class="metrics">
-                    <div class="metric"><div class="metric-value">16</div><div class="metric-label">Cartes disponibles</div></div>
+                    <div class="metric"><div class="metric-value">15</div><div class="metric-label">Cartes disponibles</div></div>
                     <div class="metric"><div class="metric-value">7</div><div class="metric-label">Thématiques</div></div>
                     <div class="metric"><div class="metric-value">2026</div><div class="metric-label">Données actualisées</div></div>
                 </div>
@@ -551,7 +551,7 @@
                 <div id="environnement" class="thematique-section" data-category="environnement">
                     <div class="section-header">
                         <h2 class="section-title"><span></span> Environnement</h2>
-                        <div class="section-count">3 cartes</div>
+                        <div class="section-count">4 cartes</div>
                     </div>
                     <div class="cartes-grid">
                         <div class="carte-card" data-category="environnement">
@@ -610,6 +610,26 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- NOUVELLE CARTE : Analyse Comparative de l'occupation du sol 2017–2025 -->
+                        <div class="carte-card" data-category="environnement">
+                            <div class="carte-stripe" style="--card-color:#1A9E7A"></div>
+                            <div class="carte-visual" data-color="environnement" style="--card-color:#1A9E7A">
+                                <div class="carte-icon-wrap">
+                                    <svg viewBox='0 0 24 24'><rect x='2' y='2' width='8' height='8' rx='1' /><rect x='14' y='14' width='8' height='8' rx='1' /><path d='M6 10v2a2 2 0 0 0 2 2h2M18 14V12a2 2 0 0 0-2-2h-2M6 6l12 12' /></svg>
+                                </div>
+                                <div class="carte-arrow"><svg viewBox='0 0 12 12'><path d='M2 10L10 2M10 2H4M10 2v6' /></svg></div>
+                            </div>
+                            <div class="carte-body">
+                                <div class="carte-category" style="color:#1A9E7A">Environnement</div>
+                                <div class="carte-title">Analyse Comparative de l'occupation du sol 2017–2025</div>
+                                <div class="carte-desc">Comparaison interactive de l'occupation du sol entre 2017 et 2025. Faites glisser le curseur pour observer les dynamiques spatiales.</div>
+                                <div class="carte-footer">
+                                    <span class="carte-date">Mise à jour · 2026</span>
+                                    <a href="https://experience.arcgis.com/experience/f6b0fcbada1344918fcaa1d76a77d35b" class="carte-link" style="color:#1A9E7A" target="_blank" rel="noopener">Voir →</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -617,7 +637,7 @@
                 <div id="urbanisme" class="thematique-section" data-category="urbanisme">
                     <div class="section-header">
                         <h2 class="section-title"><span>️</span> Urbanisme</h2>
-                        <div class="section-count">2 cartes</div>
+                        <div class="section-count">1 carte</div>
                     </div>
                     <div class="cartes-grid">
                         <div class="carte-card" data-category="urbanisme">
@@ -638,25 +658,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="carte-card" data-category="urbanisme">
-                            <div class="carte-stripe" style="--card-color:#2563A8"></div>
-                            <div class="carte-visual" data-color="urbanisme" style="--card-color:#2563A8">
-                                <div class="carte-icon-wrap">
-                                    <svg viewBox='0 0 24 24'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' /><polyline points='9 22 9 12 15 12 15 22' /></svg>
-                                </div>
-                                <div class="carte-arrow"><svg viewBox='0 0 12 12'><path d='M2 10L10 2M10 2H4M10 2v6' /></svg></div>
-                            </div>
-                            <div class="carte-body">
-                                <div class="carte-category" style="color:#2563A8">Urbanisme</div>
-                                <div class="carte-title">Urbanisme et lotissement</div>
-                                <div class="carte-desc">Parcelles, lotissements et suivi de l'étalement urbain. Périmètres lotis et projets d'aménagement.</div>
-                                <div class="carte-footer">
-                                    <span class="carte-date">Mise à jour · 2026</span>
-                                    <a href="/maps/urbanisme-et-lotissement.html" class="carte-link" style="color:#2563A8">Voir →</a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -664,7 +665,7 @@
                 <div id="risques" class="thematique-section" data-category="risques">
                     <div class="section-header">
                         <h2 class="section-title"><span></span> Risques</h2>
-                        <div class="section-count">1 cartes</div>
+                        <div class="section-count">1 carte</div>
                     </div>
                     <div class="cartes-grid">
                         <div class="carte-card" data-category="risques">
@@ -692,7 +693,7 @@
                 <div id="hydrographie" class="thematique-section" data-category="hydrographie">
                     <div class="section-header">
                         <h2 class="section-title"><span>️</span> Hydrographie</h2>
-                        <div class="section-count">2 cartes</div>
+                        <div class="section-count">1 carte</div>
                     </div>
                     <div class="cartes-grid">
                         <div class="carte-card" data-category="hydrographie">
@@ -710,25 +711,6 @@
                                 <div class="carte-footer">
                                     <span class="carte-date">Mise à jour · 2026</span>
                                     <a href="/maps/relief-et-zone-d-accumulation.html" class="carte-link" style="color:#A0612A">Voir →</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="carte-card" data-category="hydrographie">
-                            <div class="carte-stripe" style="--card-color:#F0A56B"></div>
-                            <div class="carte-visual" data-color="topographie" style="--card-color:#F0A56B">
-                                <div class="carte-icon-wrap">
-                                    <svg viewBox='0 0 24 24'><path d='M12 2L6 12a6 6 0 1 0 12 0z' /><path d='M12 10v4M12 17h.01' /></svg>
-                                </div>
-                                <div class="carte-arrow"><svg viewBox='0 0 12 12'><path d='M2 10L10 2M10 2H4M10 2v6' /></svg></div>
-                            </div>
-                            <div class="carte-body">
-                                <div class="carte-category" style="color:#F0A56B">Hydrographie</div>
-                                <div class="carte-title">Contrainte hydrologique</div>
-                                <div class="carte-desc">Cartographie des contraintes hydrologiques : inondation, proximité des plans d'eau, zones tampon riveraines.</div>
-                                <div class="carte-footer">
-                                    <span class="carte-date">Mise à jour · 2025</span>
-                                    <a href="/maps/contrainte-hydrologique.html" class="carte-link" style="color:#F0A56B">Voir →</a>
                                 </div>
                             </div>
                         </div>
@@ -862,7 +844,7 @@
                 <div id="topographie" class="thematique-section" data-category="topographie">
                     <div class="section-header">
                         <h2 class="section-title"><span>️</span> Topographie</h2>
-                        <div class="section-count">1 cartes</div>
+                        <div class="section-count">1 carte</div>
                     </div>
                     <div class="cartes-grid">
                         <div class="carte-card" data-category="topographie">
@@ -901,7 +883,6 @@
                 card.setAttribute('tabindex', '0');
                 card.setAttribute('role', 'link');
                 card.addEventListener('click', function(e) {
-                    // Éviter le double déclenchement si on clique directement sur le lien
                     if (e.target.closest('a')) return;
                     const link = this.querySelector('a');
                     if (link) window.location.href = link.href;
@@ -937,11 +918,9 @@
                     e.preventDefault();
                     const filter = this.dataset.filter;
                     
-                    // Mettre à jour la classe active
                     filterLinks.forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
 
-                    // Afficher/masquer les sections
                     sections.forEach(section => {
                         if (filter === 'all' || section.dataset.category === filter) {
                             section.classList.remove('hidden-section');
@@ -950,7 +929,6 @@
                         }
                     });
 
-                    // Optionnel : scroller légèrement vers le haut des cartes
                     document.querySelector('.cartes-module').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 });
             });
